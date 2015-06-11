@@ -133,23 +133,31 @@
     </build>
 
     <dependencies>
+        <dependency><!-- Use this dependency in your licensed application -->
+          <groupId>net.nicholaswilliams.java.licensing</groupId>
+          <artifactId>licensing-core</artifactId>
+        </dependency>
+        <dependency><!-- Use this dependency in the application that you generate licenses with -->
+          <groupId>net.nicholaswilliams.java.licensing</groupId>
+          <artifactId>licensing-licensor-base</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.xdi</groupId>
             <artifactId>oxlicense-client</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.xdi</groupId>
-            <artifactId>oxd-client</artifactId>
-            <version>${project.version}</version>
-            <type>test-jar</type>
-            <!--<classifier>test</classifier>-->
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.xdi</groupId>
-            <artifactId>oxauth-client</artifactId>
-            <scope>test</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.xdi</groupId>-->
+            <!--<artifactId>oxd-client</artifactId>-->
+            <!--<version>${project.version}</version>-->
+            <!--<type>test-jar</type>-->
+            <!--&lt;!&ndash;<classifier>test</classifier>&ndash;&gt;-->
+            <!--<scope>compile</scope>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.xdi</groupId>-->
+            <!--<artifactId>oxauth-client</artifactId>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.xdi</groupId>
             <artifactId>oxUtil</artifactId>
