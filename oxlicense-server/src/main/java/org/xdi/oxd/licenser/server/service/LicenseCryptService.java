@@ -36,6 +36,10 @@ public class LicenseCryptService {
     LdapStructure ldapStructure;
 
     public LdapLicenseCrypt generate() {
+        return generate("");
+    }
+
+    public LdapLicenseCrypt generate(String name) {
         RSAKeyPairGenerator generator = new RSAKeyPairGenerator();
         KeyPair keyPair = generator.generateKeyPair();
 
@@ -44,6 +48,7 @@ public class LicenseCryptService {
         final byte[] privateKeyBytes = LicenseSerializationUtilities.writeEncryptedPrivateKey(keyPair.getPrivate(), privatePassword.toCharArray());
         final byte[] publicKeyBytes = LicenseSerializationUtilities.writeEncryptedPublicKey(keyPair.getPublic(), publicPassword.toCharArray());
         return new LdapLicenseCrypt().
+                setName(name).
                 setPrivateKey(BaseEncoding.base64().encode(privateKeyBytes)).
                 setPublicKey(BaseEncoding.base64().encode(publicKeyBytes)).
                 setPrivatePassword(privatePassword).
