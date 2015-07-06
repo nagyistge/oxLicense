@@ -1,4 +1,4 @@
-package org.xdi.oxd.licenser.server.ws.shareit;
+package org.xdi.oxd.licenser.server.ws;
 
 import com.google.inject.Inject;
 import org.slf4j.Logger;
