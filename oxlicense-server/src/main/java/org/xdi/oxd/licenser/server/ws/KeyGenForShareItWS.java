@@ -1,5 +1,6 @@
 package org.xdi.oxd.licenser.server.ws;
 
+import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -80,14 +82,31 @@ public class KeyGenForShareItWS {
                     "ISO_CODE: {4}, INVOICE: {5}",
                     new Object[]{promotionName, subscriptionDate, startDate, expiryDate, isoCode, invoice});
 
+            // validation
+            if (purchaseId <= 0) {
+                LOG.trace("PURCHASE_ID is not valid. PURCHASE_ID: " + purchaseId);
+                throwBadRequestException("PURCHASE_ID is not valid.");
+            }
+            if (Strings.isNullOrEmpty(regName)) {
+                LOG.trace("REG_NAME is not valid. REG_NAME: " + regName);
+                throwBadRequestException("REG_NAME is not valid.");
+            }
+            if (productId <= 0) {
+                LOG.trace("PRODUCT_ID is not valid. PRODUCT_ID: " + productId);
+                throwBadRequestException("PRODUCT_ID is not valid.");
+            }
+
             final LdapLicenseCrypt crypt = cryptService.generate(regName);
-            LOG.trace("Generated crypt object: " + crypt.getDn());
+            LOG.trace("Generated crypt object: " + regName);
 
             cryptService.save(crypt);
             LOG.trace("Saved crypt object: " + crypt.getDn());
 
             LicenseMetadata metadata = new LicenseMetadata()
                     .setShareIt(true)
+                    .setShareItPurchaseId(purchaseId)
+                    .setShareItRegName(regName)
+                    .setShareItProductId(productId)
                     .setCreationDate(new Date())
                     .setExpirationDate(expiration())
                     .setMultiServer(true);
@@ -104,6 +123,10 @@ public class KeyGenForShareItWS {
             LOG.error(e.getMessage(), e);
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
+    }
+
+    private static void throwBadRequestException(String responseEntity) {
+        throw new WebApplicationException(Response.status(Response.Status.BAD_REQUEST).entity(responseEntity).build());
     }
 
     private Date expiration() {

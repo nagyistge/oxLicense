@@ -34,6 +34,12 @@ public class LicenseMetadata implements Serializable {
     private int licenseCountLimit;
     @JsonProperty(value = "share_it")
     private boolean shareIt;
+    @JsonProperty(value = "share_it_purchase_id")
+    private int shareItPurchaseId;
+    @JsonProperty(value = "share_it_reg_name")
+    private String shareItRegName;
+    @JsonProperty(value = "share_it_product_id")
+    private int shareItProductId;
 
     public LicenseMetadata() {
     }
@@ -42,6 +48,33 @@ public class LicenseMetadata implements Serializable {
         this.licenseType = licenseType;
         this.multiServer = multiServer;
         this.threadsCount = threadsCount;
+    }
+
+    public int getShareItProductId() {
+        return shareItProductId;
+    }
+
+    public LicenseMetadata setShareItProductId(int shareItProductId) {
+        this.shareItProductId = shareItProductId;
+        return this;
+    }
+
+    public String getShareItRegName() {
+        return shareItRegName;
+    }
+
+    public LicenseMetadata setShareItRegName(String shareItRegName) {
+        this.shareItRegName = shareItRegName;
+        return this;
+    }
+
+    public int getShareItPurchaseId() {
+        return shareItPurchaseId;
+    }
+
+    public LicenseMetadata setShareItPurchaseId(int shareItPurchaseId) {
+        this.shareItPurchaseId = shareItPurchaseId;
+        return this;
     }
 
     public boolean isShareIt() {
@@ -125,6 +158,10 @@ public class LicenseMetadata implements Serializable {
         return this;
     }
 
+    public LicenseMetadata setShareItProductId(Integer shareItProductId) {
+        this.shareItProductId = shareItProductId;
+        return this;
+    }
 
     @Override
     public String toString() {
@@ -139,6 +176,9 @@ public class LicenseMetadata implements Serializable {
         sb.append(", expirationDate=").append(expirationDate);
         sb.append(", licenseCountLimit=").append(licenseCountLimit);
         sb.append(", shareIt=").append(shareIt);
+        sb.append(", shareItPurchaseId=").append(shareItPurchaseId);
+        sb.append(", shareItRegName='").append(shareItRegName).append('\'');
+        sb.append(", shareItProductId=").append(shareItProductId);
         sb.append('}');
         return sb.toString();
     }

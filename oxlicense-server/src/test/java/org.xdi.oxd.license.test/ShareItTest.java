@@ -14,7 +14,7 @@ public class ShareItTest {
 
     @Test
     public void test() throws Exception {
-        String url = "http://localhost:8090/rest/shareit";
+        String url = "http://localhost:8090/rest/shareit/keygen";
 
         ClientRequest clientRequest = new ClientRequest(url);
         final ClientResponse response = clientRequest.post();
