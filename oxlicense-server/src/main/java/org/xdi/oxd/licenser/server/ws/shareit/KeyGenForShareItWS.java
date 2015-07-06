@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.xdi.oxd.license.client.js.LdapLicenseCrypt;
 import org.xdi.oxd.license.client.js.LdapLicenseId;
 import org.xdi.oxd.license.client.js.LicenseMetadata;
-import org.xdi.oxd.license.client.js.LicenseType;
 import org.xdi.oxd.licenser.server.service.LicenseCryptService;
 import org.xdi.oxd.licenser.server.service.LicenseIdService;
 
@@ -18,6 +17,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * @author Yuriy Zabrovarnyy
@@ -86,9 +87,10 @@ public class KeyGenForShareItWS {
             LOG.trace("Saved crypt object: " + crypt.getDn());
 
             LicenseMetadata metadata = new LicenseMetadata()
-                            .setLicenseType(LicenseType.PAID)
-                            .setMultiServer(true)
-                            .setThreadsCount(9);
+                    .setShareIt(true)
+                    .setCreationDate(new Date())
+                    .setExpirationDate(expiration())
+                    .setMultiServer(true);
 
             LdapLicenseId licenseId = licenseIdService.generate(crypt.getDn(), metadata);
             LOG.trace("Generated license ID: " + licenseId.getDn());
@@ -102,6 +104,12 @@ public class KeyGenForShareItWS {
             LOG.error(e.getMessage(), e);
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
+    }
+
+    private Date expiration() {
+        Calendar expiration = Calendar.getInstance();
+        expiration.add(Calendar.YEAR, 1);
+        return expiration.getTime();
     }
 
 

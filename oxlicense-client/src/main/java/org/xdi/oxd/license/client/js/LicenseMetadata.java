@@ -14,8 +14,10 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LicenseMetadata implements Serializable {
 
+    public static final int DEFAULT_THREAD_COUNT = 9;
+
     @JsonProperty(value = "thread_count")
-    private int threadsCount;
+    private int threadsCount = DEFAULT_THREAD_COUNT;
     @JsonProperty(value = "multi_server")
     private boolean multiServer;
     @JsonProperty(value = "license_type")
@@ -24,10 +26,14 @@ public class LicenseMetadata implements Serializable {
     private String licenseName;
     @JsonProperty(value = "license_features")
     private List<String> licenseFeatures;
+    @JsonProperty(value = "creation_date")
+    private Date creationDate;
     @JsonProperty(value = "expiration_date")
     private Date expirationDate;
     @JsonProperty(value = "license_count_limit")
     private int licenseCountLimit;
+    @JsonProperty(value = "share_it")
+    private boolean shareIt;
 
     public LicenseMetadata() {
     }
@@ -36,6 +42,15 @@ public class LicenseMetadata implements Serializable {
         this.licenseType = licenseType;
         this.multiServer = multiServer;
         this.threadsCount = threadsCount;
+    }
+
+    public boolean isShareIt() {
+        return shareIt;
+    }
+
+    public LicenseMetadata setShareIt(boolean shareIt) {
+        this.shareIt = shareIt;
+        return this;
     }
 
     public List<String> getLicenseFeatures() {
@@ -83,6 +98,15 @@ public class LicenseMetadata implements Serializable {
         return this;
     }
 
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public LicenseMetadata setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+        return this;
+    }
+
     public Date getExpirationDate() {
         return expirationDate;
     }
@@ -101,17 +125,20 @@ public class LicenseMetadata implements Serializable {
         return this;
     }
 
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         sb.append("LicenseMetadata");
-        sb.append("{expirationDate=").append(expirationDate);
+        sb.append("{creationDate=").append(creationDate);
         sb.append(", threadsCount=").append(threadsCount);
         sb.append(", multiServer=").append(multiServer);
         sb.append(", licenseType=").append(licenseType);
         sb.append(", licenseName='").append(licenseName).append('\'');
         sb.append(", licenseFeatures=").append(licenseFeatures);
+        sb.append(", expirationDate=").append(expirationDate);
         sb.append(", licenseCountLimit=").append(licenseCountLimit);
+        sb.append(", shareIt=").append(shareIt);
         sb.append('}');
         return sb.toString();
     }
