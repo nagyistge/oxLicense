@@ -17,6 +17,9 @@ public class ShareItTest {
         String url = "http://localhost:8090/rest/shareit/keygen";
 
         ClientRequest clientRequest = new ClientRequest(url);
+        clientRequest.formParameter("PURCHASE_ID", 1);
+        clientRequest.formParameter("PRODUCT_ID", 2);
+        clientRequest.formParameter("REG_NAME", "testRegName");
         final ClientResponse response = clientRequest.post();
 
         Assert.assertNotEquals(response.getStatus(), 404);
