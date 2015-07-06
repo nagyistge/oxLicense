@@ -70,17 +70,32 @@ public class KeyGenForShareItWS {
             @Context HttpServletRequest httpRequest) {
 
         try {
-            LOG.trace("Request key generation: PURCHASE_ID: {0}, RUNNING_NO: {1}, PURCHASE_DATE: {2}, PRODUCT_ID: {3}, " +
-                    "QUANTITY: {4}, REG_NAME: {5}, RESELLER: {6}, LASTNAME: {7}, FIRSTNAME: {8}, COMPANY: {9} ",
-                    new Object[]{purchaseId, runningNumber, purchaseDate, productId, numberOfCopiesOrdered,
-                            regName, reseller, lastName, firstName, company});
-            LOG.trace("EMAIL: {0}, PHONE: {1}, FAX: {2}, STREET: {3}, " +
-                    "CITY: {4}, ZIP: {5}, STATE: {6}, COUNTRY: {7}, ENCODING: {8}, LANGUAGE_ID: {9} ",
-                    new Object[]{email, phone, fax, street, city,
-                            zip, state, country, encoding, languageId});
-            LOG.trace("PROMOTION_NAME: {0}, SUBSCRIPTION_DATE: {1}, START_DATE: {2}, EXPIRY_DATE: {3}, " +
-                    "ISO_CODE: {4}, INVOICE: {5}",
-                    new Object[]{promotionName, subscriptionDate, startDate, expiryDate, isoCode, invoice});
+            LOG.trace("Request key generation: PURCHASE_ID: " + purchaseId +
+                    ", RUNNING_NO: " + runningNumber +
+                    ", PURCHASE_DATE: " + purchaseDate +
+                    ", PRODUCT_ID: " + productId +
+                    ", QUANTITY: " + numberOfCopiesOrdered +
+                    ", REG_NAME: " + regName +
+                    ", RESELLER: " + reseller +
+                    ", LASTNAME: " + lastName +
+                    ", FIRSTNAME: " + firstName +
+                    ", COMPANY: " + company +
+                    ", EMAIL: " + email +
+                    ", PHONE: " + phone +
+                    ", FAX: " + fax +
+                    ", STREET: " + street +
+                    ", CITY: " + city +
+                    ", ZIP: " + zip +
+                    ", STATE: " + state +
+                    ", COUNTRY: " + country +
+                    ", ENCODING: " + encoding +
+                    ", LANGUAGE_ID: " + languageId +
+                    ", PROMOTION_NAME: " + promotionName +
+                    ", SUBSCRIPTION_DATE: " + subscriptionDate +
+                    ", START_DATE: " + startDate +
+                    ", EXPIRY_DATE: " + expiryDate +
+                    ", ISO_CODE: " + isoCode +
+                    ", INVOICE: " + invoice);
 
             // validation
             if (purchaseId <= 0) {
