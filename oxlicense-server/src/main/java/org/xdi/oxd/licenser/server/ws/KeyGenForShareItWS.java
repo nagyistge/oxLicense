@@ -115,7 +115,7 @@ public class KeyGenForShareItWS {
             LOG.trace("Generated license ID: " + licenseId.getDn());
 
             licenseIdService.save(licenseId);
-            LOG.trace("Saved license ID: " + crypt.getDn());
+            LOG.trace("Saved license ID: " + licenseId.getDn());
 
 
             return Response.ok().entity(licenseId.getLicenseId()).build();
