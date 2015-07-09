@@ -16,11 +16,12 @@ public class LicenseMetadata implements Serializable {
 
     public static final int DEFAULT_THREAD_COUNT = 1;
     public static final int DEFAULT_LICENSE_COUNT_LIMIT = 1;
+    public static final boolean DEFAULT_MULTI_SERVER = false;
 
     @JsonProperty(value = "thread_count")
     private int threadsCount = DEFAULT_THREAD_COUNT;
     @JsonProperty(value = "multi_server")
-    private boolean multiServer;
+    private boolean multiServer = DEFAULT_MULTI_SERVER;
     @JsonProperty(value = "license_type")
     private LicenseType licenseType;
     @JsonProperty(value = "license_name")
@@ -32,7 +33,7 @@ public class LicenseMetadata implements Serializable {
     @JsonProperty(value = "expiration_date")
     private Date expirationDate;
     @JsonProperty(value = "license_count_limit")
-    private int licenseCountLimit;
+    private int licenseCountLimit = DEFAULT_LICENSE_COUNT_LIMIT;
     @JsonProperty(value = "share_it")
     private boolean shareIt;
     @JsonProperty(value = "share_it_purchase_id")
