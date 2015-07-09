@@ -14,7 +14,8 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LicenseMetadata implements Serializable {
 
-    public static final int DEFAULT_THREAD_COUNT = 9;
+    public static final int DEFAULT_THREAD_COUNT = 1;
+    public static final int DEFAULT_LICENSE_COUNT_LIMIT = 1;
 
     @JsonProperty(value = "thread_count")
     private int threadsCount = DEFAULT_THREAD_COUNT;
