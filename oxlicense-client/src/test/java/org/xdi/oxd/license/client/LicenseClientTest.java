@@ -14,7 +14,7 @@ import org.xdi.oxd.license.client.data.LicenseResponse;
 public class LicenseClientTest {
 
     @Parameters({"licenseServerEndpoint"})
-    @Test
+    @Test(enabled = false)
     public void generateLicense(String licenseServerEndpoint) {
         final GenerateWS generateWS = LicenseClient.generateWs(licenseServerEndpoint);
 
