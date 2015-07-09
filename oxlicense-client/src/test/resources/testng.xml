@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="oxLicenseClient" parallel="false">
+
+    <test name="Jackson test" enabled="true">
+        <classes>
+            <class name="org.xdi.oxd.license.client.JacksonTest"/>
+        </classes>
+    </test>
+
+</suite>
