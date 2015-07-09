@@ -35,7 +35,7 @@ public class LicenseMetadata implements Serializable {
     @JsonProperty(value = "license_count_limit")
     private int licenseCountLimit = DEFAULT_LICENSE_COUNT_LIMIT;
     @JsonProperty(value = "share_it")
-    private boolean shareIt;
+    private boolean shareIt = false;
     @JsonProperty(value = "share_it_purchase_id")
     private int shareItPurchaseId;
     @JsonProperty(value = "share_it_reg_name")
@@ -157,11 +157,6 @@ public class LicenseMetadata implements Serializable {
 
     public LicenseMetadata setLicenseCountLimit(int licenseCountLimit) {
         this.licenseCountLimit = licenseCountLimit;
-        return this;
-    }
-
-    public LicenseMetadata setShareItProductId(Integer shareItProductId) {
-        this.shareItProductId = shareItProductId;
         return this;
     }
 
