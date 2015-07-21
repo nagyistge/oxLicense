@@ -61,12 +61,6 @@ public class LicenseMetadata implements Serializable {
         this.shareItProductId = shareItProductId;
     }
 
-    @JsonIgnore
-    public LicenseMetadata setShareItProductId(int shareItProductId) {
-        this.shareItProductId = shareItProductId;
-        return this;
-    }
-
     public String getShareItRegName() {
         return shareItRegName;
     }
