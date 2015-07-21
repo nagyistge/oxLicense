@@ -127,6 +127,8 @@ public class KeyGenForShareItWS {
 
             metadata.setShareItProductId(productId);
 
+            LOG.trace("Created license metadata: " + metadata);
+
             LdapLicenseId licenseId = licenseIdService.generate(crypt.getDn(), metadata);
             LOG.trace("Generated license ID: " + licenseId.getDn());
 
