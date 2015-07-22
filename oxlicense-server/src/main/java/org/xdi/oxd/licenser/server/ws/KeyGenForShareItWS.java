@@ -121,10 +121,13 @@ public class KeyGenForShareItWS {
                     .setShareIt(true)
                     .setShareItPurchaseId(purchaseId)
                     .setShareItRegName(regName)
-                    .setShareItProductId(productId)
                     .setCreationDate(new Date())
                     .setExpirationDate(expiration())
                     .setMultiServer(true);
+
+            metadata.setShareItProductId(productId);
+
+            LOG.trace("Created license metadata: " + metadata);
 
             LdapLicenseId licenseId = licenseIdService.generate(crypt.getDn(), metadata);
             LOG.trace("Generated license ID: " + licenseId.getDn());

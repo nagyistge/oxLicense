@@ -1,5 +1,6 @@
 package org.xdi.oxd.license.client.js;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -56,9 +57,8 @@ public class LicenseMetadata implements Serializable {
         return shareItProductId;
     }
 
-    public LicenseMetadata setShareItProductId(int shareItProductId) {
+    public void setShareItProductId(int shareItProductId) {
         this.shareItProductId = shareItProductId;
-        return this;
     }
 
     public String getShareItRegName() {
