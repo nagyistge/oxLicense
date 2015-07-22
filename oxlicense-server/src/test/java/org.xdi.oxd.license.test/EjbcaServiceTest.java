@@ -58,7 +58,7 @@ public class EjbcaServiceTest {
     public void setUp(String storePath) {
         System.setProperty("gluu.ejbca.storePath", storePath);
 
-        LicenseMetadata metadata = new LicenseMetadata()
+        LicenseMetadata metadata = new LicenseMetadata();
         metadata.setLicenseType(LicenseType.PAID);
         metadata.setMultiServer(true);
         metadata.setThreadsCount(9);
