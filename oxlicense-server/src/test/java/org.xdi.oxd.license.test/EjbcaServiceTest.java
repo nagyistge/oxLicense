@@ -59,9 +59,9 @@ public class EjbcaServiceTest {
         System.setProperty("gluu.ejbca.storePath", storePath);
 
         LicenseMetadata metadata = new LicenseMetadata()
-                .setLicenseType(LicenseType.PAID)
-                .setMultiServer(true)
-                .setThreadsCount(9);
+        metadata.setLicenseType(LicenseType.PAID);
+        metadata.setMultiServer(true);
+        metadata.setThreadsCount(9);
         crypt = licenseCryptService.generate();
         licenseCryptService.save(crypt);
 

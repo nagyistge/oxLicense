@@ -1,12 +1,11 @@
 package org.xdi.oxd.license.client.js;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * @author Yuriy Zabrovarnyy
@@ -15,7 +14,9 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LicenseMetadata implements Serializable {
 
-    public static final int DEFAULT_THREAD_COUNT = 1;
+	private static final long serialVersionUID = 1248966329399630216L;
+
+	public static final int DEFAULT_THREAD_COUNT = 1;
     public static final int DEFAULT_LICENSE_COUNT_LIMIT = 1;
     public static final boolean DEFAULT_MULTI_SERVER = false;
 
@@ -65,99 +66,88 @@ public class LicenseMetadata implements Serializable {
         return shareItRegName;
     }
 
-    public LicenseMetadata setShareItRegName(String shareItRegName) {
+    public void setShareItRegName(String shareItRegName) {
         this.shareItRegName = shareItRegName;
-        return this;
     }
 
     public int getShareItPurchaseId() {
         return shareItPurchaseId;
     }
 
-    public LicenseMetadata setShareItPurchaseId(int shareItPurchaseId) {
+    public void setShareItPurchaseId(int shareItPurchaseId) {
         this.shareItPurchaseId = shareItPurchaseId;
-        return this;
     }
 
     public boolean isShareIt() {
         return shareIt;
     }
 
-    public LicenseMetadata setShareIt(boolean shareIt) {
+    public void setShareIt(boolean shareIt) {
         this.shareIt = shareIt;
-        return this;
     }
 
     public List<String> getLicenseFeatures() {
         return licenseFeatures;
     }
 
-    public LicenseMetadata setLicenseFeatures(List<String> licenseFeatures) {
+    public void setLicenseFeatures(List<String> licenseFeatures) {
         this.licenseFeatures = licenseFeatures;
-        return this;
     }
 
     public String getLicenseName() {
         return licenseName;
     }
 
-    public LicenseMetadata setLicenseName(String licenseName) {
+    public void setLicenseName(String licenseName) {
         this.licenseName = licenseName;
-        return this;
     }
 
     public LicenseType getLicenseType() {
         return licenseType;
     }
 
-    public LicenseMetadata setLicenseType(LicenseType licenseType) {
-        this.licenseType = licenseType;
-        return this;
+    public void setLicenseType(LicenseType licenseType) {
+        this.licenseType = licenseType;        
     }
 
     public boolean isMultiServer() {
         return multiServer;
     }
 
-    public LicenseMetadata setMultiServer(boolean multiServer) {
+    public void setMultiServer(boolean multiServer) {
         this.multiServer = multiServer;
-        return this;
     }
 
     public int getThreadsCount() {
         return threadsCount;
     }
 
-    public LicenseMetadata setThreadsCount(int threadsCount) {
+    public void setThreadsCount(int threadsCount) {
         this.threadsCount = threadsCount;
-        return this;
     }
 
     public Date getCreationDate() {
         return creationDate;
     }
 
-    public LicenseMetadata setCreationDate(Date creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
-        return this;
     }
 
     public Date getExpirationDate() {
         return expirationDate;
     }
 
-    public LicenseMetadata setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
-        return this;
     }
 
     public int getLicenseCountLimit() {
         return licenseCountLimit;
     }
 
-    public LicenseMetadata setLicenseCountLimit(int licenseCountLimit) {
+    public void setLicenseCountLimit(int licenseCountLimit) {
         this.licenseCountLimit = licenseCountLimit;
-        return this;
     }
 
     @Override
