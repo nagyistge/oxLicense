@@ -1,9 +1,6 @@
 package org.xdi.oxd.licenser.server.ws;
 
-import com.google.common.base.Strings;
 import com.google.inject.Inject;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xdi.oxd.license.client.Jackson;
@@ -15,15 +12,10 @@ import org.xdi.oxd.licenser.server.LicenseGenerator;
 import org.xdi.oxd.licenser.server.LicenseGeneratorInput;
 import org.xdi.oxd.licenser.server.service.LicenseCryptService;
 import org.xdi.oxd.licenser.server.service.LicenseIdService;
+import org.xdi.oxd.licenser.server.service.ValidationService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -49,10 +41,12 @@ public class GenerateLicenseWS {
     LicenseIdService licenseIdService;
     @Inject
     LicenseCryptService licenseCryptService;
+    @Inject
+    ValidationService validationService;
 
     public LicenseResponse generateLicense(String licenseIdStr) {
         try {
-            LdapLicenseId licenseId = getLicenseId(licenseIdStr);
+            LdapLicenseId licenseId = validationService.getLicenseId(licenseIdStr);
 
             LdapLicenseCrypt licenseCrypt = getLicenseCrypt(licenseId.getLicenseCryptDN(), licenseIdStr);
 
@@ -60,9 +54,7 @@ public class GenerateLicenseWS {
 
             if (licenseId.getLicensesIssuedCount() >= metadata.getLicenseCountLimit()) {
                 LOG.debug("License ID count limit exceeded, licenseId: " + licenseIdStr);
-                throw new WebApplicationException(
-                        Response.status(Response.Status.BAD_REQUEST).entity("License ID count limit exceeded.").
-                                build());
+                throw new WebApplicationException(ErrorService.response("License ID count limit exceeded."));
             }
 
             final Date expiredAt = metadata.getExpirationDate() != null ? metadata.getExpirationDate() : licenseExpirationDate(licenseId);
@@ -83,16 +75,9 @@ public class GenerateLicenseWS {
             final LicenseResponse licenseResponse = licenseGenerator.generate(input);
             updateLicenseId(licenseId);
             return licenseResponse;
-        } catch (InvalidKeySpecException e) {
-            throw new WebApplicationException(e);
-        } catch (NoSuchAlgorithmException e) {
-            throw new WebApplicationException(e);
-        } catch (JsonMappingException e) {
-            throw new WebApplicationException(e);
-        } catch (JsonParseException e) {
-            throw new WebApplicationException(e);
-        } catch (IOException e) {
-            throw new WebApplicationException(e);
+        } catch (InvalidKeySpecException | NoSuchAlgorithmException | IOException e) {
+            LOG.error(e.getMessage(), e);
+            throw new WebApplicationException(ErrorService.response(e.getMessage()));
         }
     }
 
@@ -129,21 +114,6 @@ public class GenerateLicenseWS {
 
         }
         return new Date(new Date().getTime() + TimeUnit.DAYS.toMillis(300));
-    }
-
-    private LdapLicenseId getLicenseId(String licenseId) {
-        try {
-            if (!Strings.isNullOrEmpty(licenseId)) {
-                final LdapLicenseId byId = licenseIdService.getById(licenseId);
-                if (byId != null) {
-                    return byId;
-                }
-            }
-        } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
-        }
-        LOG.error("Failed to find License ID with id: " + licenseId);
-        throw new WebApplicationException(Response.status(Response.Status.BAD_REQUEST).entity("Failed to find License ID with id: " + licenseId).build());
     }
 
     private String generatedLicenseAsString(String licenseId) {

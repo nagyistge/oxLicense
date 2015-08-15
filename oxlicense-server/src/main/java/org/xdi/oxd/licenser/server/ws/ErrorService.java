@@ -27,4 +27,18 @@ public class ErrorService {
         throwError(status, Jackson.asJsonSilently(ErrorResponse.fromErrorType(errorType)));
     }
 
+    public void throwWebApplicationException(Throwable e) throws WebApplicationException {
+        LOG.error(e.getMessage());
+        throw new WebApplicationException(response(e.getMessage()));
+    }
+
+    public void throwWebApplicationException(String responseEntity) throws WebApplicationException {
+        LOG.error(responseEntity);
+        throw new WebApplicationException(response(responseEntity));
+    }
+
+    public static Response response(String responseEntity) {
+        return Response.status(Response.Status.BAD_REQUEST).entity(responseEntity).build();
+    }
+
 }
