@@ -5,7 +5,6 @@ import com.google.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xdi.oxd.license.client.js.LdapLicenseId;
-import org.xdi.oxd.licenser.server.ws.ErrorService;
 
 import javax.ws.rs.WebApplicationException;
 
