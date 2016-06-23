@@ -139,18 +139,18 @@ public class GenerateLicenseWS {
     @POST
     @Path("/generateLicenseId/{licenseCount}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response generateLicenseIdPost(@PathParam("licenseCount") int licenseCount, LicenseMetadata licenseMetadata, @Context HttpServletRequest httpRequest) {
-        LdapLicenseCrypt crypt = licenseCryptService.generate();
-        licenseCryptService.save(crypt);
-        List<LdapLicenseId> generatedIds = licenseIdService.generateLicenseIdsWithPersistence(licenseCount, crypt, licenseMetadata);
-
+    public Response generateLicenseIdPost(@PathParam("licenseCount") int licenseCount, LicenseMetadata licenseMetadata) {
         List<String> idList = Lists.newArrayList();
-        for(LdapLicenseId id : generatedIds) {
+        for (LdapLicenseId id : generateLicenseId(licenseCount, licenseMetadata)) {
             idList.add(id.getLicenseId());
         }
-
         return Response.ok().entity(idList).build();
     }
 
+    public List<LdapLicenseId> generateLicenseId(int licenseCount, LicenseMetadata licenseMetadata) {
+        LdapLicenseCrypt crypt = licenseCryptService.generate();
+        licenseCryptService.save(crypt);
+        return licenseIdService.generateLicenseIdsWithPersistence(licenseCount, crypt, licenseMetadata);
+    }
 
 }
