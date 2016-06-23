@@ -126,6 +126,7 @@ public class LicenseCryptDetailsPresenter {
 
         loadLicenseIds();
 
+        view.getIdField().setHTML(Admin.asHtml(licenseCrypt.getId()));
         view.getNameField().setHTML(Admin.asHtml(licenseCrypt.getName()));
         view.getPrivateKey().setHTML(Admin.asHtml(licenseCrypt.getPrivateKey()));
         view.getPublicKey().setHTML(Admin.asFullHtml(licenseCrypt.getPublicKey()));
@@ -138,6 +139,7 @@ public class LicenseCryptDetailsPresenter {
     }
 
     public void clear() {
+        view.getIdField().setHTML("");
         view.getNameField().setHTML("");
         view.getPrivateKey().setHTML("");
         view.getPublicKey().setHTML("");

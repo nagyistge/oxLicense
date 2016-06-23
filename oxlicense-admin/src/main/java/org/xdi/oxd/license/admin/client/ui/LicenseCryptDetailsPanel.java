@@ -27,6 +27,8 @@ public class LicenseCryptDetailsPanel implements IsWidget {
     }
 
     @UiField
+    HTML idField;
+    @UiField
     HTML nameField;
     @UiField
     Widget rootPanel;
@@ -149,6 +151,10 @@ public class LicenseCryptDetailsPanel implements IsWidget {
 
     public HTML getNameField() {
         return nameField;
+    }
+
+    public HTML getIdField() {
+        return idField;
     }
 
     public HTML getClientPrivateKey() {
