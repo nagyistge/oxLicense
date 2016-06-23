@@ -1,15 +1,17 @@
 package org.xdi.oxd.licenser.server.service;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.unboundid.ldap.sdk.Filter;
 import org.gluu.site.ldap.persistence.LdapEntryManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xdi.oxd.license.client.Jackson;
+import org.xdi.oxd.license.client.js.Configuration;
+import org.xdi.oxd.license.client.js.LdapLicenseCrypt;
 import org.xdi.oxd.license.client.js.LdapLicenseId;
 import org.xdi.oxd.license.client.js.LicenseMetadata;
-import org.xdi.oxd.license.client.js.Configuration;
 import org.xdi.oxd.licenser.server.ldap.LdapStructure;
 
 import java.util.Collections;
@@ -137,4 +139,15 @@ public class LicenseIdService {
         entity.setMetadataAsObject(metadata);
         return entity;
     }
+
+    public List<LdapLicenseId> generateLicenseIdsWithPersistence(int count, LdapLicenseCrypt licenseCrypt, LicenseMetadata metadata) {
+        List<LdapLicenseId> result = Lists.newArrayList();
+        for (int i = 0; i < count; i++) {
+            final LdapLicenseId entity = generate(licenseCrypt.getDn(), metadata);
+            save(entity);
+            result.add(entity);
+        }
+        return result;
+    }
+
 }

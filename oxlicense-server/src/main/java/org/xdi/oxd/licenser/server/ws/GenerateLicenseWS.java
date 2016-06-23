@@ -1,5 +1,6 @@
 package org.xdi.oxd.licenser.server.ws;
 
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -133,5 +135,22 @@ public class GenerateLicenseWS {
     public Response generatePost(@FormParam("licenseId") String licenseId, @Context HttpServletRequest httpRequest) {
         return Response.ok().entity(generatedLicenseAsString(licenseId)).build();
     }
+
+    @POST
+    @Path("/generateLicenseId/{licenseCount}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response generateLicenseIdPost(@PathParam("licenseCount") int licenseCount, LicenseMetadata licenseMetadata, @Context HttpServletRequest httpRequest) {
+        LdapLicenseCrypt crypt = licenseCryptService.generate();
+        licenseCryptService.save(crypt);
+        List<LdapLicenseId> generatedIds = licenseIdService.generateLicenseIdsWithPersistence(licenseCount, crypt, licenseMetadata);
+
+        List<String> idList = Lists.newArrayList();
+        for(LdapLicenseId id : generatedIds) {
+            idList.add(id.getLicenseId());
+        }
+
+        return Response.ok().entity(idList).build();
+    }
+
 
 }

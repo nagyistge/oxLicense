@@ -36,7 +36,7 @@ public class LicenseCryptService {
     LdapStructure ldapStructure;
 
     public LdapLicenseCrypt generate() {
-        return generate("");
+        return generate("generated-"+ System.currentTimeMillis());
     }
 
     public LdapLicenseCrypt generate(String name) {
