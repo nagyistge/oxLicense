@@ -117,14 +117,16 @@ public class KeyGenForShareItWS {
             cryptService.save(crypt);
             LOG.trace("Saved crypt object: " + crypt.getDn());
 
-            LicenseMetadata metadata = new LicenseMetadata()
-                    .setShareIt(true)
-                    .setShareItPurchaseId(purchaseId)
-                    .setShareItRegName(regName)
-                    .setShareItProductId(productId)
-                    .setCreationDate(new Date())
-                    .setExpirationDate(expiration())
-                    .setMultiServer(true);
+            LicenseMetadata metadata = new LicenseMetadata();
+            metadata.setShareIt(true);
+            metadata.setShareItPurchaseId(purchaseId);
+            metadata.setShareItRegName(regName);
+            metadata.setShareItProductId(productId);
+            metadata.setCreationDate(new Date());
+            metadata.setExpirationDate(expiration());
+            metadata.setMultiServer(true);
+
+            LOG.trace("Created license metadata: " + metadata);
 
             LdapLicenseId licenseId = licenseIdService.generate(crypt.getDn(), metadata);
             LOG.trace("Generated license ID: " + licenseId.getDn());

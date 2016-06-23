@@ -190,13 +190,15 @@ public class LicenseIdMetadataDialog {
     }
 
     public LicenseMetadata licenseMetadata() {
-        return new LicenseMetadata()
-                .setLicenseFeatures(selectedLicenseFeatures())
-                .setLicenseName(licenseName.getValue())
-                .setMultiServer(multiServer.getValue())
-                .setThreadsCount(threadsCount())
-                .setLicenseCountLimit(licenseCountLimit())
-                .setExpirationDate(expirationDate.getValue());
+    	LicenseMetadata licenseMetadata = new LicenseMetadata();
+    	licenseMetadata.setLicenseFeatures(selectedLicenseFeatures());
+    	licenseMetadata.setLicenseName(licenseName.getValue());
+    	licenseMetadata.setMultiServer(multiServer.getValue());
+    	licenseMetadata.setThreadsCount(threadsCount());
+    	licenseMetadata.setLicenseCountLimit(licenseCountLimit());
+    	licenseMetadata.setExpirationDate(expirationDate.getValue());
+    	
+    	return licenseMetadata;
     }
 
     public List<String> selectedLicenseFeatures() {

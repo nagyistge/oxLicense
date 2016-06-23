@@ -10,16 +10,17 @@ import org.gluu.site.ldap.persistence.LdapEntryManager;
 import org.gluu.site.ldap.persistence.exception.LdapMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xdi.oxd.license.client.js.Configuration;
+import org.xdi.oxd.license.client.js.JsonFileConfiguration;
 import org.xdi.oxd.licenser.server.KeyPairService;
 import org.xdi.oxd.licenser.server.LicenseGenerator;
-import org.xdi.oxd.license.client.js.Configuration;
 import org.xdi.oxd.licenser.server.conf.ConfigurationFactory;
-import org.xdi.oxd.license.client.js.JsonFileConfiguration;
 import org.xdi.oxd.licenser.server.ldap.Conf;
 import org.xdi.oxd.licenser.server.service.LdapStructureChecker;
 import org.xdi.oxd.licenser.server.ws.CertificateWS;
 import org.xdi.oxd.licenser.server.ws.GenerateLicenseWS;
 import org.xdi.oxd.licenser.server.ws.KeyGenForShareItWS;
+import org.xdi.oxd.licenser.server.ws.MetadataWS;
 import org.xdi.util.Util;
 import org.xdi.util.properties.FileConfiguration;
 import org.xdi.util.security.PropertiesDecrypter;
@@ -51,6 +52,7 @@ public class AppModule extends AbstractModule {
         bind(GenerateLicenseWS.class);
         bind(CertificateWS.class);
         bind(KeyGenForShareItWS.class);
+        bind(MetadataWS.class);
     }
 
     @Provides

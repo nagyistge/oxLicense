@@ -14,17 +14,17 @@ import java.util.Date;
 
 public class JacksonTest {
 
-       @Test
-       public void metadata() throws IOException {
-           LicenseMetadata metadata = new LicenseMetadata()
-                   .setCreationDate(new Date())
-                   .setLicenseName("testLicense")
-                   .setShareIt(true);
+	@Test
+	public void metadata() throws IOException {
+		LicenseMetadata metadata = new LicenseMetadata();
+		metadata.setCreationDate(new Date());
+		metadata.setLicenseName("testLicense");
+		metadata.setShareIt(true);
 
-           final String json = Jackson.asJson(metadata);
-           final LicenseMetadata deserializedMetadata = Jackson.createJsonMapper().readValue(json, LicenseMetadata.class);
+		final String json = Jackson.asJson(metadata);
+		final LicenseMetadata deserializedMetadata = Jackson.createJsonMapper().readValue(json, LicenseMetadata.class);
 
-           Assert.assertNotNull(deserializedMetadata);
-           Assert.assertEquals(metadata.getLicenseName(), deserializedMetadata.getLicenseName());
-       }
+		Assert.assertNotNull(deserializedMetadata);
+		Assert.assertEquals(metadata.getLicenseName(), deserializedMetadata.getLicenseName());
+	}
 }
