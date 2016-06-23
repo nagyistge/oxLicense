@@ -22,6 +22,7 @@ public class JacksonTest {
 		metadata.setShareIt(true);
 
 		final String json = Jackson.asJson(metadata);
+        System.out.println(json);
 		final LicenseMetadata deserializedMetadata = Jackson.createJsonMapper().readValue(json, LicenseMetadata.class);
 
 		Assert.assertNotNull(deserializedMetadata);

@@ -9,16 +9,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xdi.oxd.license.admin.client.service.AdminService;
 import org.xdi.oxd.license.client.Jackson;
+import org.xdi.oxd.license.client.js.Configuration;
 import org.xdi.oxd.license.client.js.LdapCustomer;
 import org.xdi.oxd.license.client.js.LdapLicenseCrypt;
 import org.xdi.oxd.license.client.js.LdapLicenseId;
 import org.xdi.oxd.license.client.js.LicenseMetadata;
-import org.xdi.oxd.license.client.js.Configuration;
 import org.xdi.oxd.licenser.server.service.CustomerService;
 import org.xdi.oxd.licenser.server.service.LicenseCryptService;
 import org.xdi.oxd.licenser.server.service.LicenseIdService;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -67,13 +66,7 @@ public class AdminServiceImpl extends RemoteServiceServlet implements AdminServi
 
     @Override
     public List<LdapLicenseId> generateLicenseIds(int count, LdapLicenseCrypt licenseCrypt, LicenseMetadata metadata) {
-        List<LdapLicenseId> result = new ArrayList<LdapLicenseId>();
-        for (int i = 0; i < count; i++) {
-            final LdapLicenseId entity = licenseIdService.generate(licenseCrypt.getDn(), metadata);
-            licenseIdService.save(entity);
-            result.add(entity);
-        }
-        return result;
+        return licenseIdService.generateLicenseIdsWithPersistence(count, licenseCrypt, metadata);
     }
 
 //    public LicenseMetadata addLicense(Customer customer, LicenseMetadata license) {
