@@ -1,4 +1,4 @@
-package org.xdi.oxd.licenser.server.ws;
+package org.xdi.oxd.licenser.server.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

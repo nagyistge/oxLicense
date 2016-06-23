@@ -11,6 +11,7 @@ import org.xdi.oxd.license.client.data.ErrorType;
 import org.xdi.oxd.license.client.data.SignCsrResponse;
 import org.xdi.oxd.license.client.js.LdapLicenseId;
 import org.xdi.oxd.licenser.server.service.EjbCaService;
+import org.xdi.oxd.licenser.server.service.ErrorService;
 import org.xdi.oxd.licenser.server.service.LicenseIdService;
 
 import javax.servlet.http.HttpServletRequest;
