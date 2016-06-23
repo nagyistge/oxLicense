@@ -17,7 +17,6 @@ import org.xdi.oxd.licenser.server.LicenseGenerator;
 import org.xdi.oxd.licenser.server.conf.ConfigurationFactory;
 import org.xdi.oxd.licenser.server.ldap.Conf;
 import org.xdi.oxd.licenser.server.service.LdapStructureChecker;
-import org.xdi.oxd.licenser.server.ws.CertificateWS;
 import org.xdi.oxd.licenser.server.ws.GenerateLicenseWS;
 import org.xdi.oxd.licenser.server.ws.KeyGenForShareItWS;
 import org.xdi.oxd.licenser.server.ws.MetadataWS;
@@ -50,7 +49,6 @@ public class AppModule extends AbstractModule {
 
         // ws
         bind(GenerateLicenseWS.class);
-        bind(CertificateWS.class);
         bind(KeyGenForShareItWS.class);
         bind(MetadataWS.class);
     }
