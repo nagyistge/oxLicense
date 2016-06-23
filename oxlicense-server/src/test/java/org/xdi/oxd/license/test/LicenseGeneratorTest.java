@@ -11,7 +11,6 @@ import org.xdi.oxd.license.client.data.LicenseResponse;
 import org.xdi.oxd.license.client.js.LdapLicenseCrypt;
 import org.xdi.oxd.license.client.js.LdapLicenseId;
 import org.xdi.oxd.license.client.js.LicenseMetadata;
-import org.xdi.oxd.license.client.js.LicenseType;
 import org.xdi.oxd.license.client.lib.ALicense;
 import org.xdi.oxd.license.client.lib.ALicenseManager;
 import org.xdi.oxd.license.client.lib.LicenseSerializationUtilities;
@@ -41,10 +40,7 @@ public class LicenseGeneratorTest {
 
     @BeforeClass
     public void setUp() {
-        LicenseMetadata metadata = new LicenseMetadata();
-        metadata.setLicenseType(LicenseType.PAID);
-        metadata.setMultiServer(true);
-        metadata.setThreadsCount(9);
+        LicenseMetadata metadata = TLicenseMetadata.standard();
 
         crypt = licenseCryptService.generate();
         licenseCryptService.save(crypt);
