@@ -11,14 +11,13 @@ import org.xdi.oxd.license.client.js.LdapLicenseId;
 import org.xdi.oxd.license.client.js.LicenseMetadata;
 import org.xdi.oxd.licenser.server.LicenseGenerator;
 import org.xdi.oxd.licenser.server.LicenseGeneratorInput;
+import org.xdi.oxd.licenser.server.model.LicenseIdItem;
 import org.xdi.oxd.licenser.server.service.ErrorService;
 import org.xdi.oxd.licenser.server.service.LicenseCryptService;
 import org.xdi.oxd.licenser.server.service.LicenseIdService;
 import org.xdi.oxd.licenser.server.service.ValidationService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
@@ -119,39 +118,54 @@ public class GenerateLicenseWS {
         return new Date(new Date().getTime() + TimeUnit.DAYS.toMillis(300));
     }
 
-    private String generatedLicenseAsString(String licenseId) {
-        return Jackson.asJsonSilently(generateLicense(licenseId));
+    private String generatedLicenseAsString(String licenseId, int count) {
+        if (count <= 1) {
+            count = 1;
+        }
+
+        List<LicenseResponse> list = Lists.newArrayList();
+        for (int i = 0; i < count; i++) {
+            list.add(generateLicense(licenseId));
+        }
+        return Jackson.asJsonSilently(list);
     }
 
     @GET
     @Path("/generate")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response generateGet(@QueryParam("licenseId") String licenseId, @Context HttpServletRequest httpRequest) {
-        return Response.ok().entity(generatedLicenseAsString(licenseId)).build();
+    public Response generateGet(@QueryParam("licenseId") String licenseId, @QueryParam("count") int count) {
+        return Response.ok().entity(generatedLicenseAsString(licenseId, count)).build();
     }
 
     @POST
     @Path("/generate")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response generatePost(@FormParam("licenseId") String licenseId, @Context HttpServletRequest httpRequest) {
-        return Response.ok().entity(generatedLicenseAsString(licenseId)).build();
+    public Response generatePost(@FormParam("licenseId") String licenseId, @FormParam("count") int count) {
+        return Response.ok().entity(generatedLicenseAsString(licenseId, count)).build();
     }
 
     @POST
     @Path("/generateLicenseId/{licenseCount}")
     @Produces({MediaType.APPLICATION_JSON})
     public Response generateLicenseIdPost(@PathParam("licenseCount") int licenseCount, LicenseMetadata licenseMetadata) {
-        List<String> idList = Lists.newArrayList();
-        for (LdapLicenseId id : generateLicenseId(licenseCount, licenseMetadata)) {
-            idList.add(id.getLicenseId());
-        }
-        return Response.ok().entity(idList).build();
-    }
-
-    public List<LdapLicenseId> generateLicenseId(int licenseCount, LicenseMetadata licenseMetadata) {
         LdapLicenseCrypt crypt = licenseCryptService.generate();
-        licenseCryptService.save(crypt);
-        return licenseIdService.generateLicenseIdsWithPersistence(licenseCount, crypt, licenseMetadata);
+               licenseCryptService.save(crypt);
+        List<LdapLicenseId> licenseIdList = licenseIdService.generateLicenseIdsWithPersistence(licenseCount, crypt, licenseMetadata);
+
+        List<LicenseIdItem> idList = Lists.newArrayList();
+        for (LdapLicenseId id : licenseIdList) {
+            LicenseIdItem item = new LicenseIdItem();
+            item.setLicenseId(id.getLicenseId());
+            item.setPublicKey(crypt.getPublicKey());
+            item.setPublicPassword(crypt.getPublicPassword());
+            item.setLicensePassword(crypt.getLicensePassword());
+
+            idList.add(item);
+        }
+
+        String response = Jackson.asJsonSilently(idList);
+        LOG.trace(response);
+        return Response.ok().entity(idList).build();
     }
 
 }
