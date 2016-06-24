@@ -101,6 +101,10 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.xdi</groupId>
+      <artifactId>uma-rs-resteasy</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcprov-jdk15on</artifactId>
       <version>1.51</version>
@@ -109,41 +113,6 @@
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcpkix-jdk15on</artifactId>
       <version>1.51</version>
-    </dependency>
-    <dependency>
-      <groupId>org.ejbca</groupId>
-      <artifactId>cesecore-entity</artifactId>
-      <version>${ejbca.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.ejbca</groupId>
-      <artifactId>cesecore-ejb-interface</artifactId>
-      <version>${ejbca.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.ejbca</groupId>
-      <artifactId>cesecore-common</artifactId>
-      <version>${ejbca.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.ejbca</groupId>
-      <artifactId>cert-cvc</artifactId>
-      <version>${ejbca.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.ejbca</groupId>
-      <artifactId>ejbca-util</artifactId>
-      <version>${ejbca.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.ejbca</groupId>
-      <artifactId>ejbca-ws</artifactId>
-      <version>${ejbca.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.ejbca</groupId>
-      <artifactId>ejbca-ws-client</artifactId>
-      <version>${ejbca.version}</version>
     </dependency>
 
     <dependency>
