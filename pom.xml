@@ -23,7 +23,6 @@
     <guice.version>3.0</guice.version>
     <gwt.version>2.6.1</gwt.version>
     <guava.version>13.0.1</guava.version>
-    <ejbca.version>6.0.2</ejbca.version>
   </properties>
 
   <prerequisites>
@@ -68,6 +67,11 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>org.xdi</groupId>
+        <artifactId>uma-rs-resteasy</artifactId>
+        <version>2.4.4.Final</version>
+      </dependency>
       <dependency>
         <groupId>com.google.gwt</groupId>
         <artifactId>gwt-user</artifactId>
