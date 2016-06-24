@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
 import org.xdi.oxd.license.client.js.LicenseMetadata;
+import org.xdi.oxd.licenser.server.model.LicenseIdItem;
 import org.xdi.oxd.licenser.server.ws.GenerateLicenseWS;
 
 import javax.ws.rs.core.Response;
@@ -29,7 +30,7 @@ public class LicenseIdGeneratorTest {
         Response response = generateLicenseWS.generateLicenseIdPost(licenseCount, metadata);
         System.out.println("Response entity: " + response.getEntity());
 
-        List<String> idList = (List<String>) response.getEntity();
+        List<LicenseIdItem> idList = (List<LicenseIdItem>) response.getEntity();
         assertTrue(!idList.isEmpty());
         assertTrue(idList.size() == licenseCount);
 

@@ -58,7 +58,6 @@ public class LicenseGeneratorTest {
         final SignedLicense signedLicense = LicenseSerializationUtilities.deserialize(license.getEncodedLicense());
         assertValidLicense(signedLicense);
         assertInValidLicense(signedLicense);
-
     }
 
     private void assertValidLicense(SignedLicense signedLicense) throws IOException {

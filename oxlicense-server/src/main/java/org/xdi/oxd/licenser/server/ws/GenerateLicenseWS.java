@@ -118,7 +118,7 @@ public class GenerateLicenseWS {
         return new Date(new Date().getTime() + TimeUnit.DAYS.toMillis(300));
     }
 
-    private String generatedLicenseAsString(String licenseId, int count) {
+    public String generatedLicenseAsString(String licenseId, int count) {
         if (count <= 1) {
             count = 1;
         }
