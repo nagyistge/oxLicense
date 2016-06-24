@@ -14,6 +14,8 @@ public class Configuration implements Serializable {
 
     @JsonProperty(value = "base-dn")
     private String baseDn;
+    @JsonProperty(value = "op-host")
+    private String opHost;
     @JsonProperty(value = "thread-number-paid-license")
     private Integer threadNumberPaidLicense;
     @JsonProperty(value = "thread-number-premium-license")
@@ -26,15 +28,33 @@ public class Configuration implements Serializable {
     private String clientId;
     @JsonProperty(value = "license-possible-features")
     private List<String> licensePossibleFeatures;
-    @JsonProperty(value = "ejbca-ws-url")
-    private String ejbCaWsUrl;
+    @JsonProperty(value = "uma-pat-client-id")
+    private String umaPatClientId;
+    @JsonProperty(value = "uma-pat-client-secret")
+    private String umaPatClientSecret;
 
-    public String getEjbCaWsUrl() {
-        return ejbCaWsUrl;
+    public String getUmaPatClientId() {
+        return umaPatClientId;
     }
 
-    public void setEjbCaWsUrl(String ejbCaWsUrl) {
-        this.ejbCaWsUrl = ejbCaWsUrl;
+    public void setUmaPatClientId(String umaPatClientId) {
+        this.umaPatClientId = umaPatClientId;
+    }
+
+    public String getUmaPatClientSecret() {
+        return umaPatClientSecret;
+    }
+
+    public void setUmaPatClientSecret(String umaPatClientSecret) {
+        this.umaPatClientSecret = umaPatClientSecret;
+    }
+
+    public String getOpHost() {
+        return opHost;
+    }
+
+    public void setOpHost(String opHost) {
+        this.opHost = opHost;
     }
 
     public List<String> getLicensePossibleFeatures() {
@@ -103,6 +123,9 @@ public class Configuration implements Serializable {
         sb.append("{baseDn='").append(baseDn).append('\'');
         sb.append(", threadNumberPaidLicense=").append(threadNumberPaidLicense);
         sb.append(", threadNumberPremiumLicense=").append(threadNumberPremiumLicense);
+        sb.append(", opHost=").append(opHost);
+        sb.append(", umaPatClientId=").append(umaPatClientId);
+        sb.append(", umaPatClientSecret=").append(umaPatClientSecret);
         sb.append('}');
         return sb.toString();
     }

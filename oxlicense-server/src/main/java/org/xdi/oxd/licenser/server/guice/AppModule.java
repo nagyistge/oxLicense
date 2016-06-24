@@ -87,6 +87,11 @@ public class AppModule extends AbstractModule {
         return ConfigurationFactory.CONFIG_FILE_LOCATION;
     }
 
+    public String getUmaProtectFileLocation() {
+        return ConfigurationFactory.UMA_PROTECT_FILE_LOCATION;
+    }
+
+
     @Provides
     @Singleton
     public Configuration provideConfiguration(LdapEntryManager ldapManager, JsonFileConfiguration jsonFileConfiguration) throws IOException {
