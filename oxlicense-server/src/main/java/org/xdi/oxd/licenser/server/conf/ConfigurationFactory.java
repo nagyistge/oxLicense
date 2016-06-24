@@ -23,9 +23,11 @@ public class ConfigurationFactory {
 
     public static final String CONFIG_FILE_NAME = "oxLicense-config.json";
     public static final String LDAP_CONFIG_FILE_NAME = "oxLicense-ldap.properties";
+    public static final String PROTECTION_CONFIGURATION_FILE_NAME = "rs-protect.json";
 
     public static final String CONFIG_FILE_LOCATION = DIR + CONFIG_FILE_NAME;
     private static final String LDAP_CONFIG_FILE_LOCATION = DIR + LDAP_CONFIG_FILE_NAME;
+    public static final String UMA_PROTECT_FILE_LOCATION = DIR + PROTECTION_CONFIGURATION_FILE_NAME;
 
     private static volatile Configuration CONF = null;
 
