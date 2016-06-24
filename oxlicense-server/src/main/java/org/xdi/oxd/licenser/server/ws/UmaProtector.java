@@ -47,7 +47,12 @@ public class UmaProtector implements PreProcessInterceptor {
     public UmaProtector() {
         try {
             initIfNeeded();
-            interceptor = new RptPreProcessInterceptor(StaticStorage.get(ResourceRegistrar.class));
+            interceptor = new RptPreProcessInterceptor(StaticStorage.get(ResourceRegistrar.class)) {
+                @Override
+                public String getPath(HttpRequest request) {
+                    return PathPatcher.patchPath(super.getPath(request));
+                }
+            };
             LOG.info("UMA Protector started successfully.");
         } catch (Exception e) {
             throw new RuntimeException("Failed to create HTTP interceptor.", e);

@@ -1,0 +1,14 @@
+{"resources":[
+    {
+        "path":"/rest/generateLicenseId",
+        "conditions":[
+            {
+                "httpMethods":["POST"],
+                "scopes":[
+                    "http://idp.gluu.org/uma/scopes/generateLicenseId"
+                ]
+            }
+        ]
+    }
+]
+}
