@@ -60,6 +60,7 @@ public class Admin implements EntryPoint {
     @Override
     public void onModuleLoad() {
         LOGGER.info("started to load module...");
+        RootLayoutPanel.get().add(new Label("Checking state ..."));
         if (LoginController.login()) {
             MainPanelPresenter mainPanelPresenter = new MainPanelPresenter();
             mainPanelPresenter.go(RootLayoutPanel.get());

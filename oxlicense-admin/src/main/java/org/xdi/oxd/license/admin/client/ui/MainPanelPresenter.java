@@ -22,7 +22,10 @@ public class MainPanelPresenter implements Presenter {
 
     @Override
     public void go(HasWidgets.ForIsWidget container) {
+
         container.clear();
+        checkState();
+
         container.add(view);
 
         view.getLogoutButton().addClickHandler(new ClickHandler() {
@@ -34,5 +37,11 @@ public class MainPanelPresenter implements Presenter {
 
         new CustomerTabPresenter(view.getCustomerTab());
         new LicenseCryptTabPresenter(view.getLicenseCryptTab());
+    }
+
+    private void checkState() {
+        if (!LoginController.isLoggedIn()) {
+            throw new RuntimeException("User is not logged in.");
+        }
     }
 }
