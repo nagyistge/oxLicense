@@ -8,5 +8,6 @@ package org.xdi.oxd.license.admin.shared;
 public enum IdTokenValidationResult {
     ACCESS_GRANTED,
     NOT_IN_LICENSE_GROUP,
-    CANT_PARSE
+    CANT_PARSE,
+    EXPIRED
 }

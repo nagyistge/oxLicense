@@ -7,7 +7,10 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xdi.oxauth.model.jwt.Jwt;
+import org.xdi.oxauth.model.jwt.JwtClaimName;
 import org.xdi.oxd.license.admin.client.service.AdminService;
+import org.xdi.oxd.license.admin.shared.IdTokenValidationResult;
 import org.xdi.oxd.license.client.Jackson;
 import org.xdi.oxd.license.client.js.Configuration;
 import org.xdi.oxd.license.client.js.LdapCustomer;
@@ -19,6 +22,7 @@ import org.xdi.oxd.licenser.server.service.LicenseCryptService;
 import org.xdi.oxd.licenser.server.service.LicenseIdService;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -159,5 +163,23 @@ public class AdminServiceImpl extends RemoteServiceServlet implements AdminServi
         }
     }
 
+    @Override
+    public IdTokenValidationResult hasAccess(String idToken) {
+        try {
+            final Jwt jwt = Jwt.parse(idToken);
 
+            final Date expiresAt = jwt.getClaims().getClaimAsDate(JwtClaimName.EXPIRATION_TIME);
+            final Date now = new Date();
+            if (now.after(expiresAt)) {
+                LOG.trace("ID Token is expired. (It is after " + now + ").");
+                return IdTokenValidationResult.EXPIRED;
+            }
+
+            Object memberOf = jwt.getClaims().getClaim("memberOf");
+            LOG.info("memberOf: " + memberOf);
+        } catch (Exception e) {
+            LOG.error("Failed to parse id_token: " + idToken, e);
+        }
+        return IdTokenValidationResult.CANT_PARSE;
+    }
 }
