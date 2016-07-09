@@ -6,11 +6,14 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import org.xdi.oxd.license.admin.client.service.AdminService;
 import org.xdi.oxd.license.admin.client.service.AdminServiceAsync;
 import org.xdi.oxd.license.admin.client.ui.MainPanelPresenter;
+import org.xdi.oxd.license.admin.shared.IdTokenValidationResult;
 
 import java.util.logging.Logger;
 
@@ -60,12 +63,41 @@ public class Admin implements EntryPoint {
     @Override
     public void onModuleLoad() {
         LOGGER.info("started to load module...");
-        RootLayoutPanel.get().add(new Label("Checking state ..."));
-        if (LoginController.login()) {
+
+        if (LoginController.isLoggedIn()) {
             MainPanelPresenter mainPanelPresenter = new MainPanelPresenter();
             mainPanelPresenter.go(RootLayoutPanel.get());
         } else {
-            RootLayoutPanel.get().add(new Label("Failed to identify IDP for License Server. Please check 'authorize-request' parameter in configuration. Otherwise internal server error occurred. Please contact yuriy@gluu.org or support@gluu.org."));
+            RootLayoutPanel.get().add(new Label("Checking state ..."));
+
+            final String idTokenParameter = HashParser.getIdTokenFromHash(Window.Location.getHash());
+            LOGGER.fine("idTokenParameter=" + idTokenParameter);
+            if (!Admin.isEmpty(idTokenParameter)) {
+                getService().hasAccess(idTokenParameter, new AsyncCallback<IdTokenValidationResult>() {
+
+                    @Override
+                    public void onFailure(Throwable caught) {
+                        LOGGER.fine("Failed to validate id_token.");
+                        LoginController.redirectToLoginPage();
+                    }
+
+                    @Override
+                    public void onSuccess(IdTokenValidationResult result) {
+                        LOGGER.fine("id_token validation: " + result);
+
+                        if (result == IdTokenValidationResult.ACCESS_GRANTED) {
+                            LoginController.setToken(idTokenParameter);
+                            MainPanelPresenter mainPanelPresenter = new MainPanelPresenter();
+                            mainPanelPresenter.go(RootLayoutPanel.get());
+                        } else {
+                            LOGGER.fine("id_token is NOT valid. No rights to access License admin.");
+                            RootLayoutPanel.get().clear();
+                            RootLayoutPanel.get().add(new Label("Access denied. You are not member of License manager group."));
+                        }
+                    }
+                });
+            }
+            LoginController.redirectToLoginPage();
         }
     }
 

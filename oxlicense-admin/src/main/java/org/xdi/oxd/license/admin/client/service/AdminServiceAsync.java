@@ -1,6 +1,7 @@
 package org.xdi.oxd.license.admin.client.service;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import org.xdi.oxd.license.admin.shared.IdTokenValidationResult;
 import org.xdi.oxd.license.client.js.Configuration;
 import org.xdi.oxd.license.client.js.LdapCustomer;
 import org.xdi.oxd.license.client.js.LdapLicenseCrypt;
@@ -36,4 +37,6 @@ public interface AdminServiceAsync {
     void remove(Collection<LdapLicenseId> entities, AsyncCallback<Void> async);
 
     void getConfiguration(AsyncCallback<Configuration> async);
+
+    void hasAccess(String idToken, AsyncCallback<IdTokenValidationResult> async);
 }

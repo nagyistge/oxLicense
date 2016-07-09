@@ -2,6 +2,7 @@ package org.xdi.oxd.license.admin.client.service;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import org.xdi.oxd.license.admin.shared.IdTokenValidationResult;
 import org.xdi.oxd.license.client.js.Configuration;
 import org.xdi.oxd.license.client.js.LdapCustomer;
 import org.xdi.oxd.license.client.js.LdapLicenseCrypt;
@@ -24,6 +25,8 @@ public interface AdminService extends RemoteService {
     public List<LdapCustomer> getAllCustomers();
 
     public List<LdapLicenseCrypt> getAllLicenseCryptObjects();
+
+    public IdTokenValidationResult hasAccess(String idToken);
 
     public void save(LdapCustomer entity);
 

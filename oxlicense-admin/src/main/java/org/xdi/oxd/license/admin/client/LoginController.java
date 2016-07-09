@@ -1,10 +1,10 @@
 package org.xdi.oxd.license.admin.client;
 
-import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 import org.xdi.oxd.license.client.js.Configuration;
 
 import java.util.logging.Level;
@@ -19,31 +19,9 @@ public class LoginController {
 
     private static final Logger LOGGER = Logger.getLogger(LoginController.class.getName());
 
-    private static String ID_TOKEN = null;
+    private static String TOKEN = null;
 
-    public static boolean login() {
-        if (isLoggedIn()) {
-            LOGGER.fine("Already logged in.");
-            return true;
-        }
-        final String idTokenParameter = HashParser.getIdTokenFromHash(Window.Location.getHash());
-        LOGGER.fine("idTokenParameter=" + idTokenParameter);
-        if (!Admin.isEmpty(idTokenParameter)) {
-            ID_TOKEN = idTokenParameter;
-            return true;
-        }
-        Scheduler.get().scheduleFixedPeriod(new Scheduler.RepeatingCommand() {
-            @Override
-            public boolean execute() {
-                redirectToLoginPage();
-                return false;
-            }
-        }, 500);
-
-        return false;
-    }
-
-    private static void redirectToLoginPage() {
+    public static void redirectToLoginPage() {
         Admin.getService().getConfiguration(new AsyncCallback<Configuration>() {
             @Override
             public void onFailure(Throwable caught) {
@@ -58,8 +36,9 @@ public class LoginController {
         });
     }
 
-    public static boolean logout() {
-        ID_TOKEN = null;
+    public static void logout() {
+        TOKEN = null;
+        RootLayoutPanel.get().clear();
 
         Admin.getService().getConfiguration(new AsyncCallback<Configuration>() {
             @Override
@@ -70,7 +49,7 @@ public class LoginController {
 
             @Override
             public void onSuccess(Configuration result) {
-                String url = result.getLogoutUrl() + ID_TOKEN;
+                String url = result.getLogoutUrl() + TOKEN;
                 LOGGER.fine("Call end session url: " + url);
                 RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url);
                 try {
@@ -81,10 +60,13 @@ public class LoginController {
                 redirectToLoginPage();
             }
         });
-        return true;
     }
 
     public static boolean isLoggedIn() {
-        return !Admin.isEmpty(ID_TOKEN);
+        return !Admin.isEmpty(TOKEN);
+    }
+
+    public static void setToken(String token) {
+        TOKEN = token;
     }
 }
