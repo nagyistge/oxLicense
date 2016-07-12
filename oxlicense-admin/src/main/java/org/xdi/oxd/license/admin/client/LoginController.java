@@ -1,7 +1,5 @@
 package org.xdi.oxd.license.admin.client;
 
-import com.google.gwt.http.client.RequestBuilder;
-import com.google.gwt.http.client.RequestException;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
@@ -54,12 +52,23 @@ public class LoginController {
                 try {
                     String url = result.getLogoutUrl() + tokenHint;
                     LOGGER.fine("Call end session url: " + url);
-                    RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url);
-                    builder.send();
+                    Window.Location.assign(url);
+/**                    RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url);
+                    builder.sendRequest("", new RequestCallback() {
+                        @Override
+                        public void onResponseReceived(Request request, Response response) {
+                            redirectToLoginPage();
+                        }
+
+                        @Override
+                        public void onError(Request request, Throwable exception) {
+
+                        }
+                    });*/
                 } catch (Exception e) {
                     LOGGER.log(Level.SEVERE, e.getMessage(), e);
                 }
-                redirectToLoginPage();
+                //redirectToLoginPage();
             }
         });
     }
