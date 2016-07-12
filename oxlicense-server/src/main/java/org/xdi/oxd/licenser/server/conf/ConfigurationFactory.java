@@ -2,7 +2,6 @@ package org.xdi.oxd.licenser.server.conf;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xdi.oxd.license.client.js.Configuration;
 import org.xdi.util.properties.FileConfiguration;
 
 import java.io.File;
@@ -29,8 +28,6 @@ public class ConfigurationFactory {
     private static final String LDAP_CONFIG_FILE_LOCATION = DIR + LDAP_CONFIG_FILE_NAME;
     public static final String UMA_PROTECT_FILE_LOCATION = DIR + PROTECTION_CONFIGURATION_FILE_NAME;
 
-    private static volatile Configuration CONF = null;
-
     private static class LdapConfHolder {
         private static final FileConfiguration CONF = createLdapConfiguration();
 
@@ -45,10 +42,6 @@ public class ConfigurationFactory {
 
     public static FileConfiguration getLdapConfiguration() {
         return LdapConfHolder.CONF;
-    }
-
-    public static Configuration getConfiguration() {
-        return CONF;
     }
 
 }
