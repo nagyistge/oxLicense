@@ -1,5 +1,6 @@
 package org.xdi.oxd.licenser.server.guice;
 
+import com.google.common.base.Preconditions;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
@@ -10,6 +11,8 @@ import org.gluu.site.ldap.persistence.LdapEntryManager;
 import org.gluu.site.ldap.persistence.exception.LdapMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xdi.ldap.model.Entry;
+import org.xdi.ldap.model.GluuDummyEntry;
 import org.xdi.oxd.license.client.js.Configuration;
 import org.xdi.oxd.license.client.js.JsonFileConfiguration;
 import org.xdi.oxd.licenser.server.KeyPairService;
@@ -59,7 +62,10 @@ public class AppModule extends AbstractModule {
         final FileConfiguration fileConfiguration = ConfigurationFactory.getLdapConfiguration();
         final Properties props = PropertiesDecrypter.decryptProperties(StringEncrypter.instance(ENCRYPTION_KEY), fileConfiguration.getProperties());
         final LDAPConnectionProvider connectionProvider = new LDAPConnectionProvider(props);
-        return new LdapEntryManager(new OperationsFacade(connectionProvider));
+        LdapEntryManager manager = new LdapEntryManager(new OperationsFacade(connectionProvider));
+        Entry base = manager.find(GluuDummyEntry.class, "o=gluu");
+        Preconditions.checkNotNull(base);
+        return manager;
     }
 
     @Provides
