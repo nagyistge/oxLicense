@@ -93,6 +93,7 @@ public class Admin implements EntryPoint {
                             LOGGER.fine("id_token is NOT valid. No rights to access License admin.");
                             RootLayoutPanel.get().clear();
                             RootLayoutPanel.get().add(new Label("Access denied. You are not member of License manager group."));
+                            LoginController.setToken(null);
                         }
                     }
                 });
