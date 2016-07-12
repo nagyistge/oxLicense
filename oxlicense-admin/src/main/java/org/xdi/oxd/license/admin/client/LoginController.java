@@ -22,6 +22,7 @@ public class LoginController {
     private static String TOKEN = null;
 
     public static void redirectToLoginPage() {
+        LOGGER.fine("Redirecting to login page...");
         Admin.getService().getConfiguration(new AsyncCallback<Configuration>() {
             @Override
             public void onFailure(Throwable caught) {
@@ -37,6 +38,7 @@ public class LoginController {
     }
 
     public static void logout() {
+        final String tokenHint = TOKEN;
         TOKEN = null;
         RootLayoutPanel.get().clear();
 
@@ -49,12 +51,12 @@ public class LoginController {
 
             @Override
             public void onSuccess(Configuration result) {
-                String url = result.getLogoutUrl() + TOKEN;
-                LOGGER.fine("Call end session url: " + url);
-                RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url);
                 try {
+                    String url = result.getLogoutUrl() + tokenHint;
+                    LOGGER.fine("Call end session url: " + url);
+                    RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url);
                     builder.send();
-                } catch (RequestException e) {
+                } catch (Exception e) {
                     LOGGER.log(Level.SEVERE, e.getMessage(), e);
                 }
                 redirectToLoginPage();
