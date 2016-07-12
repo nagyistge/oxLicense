@@ -119,7 +119,11 @@ public class AppModule extends AbstractModule {
                     }
                     new LdapStructureChecker(ldapManager, jsonFileConfiguration).checkLdapStructure();
                     return jsonFileConfiguration;
+                } else {
+                    LOG.error("Unable to read configuration from file: " + ConfigurationFactory.CONFIG_FILE_NAME);
                 }
+            } else {
+                LOG.error("Skip configuration creation because createLdapConfigurationEntryIfNotExist is set to false instead of true in "  + ConfigurationFactory.CONFIG_FILE_NAME);
             }
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
