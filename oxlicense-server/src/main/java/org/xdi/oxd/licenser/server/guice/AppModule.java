@@ -111,6 +111,7 @@ public class AppModule extends AbstractModule {
                     final Conf c = new Conf();
                     c.setDn(ConfigurationFactory.getLdapConfiguration().getString("configurationEntryDN"));
                     c.setConf(Util.createJsonMapper().writeValueAsString(jsonFileConfiguration));
+                    LOG.info("Persisting ldap conf: " + c);
                     try {
                         ldapManager.persist(c);
                         LOG.info("Configuration entry is created in LDAP.");
