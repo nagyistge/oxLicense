@@ -1,0 +1,20 @@
+import com.google.common.collect.Lists;
+import junit.framework.Assert;
+import org.testng.annotations.Test;
+import org.xdi.oxd.license.admin.server.IdTokenValidator;
+import org.xdi.oxd.license.admin.shared.IdTokenValidationResult;
+
+/**
+ * @author Yuriy Zabrovarnyy
+ * @version 0.9, 12/07/2016
+ */
+
+public class IdTokenValidatorTest {
+
+    @Test
+    public void test() {
+        String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImNhNTAxOTI5LWEwMGEtNDY5ZS05M2RiLTU0YzVkMGY4MDUzOCJ9.eyJpc3MiOiJodHRwczovL2lkcC5nbHV1Lm9yZyIsImF1ZCI6IkAhMzdCQy5GNDM1LkNDRTMuM0FBQyEwMDAxIUJGMEYuQUZERCEwMDA4ITEwQzAuQjY5MyIsImV4cCI6MTQ2ODMyODU0MiwiaWF0IjoxNDY4MzI0OTQyLCJub25jZSI6Im5vbmNlIiwiYXV0aF90aW1lIjoxNDY4MzI0OTQyLCJjX2hhc2giOiJ4N3diT1IwYXZTTzA5UWlJWW5XS3NRIiwib3hWYWxpZGF0aW9uVVJJIjoiaHR0cHM6Ly9pZHAuZ2x1dS5vcmcvb3hhdXRoL29waWZyYW1lIiwib3hPcGVuSURDb25uZWN0VmVyc2lvbiI6Im9wZW5pZGNvbm5lY3QtMS4wIiwidXNlcl9uYW1lIjoieXVyaXkiLCJlbWFpbCI6Inl1cml5QGdsdXUub3JnIiwiaW51bSI6IkAhMzdCQy5GNDM1LkNDRTMuM0FBQyEwMDAxIUJGMEYuQUZERCEwMDAwITFFODUuQTJEOCIsImZhbWlseV9uYW1lIjoiWmFicm92YXJueXkiLCJnaXZlbl9uYW1lIjoiWXVyaXkiLCJzdWIiOiI3ZDMxNjE0Ny1hNzE4LTRhOGItOGRlMS01NGRmMjNlNTc0YWYifQ.YVqLSPYd-st4NSF2VODAne3oiDnE7Fxvhr7d4J9guficRJ-ByfcgEij9B7g0j6HrNM_rQgoq7VYAyszKqOVFie01G4SpvW8MNfA2vuc4xBOaEjvVGbiUWBlLvCUQ1Chtw_9XHPxbxWSZeivJYg5ZlIDb_WbPa8SnQ19hrr45aHAhWN8vM_lhPmUNznmLzRT0pDnw88-xLixqbIKsU6TZ7aM63ssH2IPNhtXXZE-c8RL6NOaUUaXjVptXTX1ZgNb0Zr_tgBXlMyhVJE3hPMoXPOz_xQ5qpr3zphQPALyC33z4Y_FcQ_hJbKnCAKgEoAQ0NLe1hz-kcj4-XyzN_3_doA";
+        IdTokenValidationResult result = new IdTokenValidator(Lists.newArrayList("yuriy@gluu.org")).hasAccess(token);
+        Assert.assertEquals(result, IdTokenValidationResult.ACCESS_GRANTED);
+    }
+}
