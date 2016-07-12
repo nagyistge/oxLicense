@@ -32,6 +32,16 @@ public class Configuration implements Serializable {
     private String umaPatClientId;
     @JsonProperty(value = "uma-pat-client-secret")
     private String umaPatClientSecret;
+    @JsonProperty(value = "user-access")
+    private List<String> userAccess;
+
+    public List<String> getUserAccess() {
+        return userAccess;
+    }
+
+    public void setUserAccess(List<String> userAccess) {
+        this.userAccess = userAccess;
+    }
 
     public String getUmaPatClientId() {
         return umaPatClientId;
