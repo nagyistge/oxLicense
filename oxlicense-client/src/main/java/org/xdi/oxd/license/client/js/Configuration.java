@@ -1,5 +1,6 @@
 package org.xdi.oxd.license.client.js;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.util.List;
  * @version 0.9, 23/09/2014
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Configuration implements Serializable {
 
     @JsonProperty(value = "base-dn")
