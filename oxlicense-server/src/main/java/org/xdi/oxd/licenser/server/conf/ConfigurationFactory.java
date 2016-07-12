@@ -33,7 +33,7 @@ public class ConfigurationFactory {
 
         private static FileConfiguration createLdapConfiguration() {
             LOG.info("LDAP configuration file location: {}", LDAP_CONFIG_FILE_LOCATION);
-            return new FileConfiguration(ConfigurationFactory.LDAP_CONFIG_FILE_NAME);
+            return new FileConfiguration(ConfigurationFactory.LDAP_CONFIG_FILE_LOCATION);
         }
     }
 
