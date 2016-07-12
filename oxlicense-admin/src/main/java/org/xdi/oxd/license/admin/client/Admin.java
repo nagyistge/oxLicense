@@ -97,8 +97,9 @@ public class Admin implements EntryPoint {
                         }
                     }
                 });
+            } else {
+                LoginController.redirectToLoginPage();
             }
-            LoginController.redirectToLoginPage();
         }
     }
 
