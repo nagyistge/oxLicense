@@ -6,6 +6,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.xdi.oxd.license.client.data.LicenseResponse;
 
+import java.util.List;
+
 /**
  * @author Yuriy Zabrovarnyy
  * @version 0.9, 07/09/2014
@@ -18,9 +20,9 @@ public class LicenseClientTest {
     public void generateLicense(String licenseServerEndpoint) {
         final GenerateWS generateWS = LicenseClient.generateWs(licenseServerEndpoint);
 
-        final LicenseResponse generatedLicense = generateWS.generatePost("id");
+        final List<LicenseResponse> generatedLicense = generateWS.generatePost("id");
 
-        Assert.assertTrue(generatedLicense != null && !Strings.isNullOrEmpty(generatedLicense.getEncodedLicense()));
-        System.out.println(generatedLicense.getEncodedLicense());
+        Assert.assertTrue(generatedLicense != null && !generatedLicense.isEmpty() && !Strings.isNullOrEmpty(generatedLicense.get(0).getEncodedLicense()));
+        System.out.println(generatedLicense.get(0).getEncodedLicense());
     }
 }
