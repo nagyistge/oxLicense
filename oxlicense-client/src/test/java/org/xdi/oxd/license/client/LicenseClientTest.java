@@ -24,7 +24,6 @@ import org.xdi.oxd.license.client.js.LicenseMetadata;
 import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
-import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
@@ -33,7 +32,6 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Date;
-
 import java.util.List;
 
 /**
@@ -64,10 +62,10 @@ public class LicenseClientTest {
         CreateRptService rptService = UmaClientFactory.instance().createRequesterPermissionTokenService(umaConfiguration, trustAllExecutor());
         String rpt = rptService.createRPT("aat", "https://idp.gluu.org").getRpt();
 
-        Response response = generateWS.generate(5, rpt, testMetadata());
+        List<LicenseResponse> list = generateWS.generateLicenseId(5, "Bearer " + rpt, testMetadata());
 
-        Assert.assertTrue(response != null && response.getEntity() != null);
-        System.out.println(response.getEntity());
+        Assert.assertTrue(!list.isEmpty());
+        System.out.println(list);
     }
 
     private static LicenseMetadata testMetadata() {
