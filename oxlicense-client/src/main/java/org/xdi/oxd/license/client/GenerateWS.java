@@ -9,6 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 /**
  * @author Yuriy Zabrovarnyy
@@ -21,11 +22,11 @@ public interface GenerateWS {
     @GET
     @Path("/generate")
     @Produces(MediaType.APPLICATION_JSON)
-    LicenseResponse generateGet(@QueryParam("licenseId") String licenseId);
+    List<LicenseResponse> generateGet(@QueryParam("licenseId") String licenseId);
 
     @POST
     @Path("/generate")
     @Produces(MediaType.APPLICATION_JSON)
-    LicenseResponse generatePost(@FormParam("licenseId") String licenseId);
+    List<LicenseResponse> generatePost(@FormParam("licenseId") String licenseId);
 
 }
