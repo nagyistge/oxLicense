@@ -1,5 +1,6 @@
 package org.xdi.oxd.license.client;
 
+import org.jboss.resteasy.client.ClientExecutor;
 import org.jboss.resteasy.client.ProxyFactory;
 
 /**
@@ -16,8 +17,16 @@ public class LicenseClient {
         return proxy(GenerateWS.class, endpoint);
     }
 
+    public static GenerateWS generateWs(String endpoint, ClientExecutor clientExecutor) {
+        return proxy(GenerateWS.class, endpoint, clientExecutor);
+    }
+
     public static <T> T proxy(Class<T> clientInterface, String endpoint) {
         return ProxyFactory.create(clientInterface, endpoint);
+    }
+
+    public static <T> T proxy(Class<T> clientInterface, String endpoint, ClientExecutor clientExecutor) {
+        return ProxyFactory.create(clientInterface, endpoint, clientExecutor);
     }
 
 }

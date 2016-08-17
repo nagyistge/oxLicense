@@ -1,11 +1,15 @@
 package org.xdi.oxd.license.client;
 
 import org.xdi.oxd.license.client.data.LicenseResponse;
-import org.xdi.oxd.license.client.js.LicenseMetadata;
 
-import javax.ws.rs.*;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
  * @author Yuriy Zabrovarnyy
@@ -18,18 +22,11 @@ public interface GenerateWS {
     @GET
     @Path("/generate")
     @Produces(MediaType.APPLICATION_JSON)
-    LicenseResponse generateGet(@QueryParam("licenseId") String licenseId);
+    List<LicenseResponse> generateGet(@QueryParam("licenseId") String licenseId);
 
     @POST
     @Path("/generate")
     @Produces(MediaType.APPLICATION_JSON)
-    LicenseResponse generatePost(@FormParam("licenseId") String licenseId);
-
-    @POST
-    @Path("/generateLicenseId/{licenseCount}")
-    @Produces(MediaType.APPLICATION_JSON)
-    Response generateLicenseId(@PathParam("licenseCount") int licenseCount,
-                                      @HeaderParam("Authorization") String rpt,
-                                      LicenseMetadata licenseMetadata);
+    List<LicenseResponse> generatePost(@FormParam("licenseId") String licenseId);
 
 }
