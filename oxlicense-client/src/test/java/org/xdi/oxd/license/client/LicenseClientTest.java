@@ -64,7 +64,7 @@ public class LicenseClientTest {
         CreateRptService rptService = UmaClientFactory.instance().createRequesterPermissionTokenService(umaConfiguration, trustAllExecutor());
         String rpt = rptService.createRPT("aat", "https://idp.gluu.org").getRpt();
 
-        Response response = generateWS.generateLicenseId(5, rpt, testMetadata());
+        Response response = generateWS.generate(5, rpt, testMetadata());
 
         Assert.assertTrue(response != null && response.getEntity() != null);
         System.out.println(response.getEntity());
