@@ -9,6 +9,17 @@
                 ]
             }
         ]
+    },
+    {
+        "path":"/rest/metadata",
+        "conditions":[
+            {
+                "httpMethods":["PUT"],
+                "scopes":[
+                    "http://idp.gluu.org/uma/scopes/generateLicenseId"
+                ]
+            }
+        ]
     }
 ]
 }

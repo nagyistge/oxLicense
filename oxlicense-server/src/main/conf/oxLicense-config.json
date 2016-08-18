@@ -6,13 +6,6 @@
     "thread-number-paid-license":100,
     "thread-number-premium-license":1000000,
     "client-id":"@!1111!0008!FF81!2DFF",
-    "license-possible-features":[
-            "gluu_server",
-            "cas",
-            "shib_idp",
-            "mod_ox",
-            "nginx"
-    ],
     "user-access":[
             "yuriy@gluu.org",
             "mike@gluu.org",
