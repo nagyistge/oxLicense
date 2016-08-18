@@ -24,7 +24,7 @@
                 </g:ScrollPanel>
             </g:HTMLPanel>
         </g:center>
-        <g:east size="70">
+        <g:east size="80">
             <a:LicenseCryptDetailsPanel ui:field="detailsPanel"/>
         </g:east>
     </g:DockLayoutPanel>
