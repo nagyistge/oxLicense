@@ -119,7 +119,7 @@ public class Admin implements EntryPoint {
         try {
             return Integer.parseInt(str);
         } catch (Exception e) {
-            return null;
+            return 0;
         }
 
     }
