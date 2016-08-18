@@ -74,6 +74,7 @@ public class LicenseIdMetadataDialog {
 
         setEditMode();
         numberOfLicenseIds.setValue("1");
+        licenseCountLimit.setValue(Integer.toString(LicenseMetadata.DEFAULT_LICENSE_COUNT_LIMIT));
 
         closeButton.addClickHandler(new ClickHandler() {
             @Override
