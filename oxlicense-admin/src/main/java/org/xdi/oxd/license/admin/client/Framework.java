@@ -1,4 +1,4 @@
-package org.xdi.oxd.license.admin.client.framework;
+package org.xdi.oxd.license.admin.client;
 
 import com.google.gwt.user.client.ui.DialogBox;
 

@@ -17,7 +17,7 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import org.xdi.oxd.license.admin.client.Admin;
 import org.xdi.oxd.license.admin.client.SuccessCallback;
-import org.xdi.oxd.license.admin.client.framework.Framework;
+import org.xdi.oxd.license.admin.client.Framework;
 import org.xdi.oxd.license.client.js.LdapLicenseCrypt;
 
 import java.util.List;

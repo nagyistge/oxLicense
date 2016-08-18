@@ -8,7 +8,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.datepicker.client.DateBox;
 import org.xdi.oxd.license.admin.client.Admin;
-import org.xdi.oxd.license.admin.client.framework.Framework;
+import org.xdi.oxd.license.admin.client.Framework;
 import org.xdi.oxd.license.client.js.LdapLicenseId;
 import org.xdi.oxd.license.client.js.LicenseMetadata;
 

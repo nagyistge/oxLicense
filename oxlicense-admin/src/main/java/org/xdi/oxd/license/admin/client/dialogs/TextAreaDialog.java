@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import org.xdi.oxd.license.admin.client.framework.Framework;
+import org.xdi.oxd.license.admin.client.Framework;
 
 /**
  * @author Yuriy Zabrovarnyy
