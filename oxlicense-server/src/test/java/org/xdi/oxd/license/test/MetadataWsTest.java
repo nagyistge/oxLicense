@@ -39,7 +39,6 @@ public class MetadataWsTest {
     public void setUp() {
         LicenseMetadata metadata = new LicenseMetadata();
         metadata.setLicenseType(LicenseType.PAID);
-        metadata.setMultiServer(true);
         metadata.setThreadsCount(9);
         metadata.setLicenseName("Test name");
         metadata.setLicenseCountLimit(4);

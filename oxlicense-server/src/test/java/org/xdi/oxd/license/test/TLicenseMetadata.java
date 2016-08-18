@@ -11,8 +11,7 @@ public class TLicenseMetadata {
 
     public static LicenseMetadata standard() {
         LicenseMetadata metadata = new LicenseMetadata();
-        metadata.setMultiServer(true);
-        metadata.setThreadsCount(2);
+        metadata.setThreadsCount(9999);
         metadata.setLicenseCountLimit(9999);
         return metadata;
     }

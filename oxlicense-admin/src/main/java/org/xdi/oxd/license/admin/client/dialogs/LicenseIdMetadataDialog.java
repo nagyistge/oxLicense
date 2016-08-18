@@ -50,8 +50,6 @@ public class LicenseIdMetadataDialog {
     @UiField
     TextBox threadsCount;
     @UiField
-    CheckBox multiServer;
-    @UiField
     HTML numberOfLicenseIdsLabel;
     @UiField
     TextBox licenseName;
@@ -118,7 +116,6 @@ public class LicenseIdMetadataDialog {
         final LicenseMetadata metadataAsObject = licenseId.getMetadataAsObject();
         if (metadataAsObject != null) {
             threadsCount.setValue(Integer.toString(metadataAsObject.getThreadsCount()));
-            multiServer.setValue(metadataAsObject.isMultiServer());
             licenseName.setValue(metadataAsObject.getLicenseName());
             licenseCountLimit.setValue(Integer.toString(metadataAsObject.getLicenseCountLimit()));
             expirationDate.setValue(metadataAsObject.getExpirationDate());
@@ -177,7 +174,6 @@ public class LicenseIdMetadataDialog {
     	LicenseMetadata licenseMetadata = new LicenseMetadata();
     	licenseMetadata.setLicenseFeatures(selectedLicenseFeatures());
     	licenseMetadata.setLicenseName(licenseName.getValue());
-    	licenseMetadata.setMultiServer(multiServer.getValue());
     	licenseMetadata.setThreadsCount(threadsCount());
     	licenseMetadata.setLicenseCountLimit(licenseCountLimit());
     	licenseMetadata.setExpirationDate(expirationDate.getValue());

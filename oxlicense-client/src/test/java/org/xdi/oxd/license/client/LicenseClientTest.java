@@ -70,7 +70,6 @@ public class LicenseClientTest {
 
     private static LicenseMetadata testMetadata() {
         LicenseMetadata metadata = new LicenseMetadata();
-        metadata.setMultiServer(true);
         metadata.setThreadsCount(2);
         metadata.setLicenseCountLimit(9999);
         metadata.setCreationDate(new Date());

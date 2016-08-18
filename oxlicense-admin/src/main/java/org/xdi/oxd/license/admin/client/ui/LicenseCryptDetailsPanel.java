@@ -74,12 +74,12 @@ public class LicenseCryptDetailsPanel implements IsWidget {
             @Override
             public String getValue(LdapLicenseId object) {
                 final LicenseMetadata m = object.getMetadataAsObject();
-                if (m != null && m.getLicenseType() != null) {
-                    return m.getLicenseType().getValue();
+                if (m != null && m.getLicenseName() != null) {
+                    return m.getLicenseName();
                 }
                 return "";
             }
-        }, "Type");
+        }, "Name");
         licenseIds.addColumn(new TextColumn<LdapLicenseId>() {
             @Override
             public String getValue(LdapLicenseId object) {
@@ -93,22 +93,22 @@ public class LicenseCryptDetailsPanel implements IsWidget {
             @Override
             public String getValue(LdapLicenseId object) {
                 final LicenseMetadata m = object.getMetadataAsObject();
-                if (m != null) {
-                    return Integer.toString(m.getThreadsCount());
+                if (m != null && m.getExpirationDate() != null) {
+                    return m.getExpirationDate().toString();
                 }
                 return "";
             }
-        }, "Threads count");
+        }, "Expiration date");
         licenseIds.addColumn(new TextColumn<LdapLicenseId>() {
             @Override
             public String getValue(LdapLicenseId object) {
                 final LicenseMetadata m = object.getMetadataAsObject();
-                if (m != null) {
-                    return Boolean.toString(m.isMultiServer());
+                if (m != null && m.getCreationDate() != null) {
+                    return m.getCreationDate().toString();
                 }
                 return "";
             }
-        }, "Multi-server");
+        }, "Creation date");
 
     }
 

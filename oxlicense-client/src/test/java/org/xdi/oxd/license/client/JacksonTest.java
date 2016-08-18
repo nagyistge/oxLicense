@@ -19,7 +19,6 @@ public class JacksonTest {
 		LicenseMetadata metadata = new LicenseMetadata();
 		metadata.setCreationDate(new Date());
 		metadata.setLicenseName("testLicense");
-		metadata.setShareIt(true);
 
 		final String json = Jackson.asJson(metadata);
         System.out.println(json);
