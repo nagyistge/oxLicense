@@ -25,8 +25,6 @@ public class MainPanel implements IsWidget {
     @UiField
     DockLayoutPanel rootPanel;
     @UiField
-    CustomerTab customerTab;
-    @UiField
     LicenseCryptTab licenseCryptTab;
     @UiField
     Button logoutButton;
@@ -50,9 +48,5 @@ public class MainPanel implements IsWidget {
 
     public DockLayoutPanel getRootPanel() {
         return rootPanel;
-    }
-
-    public CustomerTab getCustomerTab() {
-        return customerTab;
     }
 }

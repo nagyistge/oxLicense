@@ -16,20 +16,7 @@
             </g:HorizontalPanel>
         </g:north>
         <g:center>
-            <g:TabLayoutPanel barHeight="3" barUnit="EM">
-                <g:tab>
-                    <g:header size='7'>
-                        <b>License Crypt</b>
-                    </g:header>
-                    <a:LicenseCryptTab ui:field="licenseCryptTab"/>
-                </g:tab>
-                <g:tab>
-                    <g:header size='7'>
-                        <b>Customer</b>
-                    </g:header>
-                    <a:CustomerTab ui:field="customerTab"/>
-                </g:tab>
-            </g:TabLayoutPanel>
+            <a:LicenseCryptTab ui:field="licenseCryptTab"/>
         </g:center>
     </g:DockLayoutPanel>
 </ui:UiBinder>

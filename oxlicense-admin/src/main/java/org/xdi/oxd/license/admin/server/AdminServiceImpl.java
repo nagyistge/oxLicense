@@ -11,11 +11,9 @@ import org.xdi.oxd.license.admin.client.service.AdminService;
 import org.xdi.oxd.license.admin.shared.IdTokenValidationResult;
 import org.xdi.oxd.license.client.Jackson;
 import org.xdi.oxd.license.client.js.Configuration;
-import org.xdi.oxd.license.client.js.LdapCustomer;
 import org.xdi.oxd.license.client.js.LdapLicenseCrypt;
 import org.xdi.oxd.license.client.js.LdapLicenseId;
 import org.xdi.oxd.license.client.js.LicenseMetadata;
-import org.xdi.oxd.licenser.server.service.CustomerService;
 import org.xdi.oxd.licenser.server.service.LicenseCryptService;
 import org.xdi.oxd.licenser.server.service.LicenseIdService;
 
@@ -33,8 +31,6 @@ public class AdminServiceImpl extends RemoteServiceServlet implements AdminServi
     private static final Logger LOG = LoggerFactory.getLogger(AdminServiceImpl.class);
 
     @Inject
-    CustomerService customerService;
-    @Inject
     LicenseCryptService licenseCryptService;
     @Inject
     LicenseIdService licenseIdService;
@@ -44,20 +40,6 @@ public class AdminServiceImpl extends RemoteServiceServlet implements AdminServi
     @Override
     public Configuration getConfiguration() {
         return conf;
-    }
-
-    @Override
-    public List<LdapCustomer> getAllCustomers() {
-        return customerService.getAll();
-    }
-
-    @Override
-    public void save(LdapCustomer entity) {
-        if (Strings.isNullOrEmpty(entity.getDn())) {
-            customerService.save(entity);
-        } else {
-            customerService.merge(entity);
-        }
     }
 
     @Override
@@ -130,11 +112,6 @@ public class AdminServiceImpl extends RemoteServiceServlet implements AdminServi
         } else {
             licenseCryptService.merge(entity);
         }
-    }
-
-    @Override
-    public void remove(LdapCustomer entity) {
-        customerService.remove(entity);
     }
 
     @Override
