@@ -17,10 +17,10 @@
         </g:HTML>
         <g:TextBox ui:field="licenseName"/>
 
-        <g:HTML>
+        <g:HTML visible="false">
             <h3>Support features:</h3>
         </g:HTML>
-        <g:ListBox ui:field="licenseFeatures" multipleSelect="true" width="300px" visibleItemCount="6"/>
+        <g:ListBox ui:field="licenseFeatures" multipleSelect="true" width="300px" visibleItemCount="6" visible="false"/>
 
         <g:HTML>
             <h3>Expiration date:</h3>
@@ -32,15 +32,15 @@
         </g:HTML>
         <g:TextBox ui:field="licenseCountLimit"/>
 
-        <g:HTML>
+        <g:HTML visible="false">
             <h3>Multi-server (not supported yet):</h3>
         </g:HTML>
-        <g:CheckBox ui:field="multiServer" checked="false"/>
+        <g:CheckBox ui:field="multiServer" checked="false" visible="false"/>
 
-        <g:HTML>
+        <g:HTML visible="false">
             <h3>Java threads count:</h3>
         </g:HTML>
-        <g:TextBox ui:field="threadsCount"/>
+        <g:TextBox ui:field="threadsCount" visible="false"/>
 
         <g:HTMLPanel>
             <br/>

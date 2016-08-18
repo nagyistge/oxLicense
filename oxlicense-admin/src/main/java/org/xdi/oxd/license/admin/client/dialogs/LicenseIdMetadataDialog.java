@@ -5,19 +5,16 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.datepicker.client.DateBox;
 import org.xdi.oxd.license.admin.client.Admin;
 import org.xdi.oxd.license.admin.client.framework.Framework;
-import org.xdi.oxd.license.client.js.Configuration;
 import org.xdi.oxd.license.client.js.LdapLicenseId;
 import org.xdi.oxd.license.client.js.LicenseMetadata;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -90,19 +87,6 @@ public class LicenseIdMetadataDialog {
                     dialog.hide();
                     onOk();
                 }
-            }
-        });
-
-        Admin.getService().getConfiguration(new AsyncCallback<Configuration>() {
-            @Override
-            public void onFailure(Throwable caught) {
-                LOGGER.log(Level.SEVERE, caught.getMessage(), caught);
-                initFeaturesListBox(FALLBACK_FEATURES);
-            }
-
-            @Override
-            public void onSuccess(Configuration result) {
-                initFeaturesListBox(result.getLicensePossibleFeatures());
             }
         });
     }

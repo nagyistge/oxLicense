@@ -18,18 +18,12 @@ public class Configuration implements Serializable {
     private String baseDn;
     @JsonProperty(value = "op-host")
     private String opHost;
-    @JsonProperty(value = "thread-number-paid-license")
-    private Integer threadNumberPaidLicense;
-    @JsonProperty(value = "thread-number-premium-license")
-    private Integer threadNumberPremiumLicense;
     @JsonProperty(value = "authorize-request")
     private String authorizeRequest;
     @JsonProperty(value = "logout-url")
     private String logoutUrl;
     @JsonProperty(value = "client-id")
     private String clientId;
-    @JsonProperty(value = "license-possible-features")
-    private List<String> licensePossibleFeatures;
     @JsonProperty(value = "uma-pat-client-id")
     private String umaPatClientId;
     @JsonProperty(value = "uma-pat-client-secret")
@@ -69,14 +63,6 @@ public class Configuration implements Serializable {
         this.opHost = opHost;
     }
 
-    public List<String> getLicensePossibleFeatures() {
-        return licensePossibleFeatures;
-    }
-
-    public void setLicensePossibleFeatures(List<String> licensePossibleFeatures) {
-        this.licensePossibleFeatures = licensePossibleFeatures;
-    }
-
     public String getClientId() {
         return clientId;
     }
@@ -112,32 +98,18 @@ public class Configuration implements Serializable {
         this.baseDn = baseDn;
     }
 
-    public Integer getThreadNumberPaidLicense() {
-        return threadNumberPaidLicense;
-    }
-
-    public void setThreadNumberPaidLicense(Integer threadNumberPaidLicense) {
-        this.threadNumberPaidLicense = threadNumberPaidLicense;
-    }
-
-    public Integer getThreadNumberPremiumLicense() {
-        return threadNumberPremiumLicense;
-    }
-
-    public void setThreadNumberPremiumLicense(Integer threadNumberPremiumLicense) {
-        this.threadNumberPremiumLicense = threadNumberPremiumLicense;
-    }
-
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         sb.append("Configuration");
         sb.append("{baseDn='").append(baseDn).append('\'');
-        sb.append(", threadNumberPaidLicense=").append(threadNumberPaidLicense);
-        sb.append(", threadNumberPremiumLicense=").append(threadNumberPremiumLicense);
-        sb.append(", opHost=").append(opHost);
-        sb.append(", umaPatClientId=").append(umaPatClientId);
-        sb.append(", umaPatClientSecret=").append(umaPatClientSecret);
+        sb.append(", opHost='").append(opHost).append('\'');
+        sb.append(", authorizeRequest='").append(authorizeRequest).append('\'');
+        sb.append(", logoutUrl='").append(logoutUrl).append('\'');
+        sb.append(", clientId='").append(clientId).append('\'');
+        sb.append(", umaPatClientId='").append(umaPatClientId).append('\'');
+        sb.append(", umaPatClientSecret='").append(umaPatClientSecret).append('\'');
+        sb.append(", userAccess=").append(userAccess);
         sb.append('}');
         return sb.toString();
     }
