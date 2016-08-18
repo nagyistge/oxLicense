@@ -55,6 +55,7 @@ public class MetadataWS {
             LdapLicenseId licenseId = validationService.getLicenseId(metadata.getLicenseId());
             licenseId.setMetadataAsObject(metadata);
             licenseId.setMetadata(Jackson.asJsonSilently(metadata));
+            licenseId.setForceLicenseUpdate(true);
             licenseIdService.merge(licenseId);
 
             LOG.debug("LicenseId: " + metadata.getLicenseId() + " updated.");
