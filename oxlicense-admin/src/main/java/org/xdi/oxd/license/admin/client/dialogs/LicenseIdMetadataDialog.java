@@ -46,7 +46,7 @@ public class LicenseIdMetadataDialog {
     @UiField
     Button closeButton;
     @UiField
-    TextBox numberOfLicenseIds;
+    TextBox numberOfLicenseIds ;
     @UiField
     TextBox threadsCount;
     @UiField
@@ -71,6 +71,9 @@ public class LicenseIdMetadataDialog {
 
         dialog = Framework.createDialogBox("License Id configuration");
         dialog.setWidget(dialogContent);
+
+        setEditMode();
+        numberOfLicenseIds.setValue("1");
 
         closeButton.addClickHandler(new ClickHandler() {
             @Override
@@ -127,7 +130,6 @@ public class LicenseIdMetadataDialog {
                     licenseFeatures.setItemSelected(i, true);
                 }
             }
-
         }
     }
 
@@ -152,14 +154,14 @@ public class LicenseIdMetadataDialog {
             showError("Unable to parse number of license count limit.");
             return false;
         }
-        if (threadsCount == null || threadsCount < 0) {
-            showError("Unable to parse number of threads.");
-            return false;
-        }
-        if (selectedLicenseFeatures == null || selectedLicenseFeatures.isEmpty()) {
-            showError("Please select any feature for license.");
-            return false;
-        }
+//        if (threadsCount == null || threadsCount < 0) {
+//            showError("Unable to parse number of threads.");
+//            return false;
+//        }
+//        if (selectedLicenseFeatures == null || selectedLicenseFeatures.isEmpty()) {
+//            showError("Please select any feature for license.");
+//            return false;
+//        }
 
         final String licenseName = this.licenseName.getValue();
         if (licenseName == null || licenseName.isEmpty()) {

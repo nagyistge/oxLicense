@@ -25,7 +25,7 @@ public class LicenseMetadata implements Serializable {
     @JsonProperty(value = "license_id")
     private String licenseId;
     @JsonProperty(value = "license_name")
-    private String licenseName;
+    private String licenseName = "";
     @JsonProperty(value = "license_features")
     private List<String> licenseFeatures = new ArrayList<String>();
     @JsonProperty(value = "creation_date")
