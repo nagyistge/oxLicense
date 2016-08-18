@@ -7,7 +7,6 @@ import org.testng.annotations.Test;
 import org.xdi.oxd.license.client.js.LdapLicenseCrypt;
 import org.xdi.oxd.license.client.js.LdapLicenseId;
 import org.xdi.oxd.license.client.js.LicenseMetadata;
-import org.xdi.oxd.license.client.js.LicenseType;
 import org.xdi.oxd.licenser.server.service.LicenseCryptService;
 import org.xdi.oxd.licenser.server.service.LicenseIdService;
 import org.xdi.oxd.licenser.server.ws.MetadataWS;
@@ -16,8 +15,7 @@ import javax.ws.rs.WebApplicationException;
 import java.io.IOException;
 import java.util.Date;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.*;
 
 /**
  * Created by yuriy on 8/16/2015.
@@ -38,7 +36,6 @@ public class MetadataWsTest {
     @BeforeClass
     public void setUp() {
         LicenseMetadata metadata = new LicenseMetadata();
-        metadata.setLicenseType(LicenseType.PAID);
         metadata.setThreadsCount(9);
         metadata.setLicenseName("Test name");
         metadata.setLicenseCountLimit(4);

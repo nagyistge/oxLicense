@@ -20,8 +20,6 @@ public class LicenseMetadata implements Serializable {
 
     @JsonProperty(value = "thread_count")
     private int threadsCount = DEFAULT_THREAD_COUNT;
-    @JsonProperty(value = "license_type")
-    private LicenseType licenseType;
     @JsonProperty(value = "license_id")
     private String licenseId;
     @JsonProperty(value = "license_name")
@@ -60,14 +58,6 @@ public class LicenseMetadata implements Serializable {
 
     public void setLicenseName(String licenseName) {
         this.licenseName = licenseName;
-    }
-
-    public LicenseType getLicenseType() {
-        return licenseType;
-    }
-
-    public void setLicenseType(LicenseType licenseType) {
-        this.licenseType = licenseType;        
     }
 
     public int getThreadsCount() {
@@ -109,7 +99,6 @@ public class LicenseMetadata implements Serializable {
         sb.append("{creationDate=").append(creationDate);
         sb.append(", licenseId=").append(licenseId);
         sb.append(", threadsCount=").append(threadsCount);
-        sb.append(", licenseType=").append(licenseType);
         sb.append(", licenseName='").append(licenseName).append('\'');
         sb.append(", licenseFeatures=").append(licenseFeatures);
         sb.append(", expirationDate=").append(expirationDate);
