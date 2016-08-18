@@ -12,6 +12,7 @@ import java.util.Date;
 
 public class LicenseGeneratorInput {
 
+    private Date createdAt;
     private Date expiredAt;
     private String customerName;
     private byte[] publicKey;
@@ -28,6 +29,14 @@ public class LicenseGeneratorInput {
         setPrivateKey(BaseEncoding.base64().decode(crypt.getPrivateKey()));
         setPublicKey(BaseEncoding.base64().decode(crypt.getPublicKey()));
         return this;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Date getExpiredAt() {

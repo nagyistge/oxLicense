@@ -163,6 +163,10 @@ public class LicenseIdMetadataDialog {
 //            showError("Please select any feature for license.");
 //            return false;
 //        }
+        if (expirationDate.getValue() == null) {
+            showError("Expiration date is not set.");
+            return false;
+        }
 
         final String licenseName = this.licenseName.getValue();
         if (licenseName == null || licenseName.isEmpty()) {

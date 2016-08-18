@@ -70,6 +70,7 @@ public class GenerateLicenseWS {
             }
 
             LicenseGeneratorInput input = new LicenseGeneratorInput();
+            input.setCreatedAt(now);
             input.setExpiredAt(expiredAt);
             input.setCrypt(licenseCrypt);
             input.setMetadata(licenseId.getMetadata());
@@ -104,18 +105,7 @@ public class GenerateLicenseWS {
     }
 
     private Date licenseExpirationDate(LdapLicenseId licenseId) {
-        if (licenseId != null && licenseId.getMetadataAsObject() != null && licenseId.getMetadataAsObject().getLicenseType() != null) {
-            switch (licenseId.getMetadataAsObject().getLicenseType()) {
-                case FREE:
-                case PAID:
-                case PREMIUM:
-                    return new Date(Long.MAX_VALUE); // unlimited
-                case SHAREWARE:
-                    return new Date(new Date().getTime() + TimeUnit.DAYS.toMillis(30));
-            }
-
-        }
-        return new Date(new Date().getTime() + TimeUnit.DAYS.toMillis(300));
+        return new Date(new Date().getTime() + TimeUnit.DAYS.toMillis(30));
     }
 
     public String generatedLicenseAsString(String licenseId, int count) {

@@ -66,6 +66,7 @@ public class FullTest {
         input.setPrivatePassword(privatePassword);
         input.setPublicPassword(publicPassword);
         input.setExpiredAt(new Date(new Date().getTime() + TimeUnit.DAYS.toMillis(1)) );
+        input.setCreatedAt(new Date());
 
         LicenseGenerator licenseGenerator = new LicenseGenerator();
         final SignedLicense signedLicenseObject = licenseGenerator.generateSignedLicense(input);

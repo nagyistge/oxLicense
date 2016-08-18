@@ -38,6 +38,7 @@ public class LicenseGenerator {
                 withSubject(input.getMetadata()).
                 withHolder("Gluu").
                 withGoodBeforeDate(input.getExpiredAt().getTime()).
+                withIssueDate(input.getCreatedAt().getTime()).
                 build();
 
         return licenseCreator.signLicense(license, input.getLicensePassword().toCharArray());
