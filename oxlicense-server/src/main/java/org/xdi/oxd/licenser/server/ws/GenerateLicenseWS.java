@@ -87,7 +87,6 @@ public class GenerateLicenseWS {
     private void updateLicenseId(LdapLicenseId licenseId) {
         int licensesIssuedCount = licenseId.getLicensesIssuedCount() + 1;
         licenseId.setLicensesIssuedCount(licensesIssuedCount);
-        licenseId.setForceLicenseUpdate(false);
         licenseIdService.merge(licenseId);
     }
 

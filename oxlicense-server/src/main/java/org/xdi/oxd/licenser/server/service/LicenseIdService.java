@@ -137,7 +137,6 @@ public class LicenseIdService {
         entity.setLicenseCryptDN(cryptDN);
         entity.setMetadata(Jackson.asJsonSilently(metadata));
         entity.setMetadataAsObject(metadata);
-        entity.setForceLicenseUpdate(true);
         return entity;
     }
 

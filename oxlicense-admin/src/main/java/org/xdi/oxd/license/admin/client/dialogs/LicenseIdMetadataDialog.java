@@ -192,7 +192,6 @@ public class LicenseIdMetadataDialog {
 
     public LdapLicenseId getLicenseId() {
         if (isEditMode) {
-            licenseId.setForceLicenseUpdate(true);
             licenseId.setMetadataAsObject(licenseMetadata());
         }
         return licenseId;

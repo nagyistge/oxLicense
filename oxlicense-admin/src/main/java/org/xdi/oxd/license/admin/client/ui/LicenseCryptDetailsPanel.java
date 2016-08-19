@@ -112,13 +112,13 @@ public class LicenseCryptDetailsPanel implements IsWidget {
         licenseIds.addColumn(new TextColumn<LdapLicenseId>() {
             @Override
             public String getValue(LdapLicenseId object) {
-                Boolean m = object.getForceLicenseUpdate();
-                if (m != null && m) {
-                    return "yes";
+                final LicenseMetadata m = object.getMetadataAsObject();
+                if (m != null && m.getProduct() != null) {
+                    return m.getProduct();
                 }
-                return "no";
+                return "";
             }
-        }, "Forced license update");
+        }, "Product");
 
     }
 
