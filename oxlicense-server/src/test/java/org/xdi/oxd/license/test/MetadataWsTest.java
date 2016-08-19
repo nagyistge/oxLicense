@@ -36,7 +36,7 @@ public class MetadataWsTest {
     @BeforeClass
     public void setUp() {
         LicenseMetadata metadata = new LicenseMetadata();
-        metadata.setThreadsCount(9);
+        metadata.setProduct("oxd");
         metadata.setLicenseName("Test name");
         metadata.setLicenseCountLimit(4);
 

@@ -11,7 +11,7 @@ public class TLicenseMetadata {
 
     public static LicenseMetadata standard() {
         LicenseMetadata metadata = new LicenseMetadata();
-        metadata.setThreadsCount(9999);
+        metadata.setProduct("oxd");
         metadata.setLicenseCountLimit(9999);
         return metadata;
     }

@@ -5,17 +5,19 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DateBox;
 import org.xdi.oxd.license.admin.client.Admin;
 import org.xdi.oxd.license.admin.client.Framework;
 import org.xdi.oxd.license.client.js.LdapLicenseId;
 import org.xdi.oxd.license.client.js.LicenseMetadata;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Logger;
+import org.xdi.oxd.license.client.js.Product;
 
 /**
  * @author Yuriy Zabrovarnyy
@@ -24,16 +26,10 @@ import java.util.logging.Logger;
 
 public class LicenseIdMetadataDialog {
 
-    private static final Logger LOGGER = Logger.getLogger(LicenseIdMetadataDialog.class.getName());
-
     private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 
     interface MyUiBinder extends UiBinder<Widget, LicenseIdMetadataDialog> {
     }
-
-    private static final List<String> FALLBACK_FEATURES = Arrays.asList(
-            "gluu_server", "cas", "shib_idp", "mod_ox", "nginx"
-    );
 
     private final DialogBox dialog;
 
@@ -48,13 +44,11 @@ public class LicenseIdMetadataDialog {
     @UiField
     TextBox numberOfLicenseIds ;
     @UiField
-    TextBox threadsCount;
-    @UiField
     HTML numberOfLicenseIdsLabel;
     @UiField
     TextBox licenseName;
     @UiField
-    ListBox licenseFeatures;
+    ListBox product;
     @UiField
     DateBox expirationDate;
     @UiField
@@ -76,6 +70,10 @@ public class LicenseIdMetadataDialog {
         numberOfLicenseIds.setValue("1");
         licenseCountLimit.setValue(Integer.toString(LicenseMetadata.DEFAULT_LICENSE_COUNT_LIMIT));
 
+        for (Product p : Product.values()) {
+            this.product.addItem(p.getValue(), p.getValue());
+        }
+
         closeButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
@@ -93,22 +91,6 @@ public class LicenseIdMetadataDialog {
         });
     }
 
-    private void initFeaturesListBox(List<String> features) {
-        if (features != null) {
-            for (String feature : features) {
-                licenseFeatures.addItem(feature, feature);
-            }
-        }
-        setEditMode();
-    }
-
-//    private void setThreadsCount() {
-//        final LicenseType type = licenseType();
-//        if (type != null) {
-//            this.threadsCount.setValue(Integer.toString(type.getThreadsCount()));
-//        }
-//    }
-
     private void setEditMode() {
         if (!isEditMode) {
             return;
@@ -119,19 +101,20 @@ public class LicenseIdMetadataDialog {
 
         final LicenseMetadata metadataAsObject = licenseId.getMetadataAsObject();
         if (metadataAsObject != null) {
-            threadsCount.setValue(Integer.toString(metadataAsObject.getThreadsCount()));
+            product.setSelectedIndex(productIndex(metadataAsObject.getProduct()));
             licenseName.setValue(metadataAsObject.getLicenseName());
             licenseCountLimit.setValue(Integer.toString(metadataAsObject.getLicenseCountLimit()));
             expirationDate.setValue(metadataAsObject.getExpirationDate());
+        }
+    }
 
-            // select license features
-            for (int i = 0; i < licenseFeatures.getItemCount(); i++) {
-                final String valueByIndex = licenseFeatures.getValue(i);
-                if (metadataAsObject.getLicenseFeatures().contains(valueByIndex)) {
-                    licenseFeatures.setItemSelected(i, true);
-                }
+    private int productIndex(String product) {
+        for (int i = 0; i < this.product.getItemCount(); i++) {
+            if (this.product.getValue(i).equals(product)) {
+                return i;
             }
         }
+        return 0;
     }
 
     private void showError(String message) {
@@ -139,13 +122,15 @@ public class LicenseIdMetadataDialog {
         errorMessage.setHTML("<span style='color:red;'>" + message + "</span>");
     }
 
+    public String getSelectedProduct() {
+        return this.product.getValue(this.product.getSelectedIndex());
+    }
+
     private boolean validate() {
         errorMessage.setVisible(false);
 
         final Integer numberOfLicenses = numberOfLicenses();
-        final Integer threadsCount = threadsCount();
         final Integer licenseCountLimit = licenseCountLimit();
-        final List<String> selectedLicenseFeatures = selectedLicenseFeatures();
 
         if ((numberOfLicenses == null || numberOfLicenses <= 0) && !isEditMode) {
             showError("Unable to parse number of licenses. Please enter integer more then zero.");
@@ -155,14 +140,10 @@ public class LicenseIdMetadataDialog {
             showError("Unable to parse number of license count limit.");
             return false;
         }
-//        if (threadsCount == null || threadsCount < 0) {
-//            showError("Unable to parse number of threads.");
-//            return false;
-//        }
-//        if (selectedLicenseFeatures == null || selectedLicenseFeatures.isEmpty()) {
-//            showError("Please select any feature for license.");
-//            return false;
-//        }
+        if (Product.fromValue(getSelectedProduct()) == null) {
+            showError("Product '" + getSelectedProduct() + "' is not supported. Supported products: " + Product.supportedProductsString());
+            return false;
+        }
         if (expirationDate.getValue() == null) {
             showError("Expiration date is not set.");
             return false;
@@ -179,33 +160,17 @@ public class LicenseIdMetadataDialog {
 
     public LicenseMetadata licenseMetadata() {
     	LicenseMetadata licenseMetadata = new LicenseMetadata();
-    	licenseMetadata.setLicenseFeatures(selectedLicenseFeatures());
+    	licenseMetadata.setProduct(getSelectedProduct());
     	licenseMetadata.setLicenseName(licenseName.getValue());
-    	licenseMetadata.setThreadsCount(threadsCount());
+    	licenseMetadata.setProduct(getSelectedProduct());
     	licenseMetadata.setLicenseCountLimit(licenseCountLimit());
     	licenseMetadata.setExpirationDate(expirationDate.getValue());
     	
     	return licenseMetadata;
     }
 
-    public List<String> selectedLicenseFeatures() {
-        List<String> selectedItems = new ArrayList<String>();
-
-        for (int i = 0; i < licenseFeatures.getItemCount(); i++) {
-            if (licenseFeatures.isItemSelected(i)) {
-                selectedItems.add(licenseFeatures.getValue(i));
-            }
-        }
-
-        return selectedItems;
-    }
-
     public Integer numberOfLicenses() {
         return Admin.parse(numberOfLicenseIds.getValue());
-    }
-
-    public Integer threadsCount() {
-        return Admin.parse(threadsCount.getValue());
     }
 
     public Integer licenseCountLimit() {

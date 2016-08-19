@@ -10,6 +10,7 @@
             "yuriy@gluu.org",
             "mike@gluu.org",
             "will@gluu.org",
+            "isman@gluu.org",
             "vlad@gluu.org"
     ],
     "authorize-request":"https://idp.gluu.org/oxauth/authorize.seam?scope=openid+profile+address+email&response_type=code+id_token&nonce=nonce&redirect_uri=https%3A%2F%2Fseed.gluu.org%2FoxLicenseAdmin&auth_mode=duo&client_id= %40!1111!0008!FF81!2DFF",

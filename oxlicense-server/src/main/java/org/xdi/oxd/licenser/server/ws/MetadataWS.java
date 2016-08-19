@@ -51,6 +51,7 @@ public class MetadataWS {
     public Response update(LicenseMetadata metadata) {
         try {
             LOG.debug("Updating licenseId: " + metadata.getLicenseId() + ", metadata: " + metadata);
+            validationService.validate(metadata);
 
             LdapLicenseId licenseId = validationService.getLicenseId(metadata.getLicenseId());
             licenseId.setMetadataAsObject(metadata);

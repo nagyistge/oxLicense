@@ -5,6 +5,8 @@ import com.google.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xdi.oxd.license.client.js.LdapLicenseId;
+import org.xdi.oxd.license.client.js.LicenseMetadata;
+import org.xdi.oxd.license.client.js.Product;
 
 import javax.ws.rs.WebApplicationException;
 
@@ -31,5 +33,14 @@ public class ValidationService {
             LOG.error(e.getMessage(), e);
         }
         throw new WebApplicationException(ErrorService.response("Failed to find License ID with id: " + licenseId));
+    }
+
+    public void validate(LicenseMetadata metadata) {
+        if (Product.fromValue(metadata.getProduct()) == null) {
+            throw new WebApplicationException(ErrorService.response("'product' attribute is not valid or empty. Supported product values are: " + Product.supportedProductsString()));
+        }
+        if (metadata.getExpirationDate() == null) {
+            throw new WebApplicationException(ErrorService.response("'creation_time' is not set"));
+        }
     }
 }

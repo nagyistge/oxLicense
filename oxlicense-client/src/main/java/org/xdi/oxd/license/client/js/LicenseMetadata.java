@@ -4,9 +4,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author Yuriy Zabrovarnyy
@@ -15,17 +13,14 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LicenseMetadata implements Serializable {
 
-	public static final int DEFAULT_THREAD_COUNT = 9999;
     public static final int DEFAULT_LICENSE_COUNT_LIMIT = 9999;
 
-    @JsonProperty(value = "thread_count")
-    private int threadsCount = DEFAULT_THREAD_COUNT;
+    @JsonProperty(value = "product")
+    private String product;
     @JsonProperty(value = "license_id")
     private String licenseId;
     @JsonProperty(value = "license_name")
     private String licenseName = "";
-    @JsonProperty(value = "license_features")
-    private List<String> licenseFeatures = new ArrayList<String>();
     @JsonProperty(value = "creation_date")
     private Date creationDate = new Date();
     @JsonProperty(value = "expiration_date")
@@ -44,14 +39,6 @@ public class LicenseMetadata implements Serializable {
         this.licenseId = licenseId;
     }
 
-    public List<String> getLicenseFeatures() {
-        return licenseFeatures;
-    }
-
-    public void setLicenseFeatures(List<String> licenseFeatures) {
-        this.licenseFeatures = licenseFeatures;
-    }
-
     public String getLicenseName() {
         return licenseName;
     }
@@ -60,12 +47,12 @@ public class LicenseMetadata implements Serializable {
         this.licenseName = licenseName;
     }
 
-    public int getThreadsCount() {
-        return threadsCount;
+    public String getProduct() {
+        return product;
     }
 
-    public void setThreadsCount(int threadsCount) {
-        this.threadsCount = threadsCount;
+    public void setProduct(String product) {
+        this.product = product;
     }
 
     public Date getCreationDate() {
@@ -98,9 +85,8 @@ public class LicenseMetadata implements Serializable {
         sb.append("LicenseMetadata");
         sb.append("{creationDate=").append(creationDate);
         sb.append(", licenseId=").append(licenseId);
-        sb.append(", threadsCount=").append(threadsCount);
+        sb.append(", product=").append(product);
         sb.append(", licenseName='").append(licenseName).append('\'');
-        sb.append(", licenseFeatures=").append(licenseFeatures);
         sb.append(", expirationDate=").append(expirationDate);
         sb.append(", licenseCountLimit=").append(licenseCountLimit);
         sb.append('}');

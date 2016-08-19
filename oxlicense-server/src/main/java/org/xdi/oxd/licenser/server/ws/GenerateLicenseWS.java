@@ -138,6 +138,8 @@ public class GenerateLicenseWS {
     @Path("/generateLicenseId/{licenseCount}")
     @Produces({MediaType.APPLICATION_JSON})
     public Response generateLicenseIdPost(@PathParam("licenseCount") int licenseCount, LicenseMetadata licenseMetadata) {
+        validationService.validate(licenseMetadata);
+
         LdapLicenseCrypt crypt = licenseCryptService.generate();
                licenseCryptService.save(crypt);
         List<LdapLicenseId> licenseIdList = licenseIdService.generateLicenseIdsWithPersistence(licenseCount, crypt, licenseMetadata);

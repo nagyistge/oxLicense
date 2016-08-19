@@ -70,7 +70,7 @@ public class LicenseClientTest {
 
     private static LicenseMetadata testMetadata() {
         LicenseMetadata metadata = new LicenseMetadata();
-        metadata.setThreadsCount(2);
+        metadata.setProduct("oxd");
         metadata.setLicenseCountLimit(9999);
         metadata.setCreationDate(new Date());
         return metadata;
