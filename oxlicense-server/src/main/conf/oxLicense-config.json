@@ -3,8 +3,6 @@
     "op-host":"https://idp.gluu.org",
     "uma-pat-client-id":"@1111",
     "uma-pat-client-secret":"secret",
-    "thread-number-paid-license":100,
-    "thread-number-premium-license":1000000,
     "client-id":"@!1111!0008!FF81!2DFF",
     "user-access":[
             "yuriy@gluu.org",
