@@ -20,7 +20,7 @@
         <g:HTML>
             <h3>Product:</h3>
         </g:HTML>
-        <g:ListBox ui:field="product" multipleSelect="false" width="300px" visibleItemCount="3"/>
+        <g:ListBox ui:field="product" multipleSelect="false" width="300px"/>
 
         <g:HTML>
             <h3>Expiration date:</h3>
