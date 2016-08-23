@@ -66,13 +66,14 @@ public class LicenseIdMetadataDialog {
         dialog = Framework.createDialogBox("License Id configuration");
         dialog.setWidget(dialogContent);
 
-        setEditMode();
         numberOfLicenseIds.setValue("1");
         licenseCountLimit.setValue(Integer.toString(LicenseMetadata.DEFAULT_LICENSE_COUNT_LIMIT));
 
         for (Product p : Product.values()) {
             this.product.addItem(p.getValue(), p.getValue());
         }
+
+        setEditMode();
 
         closeButton.addClickHandler(new ClickHandler() {
             @Override
