@@ -1,6 +1,7 @@
 package org.xdi.oxd.license.client;
 
 import org.xdi.oxd.license.client.data.LicenseResponse;
+import org.xdi.oxd.license.client.js.LicenseIdItem;
 import org.xdi.oxd.license.client.js.LicenseMetadata;
 
 import javax.ws.rs.*;
@@ -28,6 +29,7 @@ public interface GenerateWS {
     @POST
     @Path("/generateLicenseId/{licenseCount}")
     @Produces(MediaType.APPLICATION_JSON)
-    List<LicenseResponse> generateLicenseId(@PathParam("licenseCount") int licenseCount, @HeaderParam("Authorization") String authorization, LicenseMetadata licenseMetadata);
+    @Consumes(MediaType.APPLICATION_JSON)
+    List<LicenseIdItem> generateLicenseId(@PathParam("licenseCount") int licenseCount, @HeaderParam("Authorization") String authorization, LicenseMetadata licenseMetadata);
 
 }
