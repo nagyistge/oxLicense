@@ -69,7 +69,9 @@ public class MetadataWS {
     public LicenseMetadata metadata(String licenseIdStr) {
         try {
             LdapLicenseId licenseId = validationService.getLicenseId(licenseIdStr);
-            return Jackson.createJsonMapper().readValue(licenseId.getMetadata(), LicenseMetadata.class);
+            LicenseMetadata metadata = Jackson.createJsonMapper().readValue(licenseId.getMetadata(), LicenseMetadata.class);
+            metadata.setLicenseId(licenseId.getLicenseId());
+            return metadata;
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
             throw new WebApplicationException(ErrorService.response(e.getMessage()));

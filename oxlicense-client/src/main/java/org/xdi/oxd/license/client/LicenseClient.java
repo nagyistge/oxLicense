@@ -21,6 +21,14 @@ public class LicenseClient {
         return proxy(GenerateWS.class, endpoint, clientExecutor);
     }
 
+    public static MetadataWS metadataWs(String endpoint) {
+        return proxy(MetadataWS.class, endpoint);
+    }
+
+    public static MetadataWS metadataWs(String endpoint, ClientExecutor clientExecutor) {
+        return proxy(MetadataWS.class, endpoint, clientExecutor);
+    }
+
     public static <T> T proxy(Class<T> clientInterface, String endpoint) {
         return ProxyFactory.create(clientInterface, endpoint);
     }
