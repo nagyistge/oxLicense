@@ -1,5 +1,6 @@
-package org.xdi.oxd.licenser.server.model;
+package org.xdi.oxd.license.client.js;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.io.Serializable;
  * @version 0.9, 24/06/2016
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LicenseIdItem implements Serializable {
 
     @JsonProperty(value = "license_id")
