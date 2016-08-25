@@ -63,10 +63,7 @@ public class RequestLicenseId {
         String aat = obtainAat();
         String gat = obtainGat(aat);
 
-        final GenerateWS generateWS = LicenseClient.generateWs(LICENSE_SERVER_ENDPOINT, executor());
-        final MetadataWS metadataWS = LicenseClient.metadataWs(LICENSE_SERVER_ENDPOINT, executor());
-
-        List<LicenseIdItem> list = generateWS.generateLicenseId(3, "Bearer " + gat, testMetadata());
+        List<LicenseIdItem> list = generateWS().generateLicenseId(3, "Bearer " + gat, testMetadata());
 
         assertTrue(!list.isEmpty());
         System.out.println("Generated License IDs:");
@@ -75,19 +72,27 @@ public class RequestLicenseId {
         LicenseIdItem firstLicenseId = list.get(0);
         System.out.println("First license id: " + firstLicenseId.getLicenseId());
 
-        LicenseMetadata metadata = metadataWS.get(firstLicenseId.getLicenseId());
+        LicenseMetadata metadata = metadataWS().get(firstLicenseId.getLicenseId());
         System.out.println("Metadata of license id (" + firstLicenseId.getLicenseId() + ") : " + metadata);
         assertTrue(metadata.getProduct().equals("oxd"));
 
         metadata.setProduct("de");
 
-        Response update = metadataWS.update("Bearer " + gat, metadata);
+        Response update = metadataWS().update("Bearer " + gat, metadata);
         assertTrue(update.getStatus() == 200);
 
-        LicenseMetadata updatedMetadata = metadataWS.get(firstLicenseId.getLicenseId());
+        LicenseMetadata updatedMetadata = metadataWS().get(firstLicenseId.getLicenseId());
         System.out.println("Updated metadata of license id (" + firstLicenseId.getLicenseId() + ") : " + updatedMetadata);
         assertTrue(updatedMetadata.getProduct().equals("de")); // metadata is updated !
 
+    }
+
+    private static GenerateWS generateWS() {
+        return LicenseClient.generateWs(LICENSE_SERVER_ENDPOINT, executor());
+    }
+
+    private static MetadataWS metadataWS() {
+        return LicenseClient.metadataWs(LICENSE_SERVER_ENDPOINT, executor());
     }
 
     private static LicenseMetadata testMetadata() {
