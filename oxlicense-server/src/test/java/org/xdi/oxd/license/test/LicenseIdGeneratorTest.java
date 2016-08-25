@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
 import org.xdi.oxd.license.client.js.LicenseMetadata;
-import org.xdi.oxd.licenser.server.model.LicenseIdItem;
+import org.xdi.oxd.license.client.js.LicenseIdItem;
 import org.xdi.oxd.licenser.server.ws.GenerateLicenseWS;
 
 import javax.ws.rs.core.Response;

@@ -7,9 +7,7 @@ package org.xdi.oxd.license.client.data;
 
 public enum ErrorType {
     LICENSE_ID_EMPTY("empty_license_id", "license_id parameter is not set"),
-    LICENSE_ID_INVALID("invalid_license_id", "license_id is invalid (expired or does not exist on license server)"),
-    CSR_EMPTY("empty_csr", "CSR is empty or otherwise invalid."),
-    EJB_CA_FAILED_TO_SIGN_CSR("ejb_ca_failed_to_sign_csr", "EJB CA failed to sign csr.");
+    LICENSE_ID_INVALID("invalid_license_id", "license_id is invalid (expired or does not exist on license server)");
 
     private String error;
     private String errorDescription;

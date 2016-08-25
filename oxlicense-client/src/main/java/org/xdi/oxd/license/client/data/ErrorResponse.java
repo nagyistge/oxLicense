@@ -1,5 +1,6 @@
 package org.xdi.oxd.license.client.data;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.io.Serializable;
@@ -9,9 +10,8 @@ import java.io.Serializable;
  * @version 0.9, 09/11/2014
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ErrorResponse implements Serializable {
-
-    public static final ErrorResponse EMPTY = new ErrorResponse();
 
     @JsonProperty(value = "error")
     private String error;

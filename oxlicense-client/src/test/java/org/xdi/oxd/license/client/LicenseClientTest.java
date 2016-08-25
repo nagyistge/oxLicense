@@ -19,6 +19,7 @@ import org.xdi.oxauth.client.uma.CreateRptService;
 import org.xdi.oxauth.client.uma.UmaClientFactory;
 import org.xdi.oxauth.model.uma.UmaConfiguration;
 import org.xdi.oxd.license.client.data.LicenseResponse;
+import org.xdi.oxd.license.client.js.LicenseIdItem;
 import org.xdi.oxd.license.client.js.LicenseMetadata;
 
 import javax.net.ssl.SSLException;
@@ -62,7 +63,7 @@ public class LicenseClientTest {
         CreateRptService rptService = UmaClientFactory.instance().createRequesterPermissionTokenService(umaConfiguration, trustAllExecutor());
         String rpt = rptService.createRPT("aat", "https://idp.gluu.org").getRpt();
 
-        List<LicenseResponse> list = generateWS.generateLicenseId(5, "Bearer " + rpt, testMetadata());
+        List<LicenseIdItem> list = generateWS.generateLicenseId(5, "Bearer " + rpt, testMetadata());
 
         Assert.assertTrue(!list.isEmpty());
         System.out.println(list);
