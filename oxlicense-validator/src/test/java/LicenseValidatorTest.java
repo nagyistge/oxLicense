@@ -18,7 +18,7 @@ public class LicenseValidatorTest {
             "<license> <public key> <public password> <license password> <product: oxd or de> <current date as milliseconds in java.util.Date>";
 
     @Parameters({"publicKey", "publicPassword", "licensePassword", "license"})
-    @Test
+    @Test(enabled = false)
     public void test(String publicKey, String publicPassword, String licensePassword, String license, String product, String currentTimeInMiliseconds) throws IOException {
         LicenseValidator.validate(publicKey, publicPassword, licensePassword, license, Product.fromValue(product), new Date(Long.parseLong(currentTimeInMiliseconds)));
     }

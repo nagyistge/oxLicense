@@ -43,24 +43,26 @@ public class LicenseValidator {
             manager.validateLicense(decryptedLicense);
 
             final LicenseMetadata metadata = Jackson.createJsonMapper().readValue(decryptedLicense.getSubject(), LicenseMetadata.class);
-
-
-            Product productFromLicense = Product.fromValue(metadata.getProduct());
-            if (productFromLicense == null || !productFromLicense.equals(expectedProduct)) {
-                throw new InvalidLicenseException("Product is not valid. Expected product is: " + expectedProduct + " but license contains: " + productFromLicense);
-            }
-            if (metadata.getExpirationDate() == null) {
-                throw new InvalidLicenseException("License does not contain expiration date.");
-            }
-            if (!metadata.getExpirationDate().after(currentDate)) {
-                throw new InvalidLicenseException("License expired.");
-            }
+            validateMetadata(metadata, expectedProduct, currentDate);
 
             output.setValid(true);
             output.setMetadata(metadata);
             return output;
         } catch (Exception e) {
             throw new InvalidLicenseException(e);
+        }
+    }
+
+    public static void validateMetadata(LicenseMetadata metadata, Product expectedProduct, Date currentDate) throws InvalidLicenseException {
+        Product productFromLicense = Product.fromValue(metadata.getProduct());
+        if (productFromLicense == null || !productFromLicense.equals(expectedProduct)) {
+            throw new InvalidLicenseException("Product is not valid. Expected product is: " + expectedProduct + " but license contains: " + productFromLicense);
+        }
+        if (metadata.getExpirationDate() == null) {
+            throw new InvalidLicenseException("License does not contain expiration date.");
+        }
+        if (!metadata.getExpirationDate().after(currentDate)) {
+            throw new InvalidLicenseException("License expired.");
         }
     }
 }
