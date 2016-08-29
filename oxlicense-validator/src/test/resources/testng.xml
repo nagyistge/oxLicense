@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="oxLicense Validator Suite" parallel="true">
+
+    <test name="LicenseValidatorMetadataTest" enabled="true">
+        <classes>
+            <class name="LicenseValidatorMetadataTest"/>
+        </classes>
+    </test>
+
+</suite>
