@@ -23,6 +23,7 @@ import org.xdi.oxauth.model.uma.GatRequest;
 import org.xdi.oxauth.model.uma.UmaConfiguration;
 import org.xdi.oxauth.model.util.Util;
 import org.xdi.oxd.license.client.GenerateWS;
+import org.xdi.oxd.license.client.Jackson;
 import org.xdi.oxd.license.client.LicenseClient;
 import org.xdi.oxd.license.client.MetadataWS;
 import org.xdi.oxd.license.client.js.LicenseIdItem;
@@ -53,8 +54,8 @@ public class RequestLicenseId {
     public static final String OP_WELL_KNOWN = OP_HOST + "/.well-known/openid-configuration";
     public static final String OP_UMA_WELL_KNOWN = OP_HOST + "/.well-known/uma-configuration";
 
-    public static final String AAT_CLIENT_ID = "";
-    public static final String AAT_CLIENT_SECRET = "";
+    public static final String AAT_CLIENT_ID = "@!A578.3242.DCA8.432A!0001!1DF4.0E33!0008!93B5.75D5";
+    public static final String AAT_CLIENT_SECRET = "8qQjj#J&PZ&m-8KH";
 
     public static final String LICENSE_SERVER_ENDPOINT = "https://license.gluu.org/oxLicense";
     public static final String REQUIRED_SCOPE = "http://idp.gluu.org/uma/scopes/generateLicenseId";
@@ -73,6 +74,7 @@ public class RequestLicenseId {
         System.out.println("First license id: " + firstLicenseId.getLicenseId());
 
         LicenseMetadata metadata = metadataWS().get(firstLicenseId.getLicenseId());
+        System.out.println(Jackson.asJsonSilently(metadata));
         System.out.println("Metadata of license id (" + firstLicenseId.getLicenseId() + ") : " + metadata);
         assertTrue(metadata.getProduct().equals("oxd"));
 

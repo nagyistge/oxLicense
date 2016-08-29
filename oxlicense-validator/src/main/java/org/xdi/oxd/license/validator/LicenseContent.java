@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @version 0.9, 27/05/2015
  */
 
-public class Output implements Serializable {
+public class LicenseContent implements Serializable {
     @JsonProperty(value = "valid")
     private boolean valid = false;
 

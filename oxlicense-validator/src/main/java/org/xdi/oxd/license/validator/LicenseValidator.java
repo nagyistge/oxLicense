@@ -1,16 +1,15 @@
 package org.xdi.oxd.license.validator;
 
-import com.google.common.base.Preconditions;
 import net.nicholaswilliams.java.licensing.SignedLicense;
 import net.nicholaswilliams.java.licensing.exception.InvalidLicenseException;
-import org.apache.commons.lang.exception.ExceptionUtils;
 import org.xdi.oxd.license.client.Jackson;
 import org.xdi.oxd.license.client.js.LicenseMetadata;
+import org.xdi.oxd.license.client.js.Product;
 import org.xdi.oxd.license.client.lib.ALicense;
 import org.xdi.oxd.license.client.lib.ALicenseManager;
 import org.xdi.oxd.license.client.lib.LicenseSerializationUtilities;
 
-import java.io.IOException;
+import java.util.Date;
 
 /**
  * @author Yuriy Zabrovarnyy
@@ -19,21 +18,22 @@ import java.io.IOException;
 
 public class LicenseValidator {
 
-    private static final String ARGUMENTS_MESSAGE = "java org.xdi.oxd.license.validator.LicenseValidator <license> <public key> <public password> <license password>";
 
-    public static void main(String[] args) throws IOException {
-        System.out.println("Validator expects: " + ARGUMENTS_MESSAGE);
-        Preconditions.checkArgument(args.length == 4, "Please specify arguments for program as following: " + ARGUMENTS_MESSAGE);
-
-        String license = args[0];
-        String publicKey = args[1];
-        String publicPassword = args[2];
-        String licensePassword = args[3];
-        validate(publicKey, publicPassword, licensePassword, license);
-    }
-
-    public static void validate(String publicKey, String publicPassword, String licensePassword, String license) throws IOException {
-        Output output = new Output();
+    /**
+     *
+     * @param publicKey public key
+     * @param publicPassword public password
+     * @param licensePassword  license password
+     * @param license license
+     * @param expectedProduct expected product (oxd, de)
+     * @param currentDate current date (usually not system date because client can change date on local machine. It good idea to fetch current date from internet.)
+     * @return output of license
+     * @throws InvalidLicenseException
+     */
+    public static LicenseContent validate(String publicKey, String publicPassword, String licensePassword, String license,
+                                  Product expectedProduct,
+                                  Date currentDate) throws InvalidLicenseException {
+        LicenseContent output = new LicenseContent();
         try {
             final SignedLicense signedLicense = LicenseSerializationUtilities.deserialize(license);
 
@@ -41,18 +41,26 @@ public class LicenseValidator {
 
             ALicense decryptedLicense = manager.decryptAndVerifyLicense(signedLicense);// DECRYPT signed license
             manager.validateLicense(decryptedLicense);
+
+            final LicenseMetadata metadata = Jackson.createJsonMapper().readValue(decryptedLicense.getSubject(), LicenseMetadata.class);
+
+
+            Product productFromLicense = Product.fromValue(metadata.getProduct());
+            if (productFromLicense == null || !productFromLicense.equals(expectedProduct)) {
+                throw new InvalidLicenseException("Product is not valid. Expected product is: " + expectedProduct + " but license contains: " + productFromLicense);
+            }
+            if (metadata.getExpirationDate() == null) {
+                throw new InvalidLicenseException("License does not contain expiration date.");
+            }
+            if (!metadata.getExpirationDate().after(currentDate)) {
+                throw new InvalidLicenseException("License expired.");
+            }
+
             output.setValid(true);
-
-            final String subject = decryptedLicense.getSubject();
-            final LicenseMetadata metadata = Jackson.createJsonMapper().readValue(subject, LicenseMetadata.class);
             output.setMetadata(metadata);
-
-        } catch (InvalidLicenseException e) {
-            //System.out.println("License is invalid.");
+            return output;
         } catch (Exception e) {
-            System.out.println("Something bad happens: " + e.getMessage());
-            System.out.println(ExceptionUtils.getFullStackTrace(e));
+            throw new InvalidLicenseException(e);
         }
-        System.out.println(Jackson.asJsonSilently(output));
     }
 }
