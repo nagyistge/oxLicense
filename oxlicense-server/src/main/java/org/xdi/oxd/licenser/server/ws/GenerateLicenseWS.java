@@ -8,10 +8,10 @@ import org.xdi.oxd.license.client.Jackson;
 import org.xdi.oxd.license.client.data.LicenseResponse;
 import org.xdi.oxd.license.client.js.LdapLicenseCrypt;
 import org.xdi.oxd.license.client.js.LdapLicenseId;
+import org.xdi.oxd.license.client.js.LicenseIdItem;
 import org.xdi.oxd.license.client.js.LicenseMetadata;
 import org.xdi.oxd.licenser.server.LicenseGenerator;
 import org.xdi.oxd.licenser.server.LicenseGeneratorInput;
-import org.xdi.oxd.license.client.js.LicenseIdItem;
 import org.xdi.oxd.licenser.server.service.ErrorService;
 import org.xdi.oxd.licenser.server.service.LicenseCryptService;
 import org.xdi.oxd.licenser.server.service.LicenseIdService;
@@ -157,6 +157,13 @@ public class GenerateLicenseWS {
         String response = Jackson.asJsonSilently(idList);
         LOG.trace(response);
         return Response.ok().entity(idList).build();
+    }
+
+    @GET
+    @Path("/currentMilliseconds")
+    @Produces({MediaType.TEXT_PLAIN})
+    public Response currentMilliseconds() {
+        return Response.ok().entity(System.currentTimeMillis()).build();
     }
 
 }

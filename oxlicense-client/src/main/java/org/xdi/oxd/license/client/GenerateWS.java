@@ -32,4 +32,8 @@ public interface GenerateWS {
     @Consumes(MediaType.APPLICATION_JSON)
     List<LicenseIdItem> generateLicenseId(@PathParam("licenseCount") int licenseCount, @HeaderParam("Authorization") String authorization, LicenseMetadata licenseMetadata);
 
+    @GET
+    @Path("/currentMilliseconds")
+    @Produces(MediaType.TEXT_PLAIN)
+    String currentServerTime();
 }
