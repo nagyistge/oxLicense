@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @LdapEntry
-@LdapObjectClass(values = {"top", "'oxLicenseIdStatistic'"})
+@LdapObjectClass(values = {"top", "oxLicenseIdStatistic"})
 public class LdapLicenseIdStatistic implements Serializable {
 
     @LdapDN
