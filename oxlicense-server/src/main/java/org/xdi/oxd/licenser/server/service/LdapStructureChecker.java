@@ -23,7 +23,7 @@ public class LdapStructureChecker {
 
     public LdapStructureChecker(LdapEntryManager ldapEntryManager, Configuration conf) {
         this.ldapEntryManager = ldapEntryManager;
-        this.ldapStructure = new LdapStructure(ldapEntryManager, conf);
+        this.ldapStructure = new LdapStructure(conf);
     }
 
     public void checkLdapStructure() {
