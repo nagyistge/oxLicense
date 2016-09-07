@@ -114,12 +114,32 @@ public class LicenseIdService {
         return String.format("licenseId=%s,%s", licenseId, ldapStructure.getLicenseIdBaseDn());
     }
 
+    public void removeWithSubtreeByLicenseId(String licenseId) {
+        try {
+            ldapEntryManager.removeWithSubtree(dn(licenseId));
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+    }
+
+    public void removeWithSubtreeByDn(String dn) {
+        try {
+            ldapEntryManager.removeWithSubtree(dn);
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+    }
+
     public void remove(LdapLicenseId entity) {
         try {
             ldapEntryManager.remove(entity);
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
+    }
+
+    public void remove(String licenseId) {
+        remove(getById(licenseId));
     }
 
     private String generateLicenseId() {
