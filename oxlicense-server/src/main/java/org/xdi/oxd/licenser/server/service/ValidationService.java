@@ -40,7 +40,7 @@ public class ValidationService {
             throw new WebApplicationException(ErrorService.response("'product' attribute is not valid or empty. Supported product values are: " + Product.supportedProductsString()));
         }
         if (metadata.getExpirationDate() == null) {
-            throw new WebApplicationException(ErrorService.response("'creation_time' is not set"));
+            throw new WebApplicationException(ErrorService.response("'expiration_date' is not set"));
         }
     }
 }
