@@ -30,4 +30,9 @@ public interface MetadataWS {
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     public Response update(@HeaderParam("Authorization") String authorization, LicenseMetadata metadata);
+
+    @GET
+    @Path("/statistic")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response generateGet(@QueryParam("licenseId") String licenseId);
 }
