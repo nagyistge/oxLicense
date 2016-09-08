@@ -59,10 +59,12 @@ public class StatisticService {
     }
 
     private void setDnIfEmpty(LdapLicenseIdStatistic entity, String licenseId) {
+        if (Strings.isNullOrEmpty(entity.getId())) {
+            entity.setId(UUID.randomUUID().toString());
+        }
+
         if (Strings.isNullOrEmpty(entity.getDn())) {
-            String id = Strings.isNullOrEmpty(entity.getUniqueIdentifier()) ? UUID.randomUUID().toString() : entity.getUniqueIdentifier();
-            entity.setUniqueIdentifier(id);
-            entity.setDn(dn(id, licenseId));
+            entity.setDn(dn(entity.getId(), licenseId));
         }
     }
 
@@ -116,6 +118,7 @@ public class StatisticService {
 
             JSONObject wrapper = new JSONObject();
             wrapper.put("monthly_statistic", response);
+            wrapper.put("total_generated_licenses", entities.size());
             return response.toString(2);
         } catch (Exception e) {
             LOG.error("Failed to construct statistic for license_id: " + licenseId, e);
@@ -126,6 +129,10 @@ public class StatisticService {
     private Map<String, Integer> macAddressMap(List<LdapLicenseIdStatistic> value) {
         Map<String, Integer> map = Maps.newHashMap();
         for (LdapLicenseIdStatistic v : value) {
+            if (Strings.isNullOrEmpty(v.getMacAddress())) {
+                continue;
+            }
+
             Integer counter = map.get(v.getMacAddress());
             if (counter == null) {
                 map.put(v.getMacAddress(), 1);

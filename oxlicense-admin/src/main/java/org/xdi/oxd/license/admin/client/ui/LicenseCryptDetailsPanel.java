@@ -83,15 +83,6 @@ public class LicenseCryptDetailsPanel implements IsWidget {
         licenseIds.addColumn(new TextColumn<LdapLicenseId>() {
             @Override
             public String getValue(LdapLicenseId object) {
-                if (object.getLicensesIssuedCount() != null) {
-                    return Integer.toString(object.getLicensesIssuedCount());
-                }
-                return "0";
-            }
-        }, "Licenses issued");
-        licenseIds.addColumn(new TextColumn<LdapLicenseId>() {
-            @Override
-            public String getValue(LdapLicenseId object) {
                 final LicenseMetadata m = object.getMetadataAsObject();
                 if (m != null && m.getExpirationDate() != null) {
                     return m.getExpirationDate().toString();

@@ -1,10 +1,12 @@
 package org.xdi.oxd.license.client.js;
 
+import com.google.common.collect.Lists;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Yuriy Zabrovarnyy
@@ -27,6 +29,10 @@ public class LicenseMetadata implements Serializable {
     private Date expirationDate;
     @JsonProperty(value = "license_count_limit")
     private int licenseCountLimit = DEFAULT_LICENSE_COUNT_LIMIT;
+    @JsonProperty(value = "customer_name")
+    private String customerName = "";
+    @JsonProperty(value = "emails")
+    private List<String> emails = Lists.newArrayList();
 
     public LicenseMetadata() {
     }
@@ -79,6 +85,22 @@ public class LicenseMetadata implements Serializable {
         this.licenseCountLimit = licenseCountLimit;
     }
 
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public List<String> getEmails() {
+        return emails;
+    }
+
+    public void setEmails(List<String> emails) {
+        this.emails = emails;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
@@ -89,6 +111,8 @@ public class LicenseMetadata implements Serializable {
         sb.append(", licenseName='").append(licenseName).append('\'');
         sb.append(", expirationDate=").append(expirationDate);
         sb.append(", licenseCountLimit=").append(licenseCountLimit);
+        sb.append(", customerName=").append(customerName);
+        sb.append(", emails=").append(emails);
         sb.append('}');
         return sb.toString();
     }

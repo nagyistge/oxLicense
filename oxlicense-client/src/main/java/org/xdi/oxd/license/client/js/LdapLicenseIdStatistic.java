@@ -20,7 +20,7 @@ public class LdapLicenseIdStatistic implements Serializable {
     @LdapDN
     private String dn;
     @LdapAttribute(name = "uniqueIdentifier")
-    private String uniqueIdentifier;
+    private String id;
     @LdapAttribute(name = "oxCreationDate")
     private Date creationDate;
     @LdapAttribute(name = "oxMacAddress")
@@ -34,12 +34,12 @@ public class LdapLicenseIdStatistic implements Serializable {
         this.dn = dn;
     }
 
-    public String getUniqueIdentifier() {
-        return uniqueIdentifier;
+    public String getId() {
+        return id;
     }
 
-    public void setUniqueIdentifier(String uniqueIdentifier) {
-        this.uniqueIdentifier = uniqueIdentifier;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Date getCreationDate() {
@@ -65,12 +65,12 @@ public class LdapLicenseIdStatistic implements Serializable {
 
         LdapLicenseIdStatistic that = (LdapLicenseIdStatistic) o;
 
-        return !(uniqueIdentifier != null ? !uniqueIdentifier.equals(that.uniqueIdentifier) : that.uniqueIdentifier != null);
+        return !(id != null ? !id.equals(that.id) : that.id != null);
 
     }
 
     @Override
     public int hashCode() {
-        return uniqueIdentifier != null ? uniqueIdentifier.hashCode() : 0;
+        return id != null ? id.hashCode() : 0;
     }
 }
