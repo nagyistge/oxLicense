@@ -1,10 +1,10 @@
 package org.xdi.oxd.license.client.js;
 
-import com.google.common.collect.Lists;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class LicenseMetadata implements Serializable {
     @JsonProperty(value = "customer_name")
     private String customerName = "";
     @JsonProperty(value = "emails")
-    private List<String> emails = Lists.newArrayList();
+    private List<String> emails = new ArrayList<>();
 
     public LicenseMetadata() {
     }
