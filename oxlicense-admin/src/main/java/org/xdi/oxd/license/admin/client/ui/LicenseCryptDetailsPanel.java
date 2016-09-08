@@ -60,6 +60,8 @@ public class LicenseCryptDetailsPanel implements IsWidget {
     Button refreshButton;
     @UiField
     Button copyIds;
+    @UiField
+    Button monthlyStatisticButton;
 
     public LicenseCryptDetailsPanel() {
         uiBinder.createAndBindUi(this);
@@ -135,6 +137,10 @@ public class LicenseCryptDetailsPanel implements IsWidget {
 
     public Button getRefreshButton() {
         return refreshButton;
+    }
+
+    public Button getMonthlyStatisticButton() {
+        return monthlyStatisticButton;
     }
 
     public HTML getPublicPassword() {
