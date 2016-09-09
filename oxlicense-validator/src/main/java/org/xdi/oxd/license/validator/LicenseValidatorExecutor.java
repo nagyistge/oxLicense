@@ -1,6 +1,7 @@
 package org.xdi.oxd.license.validator;
 
 import com.google.common.base.Preconditions;
+import org.xdi.oxd.license.client.Jackson;
 import org.xdi.oxd.license.client.js.Product;
 
 import java.io.IOException;
@@ -32,7 +33,10 @@ public class LicenseValidatorExecutor {
         String licensePassword = args[3];
         String product = args[4];
         String currentDate = args[5];
-        LicenseValidator.validate(publicKey, publicPassword, licensePassword, license, Product.fromValue(product), new Date(Long.parseLong(currentDate)));
+
+        LicenseContent licenseContent = LicenseValidator.validate(publicKey, publicPassword, licensePassword, license, Product.fromValue(product), new Date(Long.parseLong(currentDate)));
+
+        System.out.println(Jackson.asJsonSilently(licenseContent));
     }
 
 }
