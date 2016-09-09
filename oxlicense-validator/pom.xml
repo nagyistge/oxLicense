@@ -102,7 +102,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>org.xdi.oxd.license.validator.LicenseValidator</mainClass>
+                                    <mainClass>org.xdi.oxd.license.validator.LicenseValidatorExecutor</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>
