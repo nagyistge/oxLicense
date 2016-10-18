@@ -2,6 +2,7 @@ package org.xdi.oxd.license.client.js;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,8 +24,10 @@ public class LicenseMetadata implements Serializable {
     private String licenseId;
     @JsonProperty(value = "license_name")
     private String licenseName = "";
+    @JsonDeserialize(using = UnixTimestampDeserializer.class)
     @JsonProperty(value = "creation_date")
     private Date creationDate = new Date();
+    @JsonDeserialize(using = UnixTimestampDeserializer.class)
     @JsonProperty(value = "expiration_date")
     private Date expirationDate;
     @JsonProperty(value = "license_count_limit")
