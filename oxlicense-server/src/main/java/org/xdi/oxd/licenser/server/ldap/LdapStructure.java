@@ -1,7 +1,6 @@
 package org.xdi.oxd.licenser.server.ldap;
 
 import com.google.inject.Inject;
-import org.gluu.site.ldap.persistence.LdapEntryManager;
 import org.xdi.oxd.license.client.js.Configuration;
 
 /**
@@ -11,12 +10,10 @@ import org.xdi.oxd.license.client.js.Configuration;
 
 public class LdapStructure {
 
-    private LdapEntryManager ldapEntryManager;
     private Configuration conf;
 
     @Inject
-    public LdapStructure(LdapEntryManager ldapEntryManager, Configuration conf) {
-        this.ldapEntryManager = ldapEntryManager;
+    public LdapStructure(Configuration conf) {
         this.conf = conf;
     }
 
@@ -46,6 +43,10 @@ public class LdapStructure {
 
     public String getLicenseIdBaseDn() {
         return ou(getLicenseIdOu()) + conf.getBaseDn();
+    }
+
+    public String getStatisticBaseDn(String licenseId) {
+        return "licenseId=" + licenseId + "," + ou(getLicenseIdOu()) + conf.getBaseDn();
     }
 
     private static String ou(String ou) {

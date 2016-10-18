@@ -2,6 +2,8 @@ package org.xdi.oxd.license.admin.client.ui;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.http.client.UrlBuilder;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import org.xdi.oxd.license.admin.client.Admin;
@@ -54,6 +56,12 @@ public class LicenseCryptDetailsPresenter {
                 loadLicenseIds();
             }
         });
+        this.view.getMonthlyStatisticButton().addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                onMonthlyStatisticButton();
+            }
+        });
         this.view.getCopyIds().addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
@@ -69,6 +77,21 @@ public class LicenseCryptDetailsPresenter {
             }
         });
         setButtonsState();
+    }
+
+    private void onMonthlyStatisticButton() {
+        UrlBuilder builder = new UrlBuilder();
+        builder.setProtocol(Window.Location.getProtocol());
+        builder.setHost(Window.Location.getHost());
+        String port = Window.Location.getPort();
+        if (port != null && port.length() > 0) {
+          builder.setPort(Integer.parseInt(port));
+        }
+
+        builder.setPath("/oxLicense/rest/statistic");
+        builder.setParameter("licenseId", selectionModel.getSelectedSet().iterator().next().getLicenseId());
+
+        Window.open(builder.buildString(), "_blank", null);
     }
 
     private void showCopyDialog() {
@@ -114,6 +137,7 @@ public class LicenseCryptDetailsPresenter {
     private void setButtonsState() {
         this.view.getRemoveButton().setEnabled(!selectionModel.getSelectedSet().isEmpty());
         this.view.getEditButton().setEnabled(selectionModel.getSelectedSet().size() == 1);
+        this.view.getMonthlyStatisticButton().setEnabled(selectionModel.getSelectedSet().size() == 1);
     }
 
     public void show(LdapLicenseCrypt licenseCrypt) {

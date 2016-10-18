@@ -47,7 +47,7 @@ public class LicenseClientTest {
     public void generateLicense(String licenseServerEndpoint) {
         final GenerateWS generateWS = LicenseClient.generateWs(licenseServerEndpoint);
 
-        final List<LicenseResponse> generatedLicense = generateWS.generatePost("id");
+        final List<LicenseResponse> generatedLicense = generateWS.generatePost("id", "mac_address");
 
         Assert.assertTrue(generatedLicense != null && !generatedLicense.isEmpty() && !Strings.isNullOrEmpty(generatedLicense.get(0).getEncodedLicense()));
         System.out.println(generatedLicense.get(0).getEncodedLicense());

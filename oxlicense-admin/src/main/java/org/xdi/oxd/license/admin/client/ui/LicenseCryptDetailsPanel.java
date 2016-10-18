@@ -60,6 +60,8 @@ public class LicenseCryptDetailsPanel implements IsWidget {
     Button refreshButton;
     @UiField
     Button copyIds;
+    @UiField
+    Button monthlyStatisticButton;
 
     public LicenseCryptDetailsPanel() {
         uiBinder.createAndBindUi(this);
@@ -80,15 +82,6 @@ public class LicenseCryptDetailsPanel implements IsWidget {
                 return "";
             }
         }, "Name");
-        licenseIds.addColumn(new TextColumn<LdapLicenseId>() {
-            @Override
-            public String getValue(LdapLicenseId object) {
-                if (object.getLicensesIssuedCount() != null) {
-                    return Integer.toString(object.getLicensesIssuedCount());
-                }
-                return "0";
-            }
-        }, "Licenses issued");
         licenseIds.addColumn(new TextColumn<LdapLicenseId>() {
             @Override
             public String getValue(LdapLicenseId object) {
@@ -144,6 +137,10 @@ public class LicenseCryptDetailsPanel implements IsWidget {
 
     public Button getRefreshButton() {
         return refreshButton;
+    }
+
+    public Button getMonthlyStatisticButton() {
+        return monthlyStatisticButton;
     }
 
     public HTML getPublicPassword() {

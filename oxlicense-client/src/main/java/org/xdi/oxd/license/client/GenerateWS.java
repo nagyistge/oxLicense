@@ -19,12 +19,12 @@ public interface GenerateWS {
     @GET
     @Path("/generate")
     @Produces(MediaType.APPLICATION_JSON)
-    List<LicenseResponse> generateGet(@QueryParam("licenseId") String licenseId);
+    List<LicenseResponse> generateGet(@QueryParam("licenseId") String licenseId, @QueryParam("macAddress") String macAddress);
 
     @POST
     @Path("/generate")
     @Produces(MediaType.APPLICATION_JSON)
-    List<LicenseResponse> generatePost(@FormParam("licenseId") String licenseId);
+    List<LicenseResponse> generatePost(@FormParam("licenseId") String licenseId, @FormParam("macAddress") String macAddress);
 
     @POST
     @Path("/generateLicenseId/{licenseCount}")

@@ -19,6 +19,7 @@ import org.xdi.oxd.licenser.server.service.LicenseIdService;
 import org.xdi.oxd.licenser.server.ws.GenerateLicenseWS;
 
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * @author Yuriy Zabrovarnyy
@@ -51,7 +52,7 @@ public class LicenseGeneratorTest {
 
     @Test
     public void generateLicense() throws IOException {
-        final LicenseResponse license = generateLicenseWS.generateLicense(licenseId.getLicenseId());
+        final LicenseResponse license = generateLicenseWS.generateLicense(licenseId.getLicenseId(), UUID.randomUUID().toString());
         Assert.assertTrue(license != null && license.getEncodedLicense() != null);
         System.out.println("Generated license: " + license.getEncodedLicense());
 
