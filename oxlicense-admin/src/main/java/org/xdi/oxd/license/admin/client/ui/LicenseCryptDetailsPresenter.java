@@ -29,9 +29,12 @@ public class LicenseCryptDetailsPresenter {
     private final LicenseCryptDetailsPanel view;
 
     private LdapLicenseCrypt licenseCrypt;
+    private LicenseCryptTabPresenter parent;
+    private LdapLicenseId toSelect;
 
-    public LicenseCryptDetailsPresenter(LicenseCryptDetailsPanel view) {
+    public LicenseCryptDetailsPresenter(LicenseCryptDetailsPanel view, LicenseCryptTabPresenter parent) {
         this.view = view;
+        this.parent = parent;
         this.view.getGenerateLicenseIdButton().addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
@@ -68,6 +71,13 @@ public class LicenseCryptDetailsPresenter {
                 showCopyDialog();
             }
         });
+        this.view.getFind().addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                onFind();
+            }
+        });
+
         view.getLicenseIds().setSelectionModel(selectionModel);
 
         selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
@@ -79,13 +89,25 @@ public class LicenseCryptDetailsPresenter {
         setButtonsState();
     }
 
+    private void onFind() {
+        TextAreaDialog dialog = new TextAreaDialog() {
+            @Override
+            public void onOk() {
+                //find(getTextArea().getValue());
+            }
+        };
+        dialog.getTextArea().setHeight("25px");
+        dialog.setTitle("Find by License ID");
+        dialog.show();
+    }
+
     private void onMonthlyStatisticButton() {
         UrlBuilder builder = new UrlBuilder();
         builder.setProtocol(Window.Location.getProtocol());
         builder.setHost(Window.Location.getHost());
         String port = Window.Location.getPort();
         if (port != null && port.length() > 0) {
-          builder.setPort(Integer.parseInt(port));
+            builder.setPort(Integer.parseInt(port));
         }
 
         builder.setPath("/oxLicense/rest/statistic");
@@ -209,6 +231,14 @@ public class LicenseCryptDetailsPresenter {
                 view.getLicenseIdCount().setHTML(Integer.toString(result.size()));
                 view.getLicenseIds().setRowCount(result.size());
                 view.getLicenseIds().setRowData(result);
+
+                if (toSelect != null) {
+                    for (LdapLicenseId licenseId : result) {
+                        if (toSelect.getLicenseId().equals(licenseId.getLicenseId())) {
+                            selectionModel.setSelected(licenseId, true);
+                        }
+                    }
+                }
             }
         });
     }

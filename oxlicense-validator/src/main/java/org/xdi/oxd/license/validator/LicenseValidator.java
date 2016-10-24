@@ -54,6 +54,10 @@ public class LicenseValidator {
     }
 
     public static void validateMetadata(LicenseMetadata metadata, Product expectedProduct, Date currentDate) throws InvalidLicenseException {
+        if (metadata.getActive() == null || !metadata.getActive()) {
+            throw new InvalidLicenseException("License ID is not active.");
+        }
+
         Product productFromLicense = Product.fromValue(metadata.getProduct());
         if (productFromLicense == null || !productFromLicense.equals(expectedProduct)) {
             throw new InvalidLicenseException("Product is not valid. Expected product is: " + expectedProduct + " but license contains: " + productFromLicense);

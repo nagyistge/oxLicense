@@ -18,6 +18,8 @@ public class LicenseMetadata implements Serializable {
 
     public static final int DEFAULT_LICENSE_COUNT_LIMIT = 9999;
 
+    @JsonProperty(value = "active")
+    private Boolean active = false;
     @JsonProperty(value = "product")
     private String product;
     @JsonProperty(value = "license_id")
@@ -38,6 +40,17 @@ public class LicenseMetadata implements Serializable {
     private List<String> emails = new ArrayList<>();
 
     public LicenseMetadata() {
+    }
+
+    public Boolean getActive() {
+        if (active == null) {
+            active = false;
+        }
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public String getLicenseId() {
@@ -110,6 +123,7 @@ public class LicenseMetadata implements Serializable {
         sb.append("LicenseMetadata");
         sb.append("{creationDate=").append(creationDate);
         sb.append(", licenseId=").append(licenseId);
+        sb.append(", active=").append(active);
         sb.append(", product=").append(product);
         sb.append(", licenseName='").append(licenseName).append('\'');
         sb.append(", expirationDate=").append(expirationDate);

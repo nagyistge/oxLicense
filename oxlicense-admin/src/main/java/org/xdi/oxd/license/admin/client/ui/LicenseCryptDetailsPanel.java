@@ -62,6 +62,8 @@ public class LicenseCryptDetailsPanel implements IsWidget {
     Button copyIds;
     @UiField
     Button monthlyStatisticButton;
+    @UiField
+    Button find;
 
     public LicenseCryptDetailsPanel() {
         uiBinder.createAndBindUi(this);
@@ -112,7 +114,20 @@ public class LicenseCryptDetailsPanel implements IsWidget {
                 return "";
             }
         }, "Product");
+        licenseIds.addColumn(new TextColumn<LdapLicenseId>() {
+            @Override
+            public String getValue(LdapLicenseId object) {
+                final LicenseMetadata m = object.getMetadataAsObject();
+                if (m != null) {
+                    return m.getActive() != null && m.getActive() ? "true" : "false";
+                }
+                return "";
+            }
+        }, "Active");
+    }
 
+    public Button getFind() {
+        return find;
     }
 
     public Button getCopyIds() {
