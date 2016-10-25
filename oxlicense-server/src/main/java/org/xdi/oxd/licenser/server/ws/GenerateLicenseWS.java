@@ -134,21 +134,26 @@ public class GenerateLicenseWS {
     @GET
     @Path("/generate")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response generateGet(@QueryParam("licenseId") String licenseId, @QueryParam("count") int count, @QueryParam("macAddress") String macAddress) {
+    public Response generateGet(@QueryParam("licenseId") String licenseId,
+                                @QueryParam("count") int count,
+                                @QueryParam("macAddress") String macAddress) {
         return Response.ok().entity(generatedLicenseAsString(licenseId, count, macAddress)).build();
     }
 
     @POST
     @Path("/generate")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response generatePost(@FormParam("licenseId") String licenseId, @FormParam("count") int count, @FormParam("macAddress") String macAddress) {
+    public Response generatePost(@FormParam("licenseId") String licenseId,
+                                 @FormParam("count") int count,
+                                 @FormParam("macAddress") String macAddress) {
         return Response.ok().entity(generatedLicenseAsString(licenseId, count, macAddress)).build();
     }
 
     @POST
     @Path("/generateLicenseId/{licenseCount}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response generateLicenseIdPost(@PathParam("licenseCount") int licenseCount, LicenseMetadata licenseMetadata) {
+    public Response generateLicenseIdPost(@PathParam("licenseCount") int licenseCount,
+                                          LicenseMetadata licenseMetadata) {
         validationService.validate(licenseMetadata);
 
         if (Strings.isNullOrEmpty(licenseMetadata.getCustomerName())) {
