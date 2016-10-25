@@ -4,6 +4,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.http.client.UrlBuilder;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import org.xdi.oxd.license.admin.client.Admin;
@@ -93,12 +94,44 @@ public class LicenseCryptDetailsPresenter {
         TextAreaDialog dialog = new TextAreaDialog() {
             @Override
             public void onOk() {
-                //find(getTextArea().getValue());
+                find(getTextArea().getValue());
             }
         };
         dialog.getTextArea().setHeight("25px");
         dialog.setTitle("Find by License ID");
         dialog.show();
+    }
+
+    private void find(String licenseId) {
+        if (Admin.isEmpty(licenseId)) {
+            Window.alert("License ID is blank. Please put valid License ID.");
+            return;
+        }
+
+        Admin.getService().getLicenseId(licenseId, new AsyncCallback<LdapLicenseId>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                Window.alert("Failed to find license id.");
+            }
+
+            @Override
+            public void onSuccess(final LdapLicenseId result) {
+                if (result != null) {
+                    List<LdapLicenseCrypt> rows = parent.getRows();
+                    for (LdapLicenseCrypt crypt : rows) {
+                        if (crypt.getDn().equals(result.getLicenseCryptDN())) {
+                            toSelect = result;
+                            parent.getSelectionModel().setSelected(crypt, true);
+                            break;
+                        }
+                    }
+
+
+                } else {
+                    Window.alert("Failed to find license id.");
+                }
+            }
+        });
     }
 
     private void onMonthlyStatisticButton() {
