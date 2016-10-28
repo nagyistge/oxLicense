@@ -18,6 +18,16 @@
         <g:TextBox ui:field="licenseName"/>
 
         <g:HTML>
+            <h3>Active:</h3>
+        </g:HTML>
+        <g:CheckBox ui:field="active" checked="true"/>
+
+        <g:HTML>
+            <h3>Autoupdate:</h3>
+        </g:HTML>
+        <g:CheckBox ui:field="autoupdate" checked="true"/>
+
+        <g:HTML>
             <h3>Product:</h3>
         </g:HTML>
         <g:ListBox ui:field="product" multipleSelect="false" width="300px"/>

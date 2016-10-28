@@ -5,13 +5,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.datepicker.client.DateBox;
 import org.xdi.oxd.license.admin.client.Admin;
 import org.xdi.oxd.license.admin.client.Framework;
@@ -53,6 +47,10 @@ public class LicenseIdMetadataDialog {
     DateBox expirationDate;
     @UiField
     TextBox licenseCountLimit;
+    @UiField
+    CheckBox active;
+    @UiField
+    CheckBox autoupdate;
 
     private final LdapLicenseId licenseId;
     private final boolean isEditMode;
@@ -102,6 +100,8 @@ public class LicenseIdMetadataDialog {
 
         final LicenseMetadata metadataAsObject = licenseId.getMetadataAsObject();
         if (metadataAsObject != null) {
+            active.setValue(metadataAsObject.getActive());
+            autoupdate.setValue(metadataAsObject.getAutoupdate());
             product.setSelectedIndex(productIndex(metadataAsObject.getProduct()));
             licenseName.setValue(metadataAsObject.getLicenseName());
             licenseCountLimit.setValue(Integer.toString(metadataAsObject.getLicenseCountLimit()));
@@ -161,6 +161,8 @@ public class LicenseIdMetadataDialog {
 
     public LicenseMetadata licenseMetadata() {
     	LicenseMetadata licenseMetadata = new LicenseMetadata();
+        licenseMetadata.setActive(active.getValue());
+        licenseMetadata.setAutoupdate(autoupdate.getValue());
     	licenseMetadata.setProduct(getSelectedProduct());
     	licenseMetadata.setLicenseName(licenseName.getValue());
     	licenseMetadata.setProduct(getSelectedProduct());

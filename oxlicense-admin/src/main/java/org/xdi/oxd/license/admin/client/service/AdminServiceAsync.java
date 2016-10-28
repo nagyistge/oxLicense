@@ -33,4 +33,6 @@ public interface AdminServiceAsync {
     void getConfiguration(AsyncCallback<Configuration> async);
 
     void hasAccess(String idToken, AsyncCallback<IdTokenValidationResult> async);
+
+    void getLicenseId(String licenseId, AsyncCallback<LdapLicenseId> async);
 }

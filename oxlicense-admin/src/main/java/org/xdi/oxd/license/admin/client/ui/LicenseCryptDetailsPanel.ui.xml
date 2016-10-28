@@ -17,6 +17,7 @@
                 <g:Button ui:field="refreshButton">Refresh</g:Button>
                 <g:Button ui:field="copyIds">Show IDs for copy</g:Button>
                 <g:Button ui:field="monthlyStatisticButton">Monthly statistic in new tab</g:Button>
+                <g:Button ui:field="find">Find</g:Button>
             </g:FlowPanel>
             <cellview:CellTable ui:field="licenseIds"/>
         </g:VerticalPanel>
