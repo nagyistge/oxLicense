@@ -22,10 +22,11 @@ public class LicenseCryptTabPresenter {
     private final SingleSelectionModel<LdapLicenseCrypt> selectionModel = new SingleSelectionModel<LdapLicenseCrypt>();
     private final LicenseCryptDetailsPresenter detailsPresenter;
     private LicenseCryptTab view;
+    private List<LdapLicenseCrypt> rows;
 
     public LicenseCryptTabPresenter(LicenseCryptTab view) {
         this.view = view;
-        this.detailsPresenter = new LicenseCryptDetailsPresenter(view.getDetailsPanel());
+        this.detailsPresenter = new LicenseCryptDetailsPresenter(view.getDetailsPanel(), this);
         this.view.getAddButton().addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
@@ -100,7 +101,21 @@ public class LicenseCryptTabPresenter {
             public void onSuccess(List<LdapLicenseCrypt> result) {
                 view.getTable().setRowData(result);
                 view.getTable().setRowCount(result.size());
+
+                rows = result;
+
+                if (selectionModel.getSelectedObject() == null && result.size() > 0) {
+                    selectionModel.setSelected(result.get(0), true);
+                }
             }
         });
+    }
+
+    public SingleSelectionModel<LdapLicenseCrypt> getSelectionModel() {
+        return selectionModel;
+    }
+
+    public List<LdapLicenseCrypt> getRows() {
+        return rows;
     }
 }

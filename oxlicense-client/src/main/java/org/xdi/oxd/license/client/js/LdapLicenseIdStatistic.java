@@ -5,6 +5,7 @@ package org.xdi.oxd.license.client.js;
  * @version 0.9, 06/09/2016
  */
 
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.gluu.site.ldap.persistence.annotation.LdapAttribute;
 import org.gluu.site.ldap.persistence.annotation.LdapDN;
 import org.gluu.site.ldap.persistence.annotation.LdapEntry;
@@ -21,6 +22,7 @@ public class LdapLicenseIdStatistic implements Serializable {
     private String dn;
     @LdapAttribute(name = "uniqueIdentifier")
     private String id;
+    @JsonDeserialize(using = UnixTimestampDeserializer.class)
     @LdapAttribute(name = "oxCreationDate")
     private Date creationDate;
     @LdapAttribute(name = "oxMacAddress")

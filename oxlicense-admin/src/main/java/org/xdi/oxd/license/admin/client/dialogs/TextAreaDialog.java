@@ -72,4 +72,8 @@ public class TextAreaDialog {
         dialog.center();
         dialog.show();
     }
+
+    public VerticalPanel getDialogContent() {
+        return dialogContent;
+    }
 }

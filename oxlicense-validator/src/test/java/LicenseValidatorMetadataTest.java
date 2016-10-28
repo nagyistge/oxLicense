@@ -44,6 +44,7 @@ public class LicenseValidatorMetadataTest {
         expiration.add(Calendar.MONTH, 1);
 
         LicenseMetadata metadata = new LicenseMetadata();
+        metadata.setActive(true);
         metadata.setCreationDate(creationDate);
         metadata.setExpirationDate(expiration.getTime());
         metadata.setLicenseId("test_id");

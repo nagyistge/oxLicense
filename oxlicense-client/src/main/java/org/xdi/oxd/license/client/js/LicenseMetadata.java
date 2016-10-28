@@ -2,6 +2,7 @@ package org.xdi.oxd.license.client.js;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,14 +18,18 @@ public class LicenseMetadata implements Serializable {
 
     public static final int DEFAULT_LICENSE_COUNT_LIMIT = 9999;
 
+    @JsonProperty(value = "active")
+    private Boolean active = false;
     @JsonProperty(value = "product")
     private String product;
     @JsonProperty(value = "license_id")
     private String licenseId;
     @JsonProperty(value = "license_name")
     private String licenseName = "";
+    @JsonDeserialize(using = UnixTimestampDeserializer.class)
     @JsonProperty(value = "creation_date")
     private Date creationDate = new Date();
+    @JsonDeserialize(using = UnixTimestampDeserializer.class)
     @JsonProperty(value = "expiration_date")
     private Date expirationDate;
     @JsonProperty(value = "license_count_limit")
@@ -33,8 +38,32 @@ public class LicenseMetadata implements Serializable {
     private String customerName = "";
     @JsonProperty(value = "emails")
     private List<String> emails = new ArrayList<>();
+    @JsonProperty(value = "autoupdate")
+    private Boolean autoupdate = true;
 
     public LicenseMetadata() {
+    }
+
+    public Boolean getAutoupdate() {
+        if (autoupdate == null) {
+            autoupdate = true;
+        }
+        return autoupdate;
+    }
+
+    public void setAutoupdate(Boolean autoupdate) {
+        this.autoupdate = autoupdate;
+    }
+
+    public Boolean getActive() {
+        if (active == null) {
+            active = false;
+        }
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public String getLicenseId() {
@@ -107,6 +136,8 @@ public class LicenseMetadata implements Serializable {
         sb.append("LicenseMetadata");
         sb.append("{creationDate=").append(creationDate);
         sb.append(", licenseId=").append(licenseId);
+        sb.append(", autoupdate=").append(autoupdate);
+        sb.append(", active=").append(active);
         sb.append(", product=").append(product);
         sb.append(", licenseName='").append(licenseName).append('\'');
         sb.append(", expirationDate=").append(expirationDate);

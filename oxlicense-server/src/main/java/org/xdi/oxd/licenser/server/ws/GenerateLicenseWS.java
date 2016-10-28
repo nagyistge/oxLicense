@@ -59,6 +59,14 @@ public class GenerateLicenseWS {
 
             final LicenseMetadata metadata = Jackson.createJsonMapper().readValue(licenseId.getMetadata(), LicenseMetadata.class);
 
+            if (!metadata.getAutoupdate()) {
+                LOG.warn("Client application is generating license with autoupdate=false. " + licenseIdStr + ", macAddress:" + macAddress);
+            }
+
+            if (metadata.getActive() == null || !metadata.getActive()) {
+                throw new WebApplicationException(ErrorService.response("License ID is NOT active."));
+            }
+
             int createdLicensesTillNow = statisticService.getAll(licenseIdStr).size();
             if (createdLicensesTillNow >= metadata.getLicenseCountLimit()) {
                 LOG.debug("License ID count limit exceeded, licenseId: " + licenseIdStr);
@@ -130,21 +138,26 @@ public class GenerateLicenseWS {
     @GET
     @Path("/generate")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response generateGet(@QueryParam("licenseId") String licenseId, @QueryParam("count") int count, @QueryParam("macAddress") String macAddress) {
+    public Response generateGet(@QueryParam("licenseId") String licenseId,
+                                @QueryParam("count") int count,
+                                @QueryParam("macAddress") String macAddress) {
         return Response.ok().entity(generatedLicenseAsString(licenseId, count, macAddress)).build();
     }
 
     @POST
     @Path("/generate")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response generatePost(@FormParam("licenseId") String licenseId, @FormParam("count") int count, @FormParam("macAddress") String macAddress) {
+    public Response generatePost(@FormParam("licenseId") String licenseId,
+                                 @FormParam("count") int count,
+                                 @FormParam("macAddress") String macAddress) {
         return Response.ok().entity(generatedLicenseAsString(licenseId, count, macAddress)).build();
     }
 
     @POST
     @Path("/generateLicenseId/{licenseCount}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response generateLicenseIdPost(@PathParam("licenseCount") int licenseCount, LicenseMetadata licenseMetadata) {
+    public Response generateLicenseIdPost(@PathParam("licenseCount") int licenseCount,
+                                          LicenseMetadata licenseMetadata) {
         validationService.validate(licenseMetadata);
 
         if (Strings.isNullOrEmpty(licenseMetadata.getCustomerName())) {
@@ -176,6 +189,14 @@ public class GenerateLicenseWS {
     @Produces({MediaType.TEXT_PLAIN})
     public Response currentMilliseconds() {
         return Response.ok().entity(System.currentTimeMillis()).build();
+    }
+
+    public static void main(String[] args) throws IOException {
+        String m = "{\"product\":\"oxd\",\"emails\":[],\"license_id\":null,\"license_name\"" +
+                " :\"testLicense\",\"creation_date\":1476711634,\"expiration_date\":1479303634,\"license" +
+                " _count_limit\":999,\"customer_name\":\"test_customer\"}";
+        final LicenseMetadata metadata = Jackson.createJsonMapper().readValue(m, LicenseMetadata.class);
+        System.out.println(metadata);
     }
 
 }
