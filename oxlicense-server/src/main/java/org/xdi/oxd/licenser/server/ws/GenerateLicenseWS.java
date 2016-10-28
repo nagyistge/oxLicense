@@ -59,6 +59,10 @@ public class GenerateLicenseWS {
 
             final LicenseMetadata metadata = Jackson.createJsonMapper().readValue(licenseId.getMetadata(), LicenseMetadata.class);
 
+            if (!metadata.getAutoupdate()) {
+                LOG.warn("Client application is generating license with autoupdate=false. " + licenseIdStr + ", macAddress:" + macAddress);
+            }
+
             if (metadata.getActive() == null || !metadata.getActive()) {
                 throw new WebApplicationException(ErrorService.response("License ID is NOT active."));
             }

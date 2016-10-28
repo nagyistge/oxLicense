@@ -124,6 +124,16 @@ public class LicenseCryptDetailsPanel implements IsWidget {
                 return "";
             }
         }, "Active");
+        licenseIds.addColumn(new TextColumn<LdapLicenseId>() {
+            @Override
+            public String getValue(LdapLicenseId object) {
+                final LicenseMetadata m = object.getMetadataAsObject();
+                if (m != null) {
+                    return m.getAutoupdate() != null && m.getAutoupdate() ? "true" : "false";
+                }
+                return "";
+            }
+        }, "Autoupdate");
     }
 
     public Button getFind() {

@@ -49,6 +49,8 @@ public class LicenseIdMetadataDialog {
     TextBox licenseCountLimit;
     @UiField
     CheckBox active;
+    @UiField
+    CheckBox autoupdate;
 
     private final LdapLicenseId licenseId;
     private final boolean isEditMode;
@@ -99,6 +101,7 @@ public class LicenseIdMetadataDialog {
         final LicenseMetadata metadataAsObject = licenseId.getMetadataAsObject();
         if (metadataAsObject != null) {
             active.setValue(metadataAsObject.getActive());
+            autoupdate.setValue(metadataAsObject.getAutoupdate());
             product.setSelectedIndex(productIndex(metadataAsObject.getProduct()));
             licenseName.setValue(metadataAsObject.getLicenseName());
             licenseCountLimit.setValue(Integer.toString(metadataAsObject.getLicenseCountLimit()));
@@ -159,6 +162,7 @@ public class LicenseIdMetadataDialog {
     public LicenseMetadata licenseMetadata() {
     	LicenseMetadata licenseMetadata = new LicenseMetadata();
         licenseMetadata.setActive(active.getValue());
+        licenseMetadata.setAutoupdate(autoupdate.getValue());
     	licenseMetadata.setProduct(getSelectedProduct());
     	licenseMetadata.setLicenseName(licenseName.getValue());
     	licenseMetadata.setProduct(getSelectedProduct());
