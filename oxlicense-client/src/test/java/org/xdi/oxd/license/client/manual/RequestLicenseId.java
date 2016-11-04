@@ -1,18 +1,6 @@
 package org.xdi.oxd.license.client.manual;
 
 import com.google.common.collect.Lists;
-import org.apache.http.client.HttpClient;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.conn.scheme.PlainSocketFactory;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.scheme.SchemeRegistry;
-import org.apache.http.conn.ssl.SSLSocketFactory;
-import org.apache.http.conn.ssl.TrustStrategy;
-import org.apache.http.conn.ssl.X509HostnameVerifier;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.SingleClientConnManager;
-import org.jboss.resteasy.client.ClientExecutor;
-import org.jboss.resteasy.client.core.executors.ApacheHttpClient4Executor;
 import org.xdi.oxauth.client.OpenIdConfigurationClient;
 import org.xdi.oxauth.client.OpenIdConfigurationResponse;
 import org.xdi.oxauth.client.TokenClient;
@@ -29,19 +17,14 @@ import org.xdi.oxd.license.client.MetadataWS;
 import org.xdi.oxd.license.client.js.LicenseIdItem;
 import org.xdi.oxd.license.client.js.LicenseMetadata;
 
-import javax.net.ssl.SSLException;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.SSLSocket;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
 import java.net.URISyntaxException;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import static junit.framework.Assert.assertTrue;
+import static org.xdi.oxd.license.client.ClientUtils.executor;
 
 /**
  * @author Yuriy Zabrovarnyy
@@ -123,12 +106,9 @@ public class RequestLicenseId {
     }
 
     private static String obtainAat() throws URISyntaxException {
-
-
         OpenIdConfigurationClient client = new OpenIdConfigurationClient(OP_WELL_KNOWN);
         client.setExecutor(executor());
         OpenIdConfigurationResponse discoveryResponse = client.execOpenIdConfiguration();
-
 
         final TokenClient tokenClient = new TokenClient(discoveryResponse.getTokenEndpoint());
         tokenClient.setExecutor(executor());
@@ -146,44 +126,4 @@ public class RequestLicenseId {
         throw new RuntimeException("Failed to obtain AAT.");
     }
 
-    public static ClientExecutor executor() {
-        return new ApacheHttpClient4Executor(createHttpClientTrustAll());
-    }
-
-    public static HttpClient createHttpClientTrustAll() {
-        try {
-            SSLSocketFactory sf = new SSLSocketFactory(new TrustStrategy() {
-                @Override
-                public boolean isTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-                    return true;
-                }
-            }, new X509HostnameVerifier() {
-                @Override
-                public void verify(String host, SSLSocket ssl) throws IOException {
-                }
-
-                @Override
-                public void verify(String host, X509Certificate cert) throws SSLException {
-                }
-
-                @Override
-                public void verify(String host, String[] cns, String[] subjectAlts) throws SSLException {
-                }
-
-                @Override
-                public boolean verify(String s, SSLSession sslSession) {
-                    return true;
-                }
-            }
-            );
-
-            SchemeRegistry registry = new SchemeRegistry();
-            registry.register(new Scheme("http", 80, PlainSocketFactory.getSocketFactory()));
-            registry.register(new Scheme("https", 443, sf));
-            ClientConnectionManager ccm = new SingleClientConnManager(registry);
-            return new DefaultHttpClient(ccm);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

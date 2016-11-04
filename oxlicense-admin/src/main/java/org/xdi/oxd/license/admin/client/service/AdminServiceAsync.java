@@ -35,4 +35,6 @@ public interface AdminServiceAsync {
     void hasAccess(String idToken, AsyncCallback<IdTokenValidationResult> async);
 
     void getLicenseId(String licenseId, AsyncCallback<LdapLicenseId> async);
+
+    void isGenerationApiProtected(AsyncCallback<Boolean> async);
 }
