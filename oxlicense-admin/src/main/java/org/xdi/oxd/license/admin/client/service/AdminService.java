@@ -42,4 +42,6 @@ public interface AdminService extends RemoteService {
     void save(LdapLicenseId entity);
 
     LdapLicenseId getLicenseId(String licenseId);
+
+    boolean isGenerationApiProtected();
 }
