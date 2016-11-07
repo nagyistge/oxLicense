@@ -125,8 +125,8 @@ public class StatisticService {
             List<LdapLicenseIdStatistic> filtered = getFiltered(licenseId, new Predicate<LdapLicenseIdStatistic>() {
                 @Override
                 public boolean apply(LdapLicenseIdStatistic input) {
-                    LOG.trace("Result: " + input.getCreationDate().before(inPast.getTime()) + ", creation: " + input.getCreationDate() + ", inPast: " + inPast.getTime());
-                    return input.getCreationDate().before(inPast.getTime());
+                    //LOG.trace("Result: " + input.getCreationDate().before(inPast.getTime()) + ", creation: " + input.getCreationDate() + ", inPast: " + inPast.getTime());
+                    return input.getCreationDate().after(inPast.getTime());
                 }
             });
 
