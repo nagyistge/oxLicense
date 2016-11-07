@@ -148,11 +148,11 @@ public class StatisticService {
             JSONObject lastHoursStatistic = new JSONObject();
 
             for (Map.Entry<String, Integer> entity : macAddressToCounter.entrySet()) {
-                JSONObject stat = new JSONObject();
-                stat.put("mac_address", entity.getKey());
-                stat.put("count", entity.getValue());
+//                JSONObject stat = new JSONObject();
+//                stat.put("mac_address", entity.getKey());
+//                stat.put("count", entity.getValue());
 
-                lastHoursStatistic.put(entity.getKey(), stat);
+                lastHoursStatistic.put(entity.getKey(), entity.getValue());
             }
 
             JSONObject wrapper = new JSONObject();
