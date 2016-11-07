@@ -87,7 +87,7 @@ public class AdminServiceImpl extends RemoteServiceServlet implements AdminServi
 
     @Override
     public boolean isGenerationApiProtected() {
-        List<LicenseIdItem> list = generateWS().generateLicenseId(3, "", Tester.testMetadata());
+        List<LicenseIdItem> list = generateWS().generateLicenseId(1, "", Tester.testMetadata());
         if (!list.isEmpty()) {
             LOG.error("SEVERE ERROR : License ID generation endpoint is not protecgted!");
         }
@@ -96,6 +96,11 @@ public class AdminServiceImpl extends RemoteServiceServlet implements AdminServi
 
     private static GenerateWS generateWS() {
         return LicenseClient.generateWs(ClientUtils.LICENSE_SERVER_ENDPOINT, ClientUtils.executor());
+    }
+
+    public static void main(String[] args) {
+        List<LicenseIdItem> list = generateWS().generateLicenseId(1, "", Tester.testMetadata());
+        System.out.println(list);
     }
 
     @Override

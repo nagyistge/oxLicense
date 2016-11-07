@@ -23,6 +23,7 @@ public class Tester {
         metadata.setActive(true);
         metadata.setProduct("oxd");
         metadata.setLicenseCountLimit(9999);
+        metadata.setCustomerName("test_name");
         metadata.setCreationDate(new Date());
         metadata.setExpirationDate(expirationDate.getTime());
         return metadata;

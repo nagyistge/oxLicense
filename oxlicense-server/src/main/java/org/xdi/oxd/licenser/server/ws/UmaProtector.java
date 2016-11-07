@@ -40,12 +40,14 @@ public class UmaProtector implements PreProcessInterceptor {
     private static volatile boolean initialized = false;
 
     private RptPreProcessInterceptor interceptor;
+    private Configuration conf;
 
     @Inject
-    Configuration conf;
-
-    public UmaProtector() {
+    public UmaProtector(Configuration conf) {
         try {
+            this.conf = conf;
+            LOG.info("Configuration : " + conf);
+
             initIfNeeded();
             interceptor = new RptPreProcessInterceptor(StaticStorage.get(ResourceRegistrar.class)) {
                 @Override
@@ -55,7 +57,7 @@ public class UmaProtector implements PreProcessInterceptor {
             };
             LOG.info("UMA Protector started successfully.");
         } catch (Exception e) {
-            throw new RuntimeException("Failed to create HTTP interceptor.", e);
+            throw new RuntimeException("Failed to create UMA HTTP interceptor.", e);
         }
     }
 
@@ -72,6 +74,10 @@ public class UmaProtector implements PreProcessInterceptor {
     private void init() {
         try {
             Collection<RsResource> values = resources();
+
+            if (values.isEmpty()) {
+                throw new RuntimeException("Failed to load UMA protection_document.");
+            }
 
             LOG.info("Protection configuration: " + Jackson.asJsonSilently(values));
 

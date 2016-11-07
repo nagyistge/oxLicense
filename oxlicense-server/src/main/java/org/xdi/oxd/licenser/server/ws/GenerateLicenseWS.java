@@ -190,13 +190,4 @@ public class GenerateLicenseWS {
     public Response currentMilliseconds() {
         return Response.ok().entity(System.currentTimeMillis()).build();
     }
-
-    public static void main(String[] args) throws IOException {
-        String m = "{\"product\":\"oxd\",\"emails\":[],\"license_id\":null,\"license_name\"" +
-                " :\"testLicense\",\"creation_date\":1476711634,\"expiration_date\":1479303634,\"license" +
-                " _count_limit\":999,\"customer_name\":\"test_customer\"}";
-        final LicenseMetadata metadata = Jackson.createJsonMapper().readValue(m, LicenseMetadata.class);
-        System.out.println(metadata);
-    }
-
 }
