@@ -90,11 +90,14 @@ public class StatisticService {
 
     public List<LdapLicenseIdStatistic> getFiltered(String licenseId, Predicate<LdapLicenseIdStatistic> predicate) {
         List<LdapLicenseIdStatistic> filtered = Lists.newArrayList();
-        for (LdapLicenseIdStatistic item : getAll(licenseId)) {
+        List<LdapLicenseIdStatistic> all = getAll(licenseId);
+        for (LdapLicenseIdStatistic item : all) {
             if (predicate.apply(item)) {
                 filtered.add(item);
             }
         }
+
+        LOG.trace("ALL size: " + all.size() + ", filtered size: " + filtered.size());
         return Collections.emptyList();
     }
 
@@ -122,6 +125,7 @@ public class StatisticService {
             List<LdapLicenseIdStatistic> filtered = getFiltered(licenseId, new Predicate<LdapLicenseIdStatistic>() {
                 @Override
                 public boolean apply(LdapLicenseIdStatistic input) {
+                    LOG.trace("Result: " + input.getCreationDate().before(inPast.getTime()) + ", creation: " + input.getCreationDate() + ", inPast: " + inPast.getTime());
                     return input.getCreationDate().before(inPast.getTime());
                 }
             });
