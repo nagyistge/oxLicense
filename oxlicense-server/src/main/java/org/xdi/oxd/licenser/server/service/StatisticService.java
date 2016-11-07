@@ -142,6 +142,8 @@ public class StatisticService {
                 macAddressToCounter.put(item.getMacAddress(), counter);
             }
 
+            LOG.trace("macAddressToCounter size: " + macAddressToCounter.size());
+
             JSONObject lastHoursStatistic = new JSONObject();
 
             for (Map.Entry<String, Integer> entity : macAddressToCounter.entrySet()) {
@@ -153,8 +155,9 @@ public class StatisticService {
             }
 
             JSONObject wrapper = new JSONObject();
+            wrapper.put("statistic", lastHoursStatistic);
             wrapper.put("total_generated_licenses", filtered.size());
-            return lastHoursStatistic.toString(2);
+            return wrapper.toString(2);
         } catch (Exception e) {
             LOG.error("Failed to construct statistic for license_id: " + licenseId, e);
             return "{\"error\":\"Failed to construct statistic for license_id: " + licenseId + "\"}";
@@ -181,7 +184,7 @@ public class StatisticService {
             JSONObject wrapper = new JSONObject();
             wrapper.put("monthly_statistic", monthlyStatistic);
             wrapper.put("total_generated_licenses", entities.size());
-            return monthlyStatistic.toString(2);
+            return wrapper.toString(2);
         } catch (Exception e) {
             LOG.error("Failed to construct statistic for license_id: " + licenseId, e);
             return "{\"error\":\"Failed to construct statistic for license_id: " + licenseId + "\"}";
