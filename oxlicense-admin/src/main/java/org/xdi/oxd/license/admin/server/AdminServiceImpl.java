@@ -5,6 +5,7 @@ import com.google.gwt.thirdparty.guava.common.base.Strings;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.jboss.resteasy.client.ClientResponseFailure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xdi.oxd.license.admin.client.service.AdminService;
@@ -87,11 +88,20 @@ public class AdminServiceImpl extends RemoteServiceServlet implements AdminServi
 
     @Override
     public boolean isGenerationApiProtected() {
-        List<LicenseIdItem> list = generateWS().generateLicenseId(1, "", Tester.testMetadata());
-        if (!list.isEmpty()) {
-            LOG.error("SEVERE ERROR : License ID generation endpoint is not protecgted!");
+        return isLicenseApiProtected();
+    }
+
+    private static boolean isLicenseApiProtected() {
+        try {
+            List<LicenseIdItem> list = generateWS().generateLicenseId(1, "", Tester.testMetadata());
+            if (!list.isEmpty()) {
+                LOG.error("SEVERE ERROR : License ID generation endpoint is not protecgted!");
+            }
+            return list.isEmpty();
+        } catch (ClientResponseFailure e) {
+            int status = e.getResponse().getStatus();
+            return status == 403 || status == 401;
         }
-        return list.isEmpty();
     }
 
     private static GenerateWS generateWS() {
@@ -99,8 +109,7 @@ public class AdminServiceImpl extends RemoteServiceServlet implements AdminServi
     }
 
     public static void main(String[] args) {
-        List<LicenseIdItem> list = generateWS().generateLicenseId(1, "", Tester.testMetadata());
-        System.out.println(list);
+        System.out.println(isLicenseApiProtected());
     }
 
     @Override
