@@ -8,11 +8,18 @@
     <g:DockLayoutPanel ui:field="rootPanel">
         <g:north size='56'>
             <g:HorizontalPanel>
-                <g:HTMLPanel>
+                <g:HTMLPanel width="100%">
                     <h2>License Management</h2>
                     <div style="width:100%"></div>
                 </g:HTMLPanel>
                 <g:Button ui:field="logoutButton">Logout</g:Button>
+                <g:HTMLPanel ui:field="apiNotProtectedAlert" visible="false">
+                    <h3>
+                        <div style="color: red;">
+                            License API is not protected! Please inform yuriy@gluu.org immediately.
+                        </div>
+                    </h3>
+                </g:HTMLPanel>
             </g:HorizontalPanel>
         </g:north>
         <g:center>

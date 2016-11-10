@@ -2,7 +2,9 @@ package org.xdi.oxd.license.admin.client.ui;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
+import org.xdi.oxd.license.admin.client.Admin;
 import org.xdi.oxd.license.admin.client.LoginController;
 import org.xdi.oxd.license.admin.client.Presenter;
 
@@ -36,6 +38,17 @@ public class MainPanelPresenter implements Presenter {
         });
 
         new LicenseCryptTabPresenter(view.getLicenseCryptTab());
+        Admin.getService().isGenerationApiProtected(new AsyncCallback<Boolean>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                view.getApiNotProtectedAlert().setVisible(true);
+            }
+
+            @Override
+            public void onSuccess(Boolean result) {
+                view.getApiNotProtectedAlert().setVisible(!result);
+            }
+        });
     }
 
     private void checkState() {

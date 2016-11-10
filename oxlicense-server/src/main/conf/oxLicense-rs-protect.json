@@ -1,6 +1,6 @@
 {"resources":[
     {
-        "path":"/rest/generateLicenseId",
+        "path":"/oxLicense/rest/generateLicenseId",
         "conditions":[
             {
                 "httpMethods":["POST"],
@@ -11,7 +11,7 @@
         ]
     },
     {
-        "path":"/rest/metadata",
+        "path":"/oxLicense/rest/metadata",
         "conditions":[
             {
                 "httpMethods":["PUT"],
