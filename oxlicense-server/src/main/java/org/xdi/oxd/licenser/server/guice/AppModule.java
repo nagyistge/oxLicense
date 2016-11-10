@@ -23,6 +23,7 @@ import org.xdi.oxd.licenser.server.service.LdapStructureChecker;
 import org.xdi.oxd.licenser.server.ws.GenerateLicenseWS;
 import org.xdi.oxd.licenser.server.ws.MetadataWS;
 import org.xdi.oxd.licenser.server.ws.StatisticWS;
+import org.xdi.oxd.licenser.server.ws.UmaProtector;
 import org.xdi.util.Util;
 import org.xdi.util.properties.FileConfiguration;
 import org.xdi.util.security.PropertiesDecrypter;
@@ -49,6 +50,8 @@ public class AppModule extends AbstractModule {
     protected void configure() {
         bind(KeyPairService.class);
         bind(LicenseGenerator.class);
+
+        bind(UmaProtector.class);
 
         // ws
         bind(GenerateLicenseWS.class);

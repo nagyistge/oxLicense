@@ -35,6 +35,12 @@ public class ValidationService {
         throw new WebApplicationException(ErrorService.response("Failed to find License ID with id: " + licenseId));
     }
 
+    public void validateHours(int hours) {
+        if (hours <=0 || hours > 1000) {
+            throw new WebApplicationException(ErrorService.response("'hours' must be in range [1..1000]"));
+        }
+    }
+
     public void validate(LicenseMetadata metadata) {
         if (Product.fromValue(metadata.getProduct()) == null) {
             throw new WebApplicationException(ErrorService.response("'product' attribute is not valid or empty. Supported product values are: " + Product.supportedProductsString()));

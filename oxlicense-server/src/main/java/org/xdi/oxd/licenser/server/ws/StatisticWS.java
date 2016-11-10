@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response;
  * @version 0.9, 06/09/2016
  */
 
-@Path("/rest")
+@Path("/rest/statistic")
 public class StatisticWS {
 
     private static final Logger LOG = LoggerFactory.getLogger(StatisticWS.class);
@@ -32,12 +32,24 @@ public class StatisticWS {
     StatisticService statisticService;
 
     @GET
-    @Path("/statistic")
+    @Path("/monthly")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response generateGet(@QueryParam("licenseId") String licenseId) {
-        LOG.debug("Statistic request, licenseId: " + licenseId);
-        validationService.getLicenseId(licenseId);
+    public Response monthly(@QueryParam("licenseId") String licenseId) {
+        LOG.debug("Monthly request, licenseId: " + licenseId);
 
-        return Response.ok().entity(statisticService.monthlyStatistic(licenseId)).build();
+        return ok(statisticService.monthlyStatistic(licenseId));
+    }
+
+    @GET
+    @Path("/lastHours")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response lastHours(@QueryParam("licenseId") String licenseId,
+                              @QueryParam("hours") int hours) {
+        LOG.debug("Last hours statistic request, licenseId: " + licenseId + ", hours: " + hours);
+        return ok(statisticService.lastHoursStatistic(licenseId, hours));
+    }
+
+    private Response ok(String entity) {
+        return Response.ok().entity(entity).build();
     }
 }
