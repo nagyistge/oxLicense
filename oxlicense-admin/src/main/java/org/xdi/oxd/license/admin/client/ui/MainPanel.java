@@ -5,6 +5,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -28,6 +29,8 @@ public class MainPanel implements IsWidget {
     LicenseCryptTab licenseCryptTab;
     @UiField
     Button logoutButton;
+    @UiField
+    HTMLPanel apiNotProtectedAlert;
 
     public MainPanel() {
         uiBinder.createAndBindUi(this);
@@ -48,5 +51,9 @@ public class MainPanel implements IsWidget {
 
     public DockLayoutPanel getRootPanel() {
         return rootPanel;
+    }
+
+    public HTMLPanel getApiNotProtectedAlert() {
+        return apiNotProtectedAlert;
     }
 }
